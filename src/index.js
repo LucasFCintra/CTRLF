@@ -9,6 +9,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './routes/Dashboard';
 import Configuracoes from './routes/Configuracoes';
 import Categorias from './routes/Categorias';
+import Despesas from './routes/Despesas';
+import Contato from './routes/Contato';
 import ErrorPage from './routes/ErrorPage';
 
 const router = createBrowserRouter([
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "/Categorias",
         element: <Categorias />
+      },
+      {
+        path: "/Categorias/Despesas",
+        element: <Despesas />
+      },
+      {
+        path: "/Contato",
+        element: <Contato />
       }
     ]
   },

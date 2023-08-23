@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 
 export default class Footer extends Component {
@@ -20,7 +21,7 @@ export default class Footer extends Component {
                                     <a href="#" class="mr-4 hover:underline md:mr-6">Política de pivacidade</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="hover:underline">Contato</a>
+                                    <Link to="/Contato" class="hover:underline">Contato</Link>
                                 </li>
                             </ul>
                         </div>

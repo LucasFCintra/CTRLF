@@ -1,4 +1,5 @@
 import React from "react";
+import teste from "./components/teste.hml"
 
 function Dashboard() {
     return (
