@@ -11,6 +11,9 @@ import Configuracoes from './routes/Configuracoes';
 import Categorias from './routes/Categorias';
 import Despesas from './routes/Despesas';
 import Contato from './routes/Contato';
+import Login from './routes/Login';
+import Cadastro from './routes/Cadastro';
+import Lancamentos from './routes/Lancamentos';
 import ErrorPage from './routes/ErrorPage';
 
 const router = createBrowserRouter([
@@ -38,10 +41,21 @@ const router = createBrowserRouter([
       {
         path: "/Contato",
         element: <Contato />
-      }
-    ]
+      },
+      {
+        path: "/Lancamentos",
+        element: <Lancamentos />
+      },
+    ],
   },
-  
+  {
+    path: "/Login",
+    element: <Login />
+  },
+  {
+    path: "/Cadastro",
+    element: <Cadastro />
+  },
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

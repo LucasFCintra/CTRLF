@@ -1,29 +1,36 @@
 import React, { Component } from 'react'
-import { DarkThemeToggle, Flowbite } from 'flowbite-react';
+import { Link } from 'react-router-dom'
 
-export default class Configuracoes extends Component {
+export default class Cadastro extends Component {
     render() {
         return (
             <>
-                <div class="p-4 sm:ml-64">
-                    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+                <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+                    <div className="p-6 m-auto bg-white rounded-md shadow-xl w-2/3">
+                        <div class="mb-8">
+                            <h1 className="text-3xl font-semibold text-center text-blue-700 uppercase">
+                                Cadastre-se
+                            </h1>
+                        </div>
 
                         <form>
-                            <div class="mb-6">
+                            <div class="grid gap-6 mb-6 md:grid-cols-3">
                                 <div class="mb-6">
                                     <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome completo</label>
                                     <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome completo" required />
                                 </div>
-                            </div>
-                            <div class="mb-6">
-                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-                                <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="meu@email.com" required />
-                            </div>
-                            <div class="grid gap-6 mb-6 md:grid-cols-2">
+                                <div class="mb-6">
+                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+                                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="meu@email.com" required />
+                                </div>
                                 <div>
                                     <label for="telefone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
                                     <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="(XX) 9 XXXX-XXXX" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
                                 </div>
+                            </div>
+
+                            <div class="grid gap-6 mb-6 md:grid-cols-3">
+
                                 <div>
                                     <label for="CEP" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                                     <input type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXX-XXX" required />
@@ -75,8 +82,25 @@ export default class Configuracoes extends Component {
                                 <label for="confirmar_senha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                                 <input type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
                             </div>
-                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salvar</button>
+                            <div className="mt-6">
+                                <Link to="/">
+                                    <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                                        Cadastrar
+                                    </button>
+                                </Link>
+                            </div>
                         </form>
+
+                        <p className="mt-8 text-xs font-light text-center text-gray-700">
+                            {" "}
+                            Já possui conta?{" "}
+                            <Link
+                                to="/Login"
+                                className="font-medium text-blue-600 hover:underline"
+                            >
+                                Entrar
+                            </Link>
+                        </p>
                     </div>
                 </div>
             </>

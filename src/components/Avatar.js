@@ -6,7 +6,7 @@ export default function UserDropdown() {
   return (
     <Dropdown
       inline
-      label={<Avatar alt="User settings" img="/images/people/profile-picture-5.jpg" rounded/>}
+      label={<Avatar alt="User settings" img="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png" rounded/>}
     >
       <Dropdown.Header>
         <span className="block text-sm">
@@ -32,5 +32,3 @@ export default function UserDropdown() {
     </Dropdown>
   )
 }
-
-
