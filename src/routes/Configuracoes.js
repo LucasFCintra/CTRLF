@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
-<<<<<<< HEAD
 import { DarkThemeToggle, Flowbite } from 'flowbite-react';
-=======
 import axios from "axios";
 
 const api = 'http://localhost:8687/api/usuario/' + 1;
 
->>>>>>> c01878e1b49035172097fd4c9cf03c314db58c2f
 
 export default class Configuracoes extends Component {
 
