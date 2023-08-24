@@ -6,14 +6,15 @@ class usuariosController{
 
   async index(req,res){
     var idUser = req.params.id;
-    // console.log('userController: '+ JSON.stringify(idUser))
+    console.log('userController: '+ idUser)
     var cat = await Usuario.findAll(idUser)
+    console.log('Controller: '+ cat);
     res.json(cat)
   }
 
   async indexOne(req,res){
     var id = req.params.idUser;
-    // console.log('userController: '+ id )
+    console.log('userController: '+ id )
     var catOne = await Usuario.findById(id)
     if (catOne == undefined) {
       res.status(404).json({})

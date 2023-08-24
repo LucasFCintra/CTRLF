@@ -24,7 +24,7 @@ router.delete("/api/usuario",usuariosController.delete);
 /*ROTAS API RECEITA */
 
 router.get('/api/lancamento',receitaController.index);
-router.get('/api/v2/lancamento/',receitaController.indexOne);
+router.get('/api/v2/lancamento',receitaController.indexOne);
 router.post("/api/lancamento",receitaController.create);
 router.put("/api/lancamento",receitaController.update);
 router.delete("/api/lancamento",receitaController.delete);

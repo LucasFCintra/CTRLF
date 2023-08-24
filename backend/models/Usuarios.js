@@ -3,9 +3,9 @@ const knex = require("../database/connection")
 class usuariosModel {
 
   async findAll(id) {
-
+    console.log('Model: '+id);
     try {
-      var result = await knex.select(["idUser", "nomeUser", "emailUser", "senhaUser", "telefoneUser"]).table("usuarios").where({ idUser: id })
+      var result = await knex.select(["idUser", "nomeUser", "emailUser", "senhaUser", "telefoneUser","cepUser","estadoUser","generoUser","cidadeUser"]).table("usuarios").where({ idUser: id })
       return result
     } catch (err) {
       console.log(err)
@@ -15,7 +15,7 @@ class usuariosModel {
   async findById(id) {
 
     try {
-      var result = await knex.select(["idUser", "nomeUser", "emailUser", "senhaUser", "telefoneUser"]).where({ idUser: id }).table("usuarios")
+      var result = await knex.select(["idUser", "nomeUser", "emailUser", "senhaUser", "telefoneUser","cepUser","estadoUser","generoUser","cidadeUser"]).where({ idUser: id }).table("usuarios")
       if (result.length > 0) {
         return result[0]
       } else {
@@ -29,7 +29,7 @@ class usuariosModel {
   async findByCat(nomeUser) {
 
     try {
-      var result = await knex.select(["idUser", "nomeUser", "emailUser", "senhaUser", "telefoneUser"]).where({ nomeUser: nomeUser }).table("usuarios")
+      var result = await knex.select(["idUser", "nomeUser", "emailUser", "senhaUser", "telefoneUser","cepUser","estadoUser","generoUser","cidadeUser"]).where({ nomeUser: nomeUser }).table("usuarios")
       if (result.length > 0) {
         return true
       } else {
