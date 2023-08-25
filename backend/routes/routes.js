@@ -9,7 +9,9 @@ const receitaController = require("../controllers/lancamentosController");
 const usuariosController = require("../controllers/usuariosController");
 
 /*ROTAS API CATEGORIA */
-router.get('/api/categoria/',categoriasController.index);
+router.get('/api/categoria/:id',categoriasController.index);
+router.get('/api/rec/categoria/:id',categoriasController.indexRec);
+router.get('/api/des/categoria/:id',categoriasController.indexDes);
 router.get('/api/v2/categoria/',categoriasController.indexOne);
 router.post("/api/categoria",categoriasController.create);
 router.put("/api/categoria",categoriasController.update);

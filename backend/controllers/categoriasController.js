@@ -5,12 +5,23 @@ const Categoria = require("../models/Categorias")
 class categoriasController{
 
   async index(req,res){
-    var fkUserCat = req.body;
+    var fkUserCat = req.params.id;
     console.log('catController: '+ JSON.stringify(fkUserCat))
     var cat = await Categoria.findAll(fkUserCat)
     res.json(cat)
   }
-
+  async indexRec(req,res){
+    var fkUserCat = req.params.id;
+    console.log('catController: '+ JSON.stringify(fkUserCat))
+    var cat = await Categoria.findAllRec(fkUserCat)
+    res.json(cat)
+  }
+  async indexDes(req,res){
+    var fkUserCat = req.params.id;
+    console.log('catController: '+ JSON.stringify(fkUserCat))
+    var cat = await Categoria.findAllDes(fkUserCat)
+    res.json(cat)
+  }
   async indexOne(req,res){
     var id = req.body;
     var idUser = 1// req.bodyUser;

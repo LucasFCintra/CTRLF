@@ -1,13 +1,35 @@
 'use client';
 
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 
 export default function FormElements() {
     const [openModal, setOpenModal] = useState();
     const emailInputRef = useRef(null)
     const props = { openModal, setOpenModal, emailInputRef };
+    const [items, setItems] = useState([]);
+    const [error, setError] = useState(null);
+
+
+    useEffect(() => {
+        // Fazendo a requisição GET usando o Axios quando o componente é montado
+       const api = 'http://localhost:8687/api/rec/categoria/'+1
+     
+        axios.get(api)
+            .then(response => {
+                console.log(response.data)
+                setItems(response.data);
+                setError(null);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    }, []);
+
+
 
     return (
         <>
@@ -63,21 +85,20 @@ export default function FormElements() {
                             </Modal>
                         </div>
 
+
+
+                        {error && (
+                    <p className="text-red-600 mb-4">Erro ao buscar os itens: {error}</p>
+                )}
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-green-700 uppercase bg-green-100 dark:bg-green-700 dark:text-green-400">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
-                                            Product name
+                                            Nome
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Color
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Category
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Price
+                                            Descrição
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             <span class="sr-only">Edit</span>
@@ -85,20 +106,11 @@ export default function FormElements() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Apple MacBook Pro 17"
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            Silver
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Laptop
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            $2999
-                                        </td>
-                                        <td class="px-6 py-4 text-right">
+                                {items.map(item => (
+                            <tr key={item.idCat}> 
+                                <td>{item.nomeCat}</td>
+                                <td>{item.descCat}</td>
+                                <td class="px-6 py-4 text-right">
                                             <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
                                             <Modal
                                                 show={props.openModal === 'initial-focus'}
@@ -110,29 +122,33 @@ export default function FormElements() {
                                                 <Modal.Header />
                                                 <Modal.Body>
                                                     <div className="space-y-6">
-                                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
+                                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Editar Categoria</h3>
                                                         <div>
                                                             <div className="mb-2 block">
-                                                                <Label htmlFor="email" value="Your email" />
+                                                                <Label htmlFor="email" value="Nome" />
                                                             </div>
-                                                            <TextInput id="email" ref={props.emailInputRef} placeholder="name@company.com" required />
+                                                            <TextInput id="nomeEdit" ref={props.emailInputRef} value={item.nomeCat} required />
                                                         </div>
                                                         <div>
                                                             <div className="mb-2 block">
-                                                                <Label htmlFor="password" value="Your password" />
+                                                                <Label htmlFor="password" value="Descrição" />
                                                             </div>
-                                                            <TextInput id="password" type="password" required />
+                                                            <TextInput id="descEdit" type="text" value={item.descCat} required />
+                                                            <TextInput id="idEdit" type="hidden" value={item.descCat} required />
                                                         </div>
-
+                                                            
                                                         <div className="w-full">
-                                                            <button type="button" class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Red</button>
+                                                            <button type="button" class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
                                                         </div>
 
                                                     </div>
                                                 </Modal.Body>
                                             </Modal>
                                         </td>
-                                    </tr>
+                                   
+                            </tr>
+                     
+                     ))}    
                                     
                                 </tbody>
                             </table>

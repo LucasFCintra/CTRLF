@@ -13,6 +13,29 @@ class categoriasModel{
     }
   }
 
+  async findAllRec(id){
+    try{
+     var result= await knex.select(["idCat","nomeCat","descCat","fkUserCat"]).where({fkUserCat:id,tipoCat:"receita"}).table("categorias")
+     console.log('CatModel:'  + JSON.stringify(id) +' | '+result )
+
+     return result
+    }catch(err){
+      console.log(err)
+    }
+  } 
+  async findAllDes(id){
+    try{
+     var result= await knex.select(["idCat","nomeCat","descCat","fkUserCat"]).where({fkUserCat:id,tipoCat:"despesa"}).table("categorias")
+     console.log('CatModel:'  + JSON.stringify(id) +' | '+result )
+
+     return result
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+
+
   async findById(id,idUser){
     console.log('CatModel:'  + id + ' ' + idUser )
 

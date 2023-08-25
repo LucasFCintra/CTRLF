@@ -1,5 +1,5 @@
 import React, { Component,useState  } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 import axios from 'axios';
 
 export default class Cadastro extends Component {
@@ -28,13 +28,14 @@ try{
         };
     
 
-                const url ='http://localhost:8687/api/usuario/'; // Substitua pela sua URL
-
+                const url ='http://localhost:8687/api/usuario/';  
          
 
         axios.post(url, data)
             .then(response => {
                 this.setState({ responseData: response.data, error: null });
+
+                window.location.href = "/"
             })
             .catch(error => {
                 this.setState({ responseData: null, error: error.message });
@@ -69,7 +70,7 @@ render() {
                             </div>
                             <div>
                                 <label for="telefone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-                                <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="(XX) 9 XXXX-XXXX"  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                                <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="(XX) 9 XXXX-XXXX" /*  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"*/ required /> 
                             </div>
                         </div>
 
@@ -127,11 +128,11 @@ render() {
                             <input type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
                         </div>
                         <div className="mt-6">
-                            <Link to="/">
+                            {/* <Link to="/"> */}
                             <button id='btnCadastrar'  onClick={this.handlePostClick} class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
                                 Cadastrar
                             </button>
-                            </Link>
+                            {/* </Link> */}
                         </div>
                     </form>
 
