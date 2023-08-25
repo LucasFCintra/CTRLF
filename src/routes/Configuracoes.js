@@ -8,7 +8,7 @@ const api = 'http://localhost:8687/api/usuario/' + 1;
 export default class Configuracoes extends Component {
 
 
-    async getUser() {
+    async componentDidMount() {
         // GET request using axios with async/await
         const response = await axios.get(api);
         this.setState({ userInfo: response.data })

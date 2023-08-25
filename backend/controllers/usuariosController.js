@@ -24,10 +24,11 @@ class usuariosController{
   }
 
   async create(req,res){
-    var{nomeUser,emailUser,senhaUser,telefoneUser} = req.body;
-    // console.log("Controler: ", nomeCat,descCat)
+    console.log('Criando usuario')
+    var{nomeUser,emailUser,senhaUser,telefoneUser,cepUser,estadoUser,generoUser,cidadeUser,cepUser,estadoUser,generoUser,cidadeUser} = req.body;
+    console.log("Controler: ", req.body)
     if(nomeUser != undefined || emailUser != undefined || senhaUser != undefined){
-      await Usuario.create(nomeUser,emailUser,senhaUser,telefoneUser)
+      await Usuario.create(nomeUser,emailUser,senhaUser,telefoneUser,cepUser,estadoUser,generoUser,cidadeUser)
       res.status(200).send("Dados inserido com sucesso")
     }else{
       res.status(400).json({err:"Undefined informations"})
@@ -37,11 +38,11 @@ class usuariosController{
 
   async update(req,res){
 
-    var {idUser,nomeUser,emailUser,senhaUser,telefoneUser} = req.body;
-    console.log('updateCont: '+idUser,nomeUser,emailUser,senhaUser,telefoneUser)
+    var {idUser,nomeUser,emailUser,senhaUser,telefoneUser,cepUser,estadoUser,generoUser,cidadeUser} = req.body;
+    console.log('updateCont: '+idUser,nomeUser,emailUser,senhaUser,telefoneUser,cepUser,estadoUser,generoUser,cidadeUser)
     if(idUser != undefined && idUser > 0){
 
-      var result = await Usuario.update(idUser,nomeUser,emailUser,senhaUser,telefoneUser)
+      var result = await Usuario.update(idUser,nomeUser,emailUser,senhaUser,telefoneUser,cepUser,estadoUser,generoUser,cidadeUser)
       
       if(result.status){
         res.status(200).send("Dados atualizados com sucesso")

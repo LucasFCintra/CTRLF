@@ -41,7 +41,7 @@ class usuariosModel {
     }
   }
 
-  async create(nomeUser, emailUser, senhaUser, telefoneUser) {
+  async create(nomeUser,emailUser,senhaUser,telefoneUser,cepUser,estadoUser,generoUser,cidadeUser) {
     // console.log("Model: ", nomeUser, emailUser)
     try {
       await knex.insert({ nomeUser: nomeUser, emailUser: emailUser, senhaUser: senhaUser, telefoneUser: telefoneUser }).table("usuarios")
@@ -53,7 +53,7 @@ class usuariosModel {
 
   }
 
-  async update(idUser, nomeUser, emailUser, senhaUser, telefoneUser) {
+  async update(idUser, nomeUser,emailUser,senhaUser,telefoneUser,cepUser,estadoUser,generoUser,cidadeUser) {
 
     var id = await this.findById(idUser)
         console.log('updateModel: '+id, idUser)
