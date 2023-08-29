@@ -89,7 +89,7 @@ export default function FormElements() {
                 )}
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-green-700 uppercase bg-green-100 dark:bg-green-700 dark:text-green-400">
+                                <thead class="text-xs text-red-700 uppercase bg-red-100 dark:bg-red-700 dark:text-red-400">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
                                             Nome
@@ -108,7 +108,7 @@ export default function FormElements() {
                                 <td>{item.nomeCat}</td>
                                 <td>{item.descCat}</td>
                                 <td class="px-6 py-4 text-right">
-                                            <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
+                                            <a class="font-medium text-red-600 dark:text-red-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
                                             <Modal
                                                 show={props.openModal === 'initial-focus'}
                                                 size="md"
@@ -135,7 +135,7 @@ export default function FormElements() {
                                                         </div>
                                                             
                                                         <div className="w-full">
-                                                            <button type="button" class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
+                                                            <button type="button" class="w-full focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">Atualizar</button>
                                                         </div>
 
                                                     </div>
