@@ -11,6 +11,7 @@ import Configuracoes from './routes/Configuracoes';
 import Categorias from './routes/Categorias';
 import Despesas from './routes/Despesas';
 import Contato from './routes/Contato';
+import SobreNos from './routes/SobreNos';
 import Login from './routes/Login';
 import Cadastro from './routes/Cadastro';
 import Lancamentos from './routes/Lancamentos';
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/Contato",
         element: <Contato />
+      },
+      {
+        path: "/SobreNos",
+        element: <SobreNos />
       },
       {
         path: "/Lancamentos",
