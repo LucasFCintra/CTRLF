@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { Alert } from 'flowbite-react';
 
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
@@ -20,7 +21,7 @@ const schema = Yup.object().shape({
     phone: Yup.number().required("Informe seu número"),
     cep: Yup.number(8).required("Informse seu CEP"),
     password: Yup.string().required("Informe sua senha"),
-    confirm_password: Yup.string().required("Informe sua senha novamente")
+    confirm_password: Yup.string().required("Informe sua senha novamente").oneOf([Yup.ref('password')], 'As duas senhas devem ser idênticas')
 })
 
 function validateEmail(value) {
@@ -47,8 +48,14 @@ function validatePassword(value) {
     let error;
     if (!value) {
         error = 'Informe sua senha';
-    } else if (!/^(?=.[A-Za-z])(?=.\d)(?=.[@$!%#?&])[A-Za-z\d@$!%*#?&]{8,}$"/i.test(value)) {
-        error = 'Informe uma senha que atenda aos requisitos';
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i.test(value)) {
+        error = (<>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Informe uma senha que atenda aos requisitos</span></p><br/>
+            <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">- No mínimo 8 caracteres</span></p><br/>
+            <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">- Pelo menos uma letra maiúscula</span></p><br/>
+            <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">- Pelo menos um número</span></p><br/>
+            <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">- Pelo menos um caractere especial</span></p><br/>
+            </>);
     }
     return error;
 }
@@ -193,7 +200,7 @@ export default class Cadastro extends Component {
                                     </div>
                                     <div class="mb-6">
                                         <label for="confirmar_senha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                                        <Field type="password" id="confirm_password" validate={validatePassword} name='confirm_password' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                                        <Field type="password" id="confirm_password" name='confirm_password' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
                                         {errors.confirm_password && (
                                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{errors.confirm_password}</span></p>
                                         )}

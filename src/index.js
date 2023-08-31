@@ -15,6 +15,7 @@ import SobreNos from './routes/SobreNos';
 import Login from './routes/Login';
 import Cadastro from './routes/Cadastro';
 import Lancamentos from './routes/Lancamentos';
+import Contas from './routes/Contas';
 import ErrorPage from './routes/ErrorPage';
 
 const router = createBrowserRouter([
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/Lancamentos",
         element: <Lancamentos />
+      },
+      {
+        path: "/Contas",
+        element: <Contas />
       },
     ],
   },
