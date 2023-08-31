@@ -5,6 +5,16 @@ import { useState, useRef,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+
+
+const userLoggedIn = localStorage.getItem('userLoggedIn');
+const userId = localStorage.getItem('userLoggedID');
+
+console.log(userLoggedIn +' | '+ userId)/*
+if(userLoggedIn == false && userId != undefined){
+    window.location.href='/login'
+}*/
+
 export default function FormElements() {
     const [openModal, setOpenModal] = useState();
     const [openModalPost, setOpenModalPost] = useState();

@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
 
+
+const userLoggedIn = localStorage.getItem('userLoggedIn');
+const userId = localStorage.getItem('userLoggedID');
+
+console.log(userLoggedIn +' | '+ userId)
+/*
+if(userLoggedIn == 'false' ||  userId == NaN ||  userId == undefined){
+    window.location.href='/Login'
+}
+*/
 export default class Dashboard extends Component {
     render() {
         return (

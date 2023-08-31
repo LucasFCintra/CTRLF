@@ -5,6 +5,14 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+/*
+const userLoggedIn = localStorage.getItem('userLoggedIn');
+const userId = localStorage.getItem('userLoggedID');
+
+console.log(userLoggedIn +' | '+ userId)
+if(userLoggedIn == false && userId != undefined){
+    window.location.href='/login'
+}*/
 
 export default function FormElements() {
     const [openModal, setOpenModal] = useState();
@@ -45,6 +53,11 @@ export default function FormElements() {
             const response = await axios.put(`http://localhost:8687/api/categoria`, data);
             console.log("Clicou: " + JSON.stringify(response))
 
+            if(response.status == 200 ){
+                window.location.href = "/Categorias"
+                
+            
+            }
 
             console.log(response.data);
         } catch (error) {
@@ -69,7 +82,7 @@ export default function FormElements() {
             console.log('Teste'+JSON.stringify(response));
  
             if(response.status == 200 ){
-                window.location.href = "/Categorias "
+                window.location.href = "/Categorias"
                 
             
             }
@@ -221,7 +234,7 @@ export default function FormElements() {
                                                                 <TextInput
                                                                     id="idEdit"
                                                                     value={item.idCat}
-                                                                    // type='hidden'
+                                                                    type='hidden'
                                                                     disabled
                                                                 />
                                                             </div>

@@ -1,3 +1,4 @@
+const { Login } = require("@mui/icons-material");
 const knex = require("../database/connection")
 
 class usuariosModel {
@@ -11,7 +12,25 @@ class usuariosModel {
       console.log(err)
     }
   }
+async login(emailUser,senhaUser){
 
+  try {
+    var result = await knex.select(["idUser"]).where({ emailUser:emailUser,senhaUser:senhaUser  }).table("usuarios")
+    console.log('Login Modal: ' + JSON.stringify(result))
+    
+    if (result.length > 0) {
+    
+     
+    
+      return result
+    } else {
+      return -1
+    }
+
+  } catch (err) {
+    console.log(err)
+  }
+}
   async findById(id) {
 
     try {

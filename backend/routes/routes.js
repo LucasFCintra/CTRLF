@@ -19,6 +19,7 @@ router.delete("/api/categoria",categoriasController.delete);
 
 /*ROTAS API usuario */
 router.get('/api/usuario/:id',usuariosController.index);
+router.post('/api/usuario/login',usuariosController.login);
 router.post("/api/usuario",usuariosController.create);
 router.put("/api/usuario",usuariosController.update);
 router.delete("/api/usuario",usuariosController.delete);

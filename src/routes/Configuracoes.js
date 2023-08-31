@@ -3,8 +3,15 @@ import { DarkThemeToggle, Flowbite, Select } from 'flowbite-react';
 import axios from "axios";
 
 const api = 'http://localhost:8687/api/usuario/' + 1;
+/*
 
+const userLoggedIn = localStorage.getItem('userLoggedIn');
+const userId = localStorage.getItem('userLoggedID');
 
+console.log(userLoggedIn +' | '+ userId)
+if(userLoggedIn == false && userId != undefined){
+    window.location.href='/login'
+}*/
 export default class Configuracoes extends Component {
 
 

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+
+
 
 const schema = Yup.object().shape({
     email: Yup.string().required("Informe seu email"),
@@ -30,6 +33,49 @@ function validatePassword(value) {
 }
 
 export default class Login extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            responseData: null,
+            error: null
+        };
+    }
+    async  checkUserExists() {
+
+        const data = {
+            emailUser: document.getElementById('email').value ,
+            senhaUser:document.getElementById('password').value 
+        }
+
+        try {
+
+            const response = await axios.post('http://localhost:8687/api/usuario/login', data);
+            
+          console.log('Res: '+JSON.stringify(response.data[0].idUser))
+            return JSON.stringify(response.data[0].idUser);
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      
+       handleLoginClick = () => {
+        this.checkUserExists().then(exists => {
+           console.log('2 '+ JSON.stringify(exists)) 
+          if (exists != -1) {
+            
+            localStorage.setItem('userLoggedIn', 'true');
+            localStorage.setItem('userLoggedID',Number(exists) );
+
+            window.location.href  ='/' 
+         } else {
+            // display error message
+            alert('Email ou senha incorretos')
+ 
+        }
+        });
+      }
+
     render() {
         return (
             <>
@@ -70,11 +116,11 @@ export default class Login extends Component {
                                         Esqueceu sua senha?
                                     </a>
                                     <div className="mt-6">
-                                        <Link to="/">
-                                            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                                        {/* <Link to="/"> */}
+                                            <button  onClick={this.handleLoginClick} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
                                                 Entrar
                                             </button>
-                                        </Link>
+                                        {/* </Link> */}
                                     </div>
                                 </Form>
                             )}
