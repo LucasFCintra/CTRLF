@@ -7,10 +7,14 @@ import axios from 'axios';
 
 export default function FormElements() {
     const [openModal, setOpenModal] = useState();
+    const [openModalPost, setOpenModalPost] = useState();
+    const emailInputRefPost = useRef(null)
     const emailInputRef = useRef(null)
     const props = { openModal, setOpenModal, emailInputRef };
+    const propsPost = { openModalPost, setOpenModalPost, emailInputRefPost };
     const [items, setItems] = useState([]);
     const [error, setError] = useState(null);
+
 
     
     useEffect(() => {
@@ -28,7 +32,58 @@ export default function FormElements() {
             });
     }, []);
 
+    const [inputNome, setInputNome] = useState('');
+    const [inputDesc, setInputDesc] = useState('');
 
+    async function updateData() {
+
+        try {
+            const data = {
+                idCat: document.getElementById('idEdit').value,
+                nomeCat: inputNome,//document.getElementById('nomeEdit').value,
+                descCat: inputDesc, //document.getElementById('descEdit').value
+            }
+            const response = await axios.put(`http://localhost:8687/api/categoria`, data);
+            console.log("Clicou: " + JSON.stringify(response))
+
+
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    async function postData() {
+
+        try {
+            const data = {
+                // idCat: document.getElementById('idEdit').value,
+                nomeCat: inputNome,//document.getElementById('nomeEdit').value,
+                descCat: inputDesc, //document.getElementById('descEdit').value
+                ativoCat:'A',
+                fkUserCat:1, //depois pegar esse valor do localStorage
+                tipoCat:'despesa'
+            }
+            // console.log("Clicou: " + JSON.stringify(data))
+
+            const response = await axios.post(`http://localhost:8687/api/categoria`, data);
+            console.log('Teste'+JSON.stringify(response));
+ 
+            if(response.status == 200 ){
+                window.location.href = "/Categorias/Despesa"
+                
+            
+            }
+
+        } catch (error) { 
+
+            if(error == 'AxiosError: Request failed with status code 418') {
+                alert('Erro ao inserir \n Categoria ja cadastrada ')
+
+            }
+            console.error('testeS '+error);
+        }
+    }
     return (
         <>
             <div class="p-4 sm:ml-64">
@@ -44,41 +99,57 @@ export default function FormElements() {
                         </ul>
 
                         <div className='fixed top-24 right-12 group'>
-                            <Button type="button" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" onClick={() => props.setOpenModal('initial-focus')}>
+                        <Button type="button" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" onClick={() => propsPost.setOpenModalPost('initial-focus')}>
                                 <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
                                 </svg>
                             </Button>
                             <Modal
-                                show={props.openModal === 'initial-focus'}
+                                show={propsPost.openModalPost === 'initial-focus'}
                                 size="md"
                                 popup
-                                onClose={() => props.setOpenModal(undefined)}
-                                initialFocus={props.emailInputRef}
+                                onClose={() => propsPost.setOpenModalPost(undefined)}
+                                initialFocus={propsPost.emailInputRefPost}
                             >
                                 <Modal.Header />
                                 <Modal.Body>
-                                    <div className="space-y-6">
-                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
-                                        <div>
-                                            <div className="mb-2 block">
-                                                <Label htmlFor="email" value="Your email" />
-                                            </div>
-                                            <TextInput id="email" ref={props.emailInputRef} placeholder="name@company.com" required />
-                                        </div>
-                                        <div>
-                                            <div className="mb-2 block">
-                                                <Label htmlFor="password" value="Your password" />
-                                            </div>
-                                            <TextInput id="password" type="password" required />
-                                        </div>
+                                                        <div className="space-y-6">
+                                                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Criar Categoria</h3>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Nome da Categoria"
+                                                                    />
+                                                                </div>
+                                                                <TextInput
+                                                                    addon="Nome"
+                                                                    id="nomePost"
+                                                                    placeholder='Nome da Categoria'
+                                                                    type='text'
+                                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Descrição da Categoria"
+                                                                    />
+                                                                </div>
+                                                                <TextInput
+                                                                    addon="Descrição"
+                                                                    id="descPost"
+                                                                    placeholder='Descrição da Categoria'
+                                                                    value={inputDesc} onChange={event => setInputDesc(event.target.value)}
+                                                                />
+                                                            </div>
 
-                                        <div className="w-full">
-                                            <button type="button" class="w-full focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">Red</button>
-                                        </div>
+                                                            <div className="w-full">
+                                                                <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Salvar</button>
+                                                            </div>
 
-                                    </div>
-                                </Modal.Body>
+                                                        </div>
+                                                    </Modal.Body>
                             </Modal>
                         </div>
 
@@ -118,28 +189,49 @@ export default function FormElements() {
                                             >
                                                 <Modal.Header />
                                                 <Modal.Body>
-                                                    <div className="space-y-6">
-                                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Editar Categoria</h3>
-                                                        <div>
-                                                            <div className="mb-2 block">
-                                                                <Label htmlFor="email" value="Nome" />
+                                                        <div className="space-y-6">
+                                                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Editar Categoria</h3>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Nome da Categoria"
+                                                                    />
+                                                                </div>
+                                                                <TextInput
+                                                                    addon="Nome"
+                                                                    id="nomeEdit"
+                                                                    placeholder={item.nomeCat}
+                                                                    type='text'
+                                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                                    required
+                                                                />
                                                             </div>
-                                                            <TextInput id="nomeEdit" ref={props.emailInputRef} value={item.nomeCat} required />
-                                                        </div>
-                                                        <div>
-                                                            <div className="mb-2 block">
-                                                                <Label htmlFor="password" value="Descrição" />
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Descrição da Categoria"
+                                                                    />
+                                                                </div>
+                                                                <TextInput
+                                                                    addon="Descrição"
+                                                                    id="descEdit"
+                                                                    placeholder={item.descCat}
+                                                                    value={inputDesc} onChange={event => setInputDesc(event.target.value)}
+                                                                />
+                                                                <TextInput
+                                                                    id="idEdit"
+                                                                    value={item.idCat}
+                                                                    // type='hidden'
+                                                                    disabled
+                                                                />
                                                             </div>
-                                                            <TextInput id="descEdit" type="text" value={item.descCat} required />
-                                                            <TextInput id="idEdit" type="hidden" value={item.descCat} required />
-                                                        </div>
-                                                            
-                                                        <div className="w-full">
-                                                            <button type="button" class="w-full focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">Atualizar</button>
-                                                        </div>
 
-                                                    </div>
-                                                </Modal.Body>
+                                                            <div className="w-full">
+                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
+                                                            </div>
+
+                                                        </div>
+                                                    </Modal.Body>
                                             </Modal>
                                         </td>
                                    

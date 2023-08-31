@@ -35,24 +35,33 @@ class categoriasController{
   }
 
   async create(req,res){
-    var{nomeCat,descCat,ativoCat,fkUserCat} = req.body;
+    var{nomeCat,descCat,ativoCat,fkUserCat,tipoCat} = req.body;
     // console.log("Controler: ", nomeCat,descCat)
     if(nomeCat != undefined || descCat != undefined){
-      await Categoria.create(nomeCat,descCat,ativoCat,fkUserCat)
-      res.status(200).send("Dados inserido com sucesso")
+     var result= await Categoria.create(nomeCat,descCat,ativoCat,fkUserCat,tipoCat)
+     console.log(result)
+
+     if(result.status){
+      res.status(200).send({msg:result.msg})
+
+     }else
+     res.status(418).json({msg:result.msg})
+
+
+      // return result
     }else{
-      res.status(400).json({err:"Undefined informations"})
+      res.status(418).json({msg:err})
     }
 
   }
 
   async update(req,res){
-
-    var {idCat,nomeCat,descCat,ativoCat,fkUserCat} = req.body;
-
+    console.log('ModelUpdate? '+JSON.stringify(req.body))
+    var {idCat,nomeCat,descCat/*,ativoCat,fkUserCat*/} = req.body;
+    
     if(idCat != undefined && idCat > 0){
 
-      var result = await Categoria.update(idCat,nomeCat,descCat,ativoCat,fkUserCat)
+      var result = await Categoria.update(idCat,nomeCat,descCat/*,ativoCat,fkUserCat*/)
       
       if(result.status){
         res.status(200).send("Dados atualizados com sucesso")

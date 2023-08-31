@@ -58,6 +58,7 @@ class categoriasModel{
 
     try{
      var result = await knex.select(["nomeCat","descCat"]).where({nomeCat:nomeCat,fkUserCat:fkUserCat}).table("categorias")
+     console.log('Find Result:'+JSON.stringify(result))
      if(result.length > 0){
       return true
      }else{
@@ -69,22 +70,33 @@ class categoriasModel{
     }
   }
 
-  async create(nomeCat,descCat,ativoCat,fkUserCat){
+  async create(nomeCat,descCat,ativoCat,fkUserCat,tipoCat){
     // console.log("Model: ", nomeCat, descCat)
+
+    var result = await this.findByCat(nomeCat,fkUserCat);
+    console.log('Create result ='  + result)
+    if(result === false){
+
     try{
-      await knex.insert({nomeCat:nomeCat,descCat:descCat,ativoCat:ativoCat, fkUserCat:fkUserCat}).table("categorias")
+      await knex.insert({nomeCat:nomeCat,descCat:descCat,ativoCat:ativoCat, fkUserCat:fkUserCat,tipoCat:tipoCat}).table("categorias")
+    return {status:true,msg:'Categoria criada com sucesso'}
 
     }catch(err){
       console.log(err)
-      res.status(406).send(err)
+    return {status:true,msg:err}
     }
 
+  }else{
+    
+    return {status:false,err:'Erro: categoria ja criada'}
+
+
   }
+}
+  async update(idCat,nomeCat,descCat/*,ativoCat,fkUserCat*/){
 
-  async update(idCat,nomeCat,descCat,ativoCat,fkUserCat){
-
-    var id = await this.findById(idCat)
-
+   /* var id = await this.findById(idCat)
+    console.log('Update Controler: '+id)
     if(id != undefined){
       var edit = {};
 
@@ -104,17 +116,23 @@ class categoriasModel{
       if(ativoCat != undefined){
         edit.ativoCat = ativoCat
       } 
-
+*/
+var edit = {
+  idCat :idCat,
+  nomeCat:nomeCat,
+  descCat:descCat
+}
       try{
-        await  knex.update(edit).where({idCat:idCat,fkUserCat:fkUserCat}).table("categorias")
-        return {status:true}
+        console.log('Model update id:'+idCat);
+        await  knex.update(edit).where({idCat:idCat}).table("categorias")
+        return {status:true, msg:'Dados inseridos com sucesso'}
       }catch(err){
         return {status:false,err:err}
       }
 
-    }else{
+ /*   }else{
       return { status: false, err: "A categoria não existe!" }
-    }
+    }*/
 
   }
 
