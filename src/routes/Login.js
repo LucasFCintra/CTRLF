@@ -23,8 +23,14 @@ function validatePassword(value) {
     let error;
     if (!value) {
         error = 'Informe sua senha';
-    } else if (!/^(?=.[A-Za-z])(?=.\d)(?=.[@$!%#?&])[A-Za-z\d@$!%*#?&]{8,}$"/i.test(value)) {
-        error = 'Informe uma senha que atenda aos requisitos';
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i.test(value)) {
+        error = (<>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Informe uma senha que atenda aos requisitos</span></p><br/>
+            <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">- No mínimo 8 caracteres</span></p><br/>
+            <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">- Pelo menos uma letra maiúscula</span></p><br/>
+            <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">- Pelo menos um número</span></p><br/>
+            <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">- Pelo menos um caractere especial</span></p><br/>
+            </>);
     }
     return error;
 }
@@ -51,14 +57,14 @@ export default class Login extends Component {
                                 <Form>
                                     <div class="mb-6">
                                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-                                        <Field type="email" id="email" name='email' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="meu@email.com" required />
+                                        <Field type="email" id="email" name='email' validate={validateEmail} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="meu@email.com" required />
                                         {errors.email && (
                                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{errors.email}</span></p>
                                         )}
                                     </div>
                                     <div class="mb-6">
                                         <label for="senha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                        <Field type="password" id="password" name='password' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                                        <Field type="password" id="password" name='password' validate={validatePassword} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
                                         {errors.password && (
                                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{errors.password}</span></p>
                                         )}
