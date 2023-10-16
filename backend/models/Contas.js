@@ -5,17 +5,17 @@ class Conta{
   async findAll(){
 
     try{
-     var result= await knex.select(["NOMECONTA","TIPOCONTA","VALORCONTA","VALORATUAL"]).table("conta")
+     var result= await knex.select(["*"]).table("contas")
       return result
     }catch(err){
       console.log(err)
     }
   }
 
-  async findById(id){
-    // console.log("Model: ", id)
+  async findById(idConta){
+    // console.log("Model: ", idConta)
     try{
-     var result = await knex.select(["NOMECONTA","TIPOCONTA","VALORCONTA","VALORATUAL"]).where({IDCONTA:id}).table("conta")
+     var result = await knex.select(["*"]).where({idConta:id}).table("contas")
      if(result.length > 0){
       return result[0]
      }else{
@@ -26,10 +26,10 @@ class Conta{
       console.log(err)
     }
   }
-  async findByConta(NOMECONTA){
+  async findByConta(descConta){
 
     try{
-     var result = await knex.select(["NOMECONTA","TIPOCONTA","VALORCONTA","VALORATUAL"]).where({NOMECONTA:NOMECONTA}).table("conta")
+     var result = await knex.select(["*"]).where({descConta:descConta}).table("contas")
      if(result.length > 0){
       return true
      }else{
@@ -41,10 +41,10 @@ class Conta{
     }
   }
 
-  async create(NOMECONTA,TIPOCONTA,VALORCONTA,VALORATUAL){
+  async create(idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser){
     // console.log("Model: ", NOME, DESCRICAO)
     try{
-      await knex.insert({NOMECONTA:NOMECONTA,TIPOCONTA:TIPOCONTA,VALORCONTA:VALORCONTA,VALORATUAL:VALORATUAL}).table("conta")
+      await knex.insert({descConta:descConta,tipoConta:tipoConta,valorConta:valorConta,valorAtualConta:valorAtualConta,fkUserConta:fkContaUser}).table("contas")
 
     }catch(err){
       console.log(err)
@@ -53,35 +53,37 @@ class Conta{
 
   }
 
-  async update(IDCONTA,NOMECONTA,TIPOCONTA,VALORCONTA,VALORATUAL){
+  async update(idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser){
 
-    var id = await this.findById(IDCONTA)
+    var idConta= await this.findById(idConta)
 
-    if(id != undefined){
+    if(idConta!= undefined){
       var edit = {};
 
-      if(NOMECONTA != undefined){
-        if(NOMECONTA != Conta.NOMECONTA){
-          var result = await this.findByConta(NOMECONTA)
+      if(descConta != undefined){
+        if(descConta != Conta.descConta){
+          var result = await this.findByConta(descConta)
             if(result == false){
-              edit.NOMECONTA = NOMECONTA
+              edit.descConta = descConta
             }else{
               return{status: false, err:"Categoria ja cadastrada"}
             }
         }
       }
-      if(TIPOCONTA != undefined){
-        edit.TIPOCONTA = TIPOCONTA
+      if(tipoConta != undefined){
+        edit.tipoConta = tipoConta
       }
-      if(VALORCONTA != undefined){
-        edit.VALORCONTA = VALORCONTA
+      if(valorConta != undefined){
+        edit.valorConta = valorConta
       }
-      if(VALORATUAL != undefined){
-        edit.DESCRICAO = VALORATUAL
+      if(valorAtualConta != undefined){
+        edit.valorAtualConta = valorAtualConta
       }
-
+      if(fkUserConta != undefined){
+        edit.fkUserConta = fkContaUser
+      }
       try{
-        await  knex.update(edit).where({IDCONTA:IDCONTA}).table("conta")
+        await  knex.update(edit).where({idConta:idConta}).table("contas")
         return {status:true}
       }catch(err){
         return {status:false,err:err}
@@ -93,14 +95,14 @@ class Conta{
 
   }
 
-  async delete(IDCONTA){
+  async delete(idConta){
 
-    console.log("Model: ", IDCONTA)
-    var idIsTrue = await this.findById(IDCONTA)
+    console.log("Model: ", idConta)
+    var idIsTrue = await this.findById(idConta)
     console.log(idIsTrue)
     if(idIsTrue != undefined){
       try{
-        await knex.delete().where({IDCONTA:IDCONTA}).table("conta")
+        await knex.delete().where({idConta:idConta}).table("contas")
         return {stats: true}
       }catch(err){
         return {stats:false, err:err}

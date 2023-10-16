@@ -20,12 +20,12 @@ class contaController{
   }
 
   async create(req,res){
-    var{NOMECONTA,TIPOCONTA,VALORCONTA,VALORATUAL} = req.body;
-    console.log(NOMECONTA,TIPOCONTA,VALORCONTA,VALORATUAL)
+    var{idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser} = req.body;
+    console.log(idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser)
 
-    if(NOMECONTA != undefined || TIPOCONTA != undefined || VALORCONTA < 0){
-      await Conta.create(NOMECONTA,TIPOCONTA,VALORCONTA,VALORATUAL)
-      res.status(200).send("Dados inserIDCONTAo com sucesso")
+    if(descConta != undefined || tipoConta != undefined || fkContaUser < 0){
+      await Conta.create(descConta, tipoConta, valorConta,valorAtualConta,fkContaUser)
+      res.status(200).send("Dados inserido com sucesso")
     }else{
       res.status(400).json({err:"Undefined informations"})
     }
@@ -34,11 +34,11 @@ class contaController{
 
   async update(req,res){
 
-    var {IDCONTA,NOMECONTA,TIPOCONTA,VALORCONTA,VALORATUAL} = req.body;
+    var {idConta,idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser} = req.body;
 
-    if(IDCONTA != undefined && IDCONTA > 0){
+    if(idConta != undefined && idConta > 0){
 
-      var result = await Conta.update(IDCONTA,NOMECONTA,TIPOCONTA,VALORCONTA,VALORATUAL)
+      var result = await Conta.update(idConta,idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser)
       
       if(result.status){
         res.status(200).send("Dados atualizados com sucesso")
@@ -53,7 +53,7 @@ class contaController{
   }
 
   async delete(req,res){
-    var ID= req.body.IDCONTA;
+    var ID= req.body.idConta;
     console.log("Controller: ", ID)
 
      var result = await Conta.delete(ID)

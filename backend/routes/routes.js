@@ -33,7 +33,7 @@ router.put("/api/lancamento",receitaController.update);
 router.delete("/api/lancamento",receitaController.delete);
 
 
-/*ROTAS API OBJETIVO*/
+/*ROTAS API Conta*/
 
 router.get('/api/objetivo',objetivoController.index);
 router.get('/api/objetivo/:id',objetivoController.indexOne);
@@ -42,11 +42,11 @@ router.put("/api/objetivo",objetivoController.update);
 router.delete("/api/objetivo",objetivoController.delete);
 
 /* ROTAS API BANCO */
-router.get('/banco',contaController.index);
-router.get('/banco/:id',contaController.indexOne);
-router.post('/banco',contaController.create);
-router.put('/banco',contaController.update);
-router.delete('/banco/:id',contaController.delete);
+router.get('/api/conta',contaController.index);
+router.get('/api/conta/:id',contaController.indexOne);
+router.post("/api/conta",contaController.create);
+router.put("/api/conta", contaController.update);
+router.delete("/api/conta",contaController.delete);
 
 
 module.exports = router;
