@@ -104,10 +104,7 @@ export default function FormElements() {
                     <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                         <ul class="flex flex-wrap mb-6">
                             <li class="mr-2">
-                                <Link to="/Categorias" class="inline-block p-4 text-green-600 border-b-2 border-green-600 rounded-t-lg active dark:text-green-500 dark:border-green-500">Receitas</Link>
-                            </li>
-                            <li class="mr-2">
-                                <Link to="/Categorias/Despesas" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Despesas</Link>
+                                <Link to="/Categorias" class="inline-block p-4 text-orange-600 border-b-2 border-orange-600 rounded-t-lg active dark:text-orange-500 dark:border-orange-500">Categorias</Link>
                             </li>
                         </ul>
 
@@ -131,11 +128,10 @@ export default function FormElements() {
                                                             <div>
                                                                 <div className="mb-2 block">
                                                                     <Label
-                                                                        value="Nome da Categoria"
+                                                                        value="Nome"
                                                                     />
                                                                 </div>
                                                                 <TextInput
-                                                                    addon="Nome"
                                                                     id="nomePost"
                                                                     placeholder='Nome da Categoria'
                                                                     type='text'
@@ -146,11 +142,10 @@ export default function FormElements() {
                                                             <div>
                                                                 <div className="mb-2 block">
                                                                     <Label
-                                                                        value="Descrição da Categoria"
+                                                                        value="Descrição"
                                                                     />
                                                                 </div>
                                                                 <TextInput
-                                                                    addon="Descrição"
                                                                     id="descPost"
                                                                     placeholder='Descrição da Categoria'
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
@@ -158,7 +153,7 @@ export default function FormElements() {
                                                             </div>
 
                                                             <div className="w-full">
-                                                                <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Salvar</button>
+                                                                <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-orange-500 hover:bg-orange-700 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-800">Salvar</button>
                                                             </div>
 
                                                         </div>
@@ -173,7 +168,7 @@ export default function FormElements() {
                         )}
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-green-700 uppercase bg-green-100 dark:bg-green-700 dark:text-green-400">
+                                <thead class="text-xs text-orange-700 uppercase bg-orange-100 dark:bg-orange-700 dark:text-orange-400">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
                                             Nome
@@ -192,7 +187,7 @@ export default function FormElements() {
                                             <td>{item.nomeCat}</td>
                                             <td>{item.descCat}</td>
                                             <td class="px-6 py-4 text-right">
-                                                <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
+                                                <a class="font-medium text-orange-600 dark:text-orange-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
                                                 <Modal
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
@@ -240,7 +235,7 @@ export default function FormElements() {
                                                             </div>
 
                                                             <div className="w-full">
-                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
+                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-800">Atualizar</button>
                                                             </div>
 
                                                         </div>

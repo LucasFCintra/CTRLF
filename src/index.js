@@ -9,13 +9,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './routes/Dashboard';
 import Configuracoes from './routes/Configuracoes';
 import Categorias from './routes/Categorias';
-import CategDespesas from './routes/CategDespesas';
 import Contato from './routes/Contato';
 import SobreNos from './routes/SobreNos';
 import Login from './routes/Login';
 import Cadastro from './routes/Cadastro';
 import Lancamentos from './routes/Lancamentos';
+import LancDespesas from './routes/LancDespesas';
 import Contas from './routes/Contas';
+import Objetivos from './routes/Objetivos'
 import ErrorPage from './routes/ErrorPage';
 
 const router = createBrowserRouter([
@@ -37,10 +38,6 @@ const router = createBrowserRouter([
         element: <Categorias />
       },
       {
-        path: "/Categorias/Despesas",
-        element: <CategDespesas />
-      },
-      {
         path: "/Contato",
         element: <Contato />
       },
@@ -53,8 +50,16 @@ const router = createBrowserRouter([
         element: <Lancamentos />
       },
       {
+        path: "/Lancamentos/Despesas",
+        element: <LancDespesas />
+      },
+      {
         path: "/Contas",
         element: <Contas />
+      },
+      {
+        path: "/Objetivos",
+        element: <Objetivos />
       },
     ],
   },

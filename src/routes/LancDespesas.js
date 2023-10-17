@@ -5,11 +5,12 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-/*
+
+
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
 
-console.log(userLoggedIn +' | '+ userId)
+console.log(userLoggedIn + ' | ' + userId)/*
 if(userLoggedIn == false && userId != undefined){
     window.location.href='/login'
 }*/
@@ -25,9 +26,10 @@ export default function FormElements() {
     const [error, setError] = useState(null);
 
 
+
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
-        const api = 'http://localhost:8687/api/rec/categoria/' + 1
+        const api = 'http://localhost:8687/api/des/categoria/' + 1
 
         axios.get(api)
             .then(response => {
@@ -38,7 +40,8 @@ export default function FormElements() {
             .catch(error => {
                 setError(error.message);
             });
-    }, []); 
+    }, []);
+
     const [inputNome, setInputNome] = useState('');
     const [inputDesc, setInputDesc] = useState('');
 
@@ -53,18 +56,13 @@ export default function FormElements() {
             const response = await axios.put(`http://localhost:8687/api/categoria`, data);
             console.log("Clicou: " + JSON.stringify(response))
 
-            if(response.status == 200 ){
-                window.location.href = "/Objetivos"
-                
-            
-            }
 
             console.log(response.data);
         } catch (error) {
             console.error(error);
         }
     }
-    
+
     async function postData() {
 
         try {
@@ -72,39 +70,41 @@ export default function FormElements() {
                 // idCat: document.getElementById('idEdit').value,
                 nomeCat: inputNome,//document.getElementById('nomeEdit').value,
                 descCat: inputDesc, //document.getElementById('descEdit').value
-                ativoCat:'A',
-                fkUserCat:1, //depois pegar esse valor do localStorage
-                tipoCat:'receita'
+                ativoCat: 'A',
+                fkUserCat: 1, //depois pegar esse valor do localStorage
+                tipoCat: 'despesa'
             }
             // console.log("Clicou: " + JSON.stringify(data))
 
             const response = await axios.post(`http://localhost:8687/api/categoria`, data);
-            console.log('Teste'+JSON.stringify(response));
- 
-            if(response.status == 200 ){
-                window.location.href = "/Objetivos"
-                
-            
+            console.log('Teste' + JSON.stringify(response));
+
+            if (response.status == 200) {
+                window.location.href = "/Categorias/Despesa"
+
+
             }
 
-        } catch (error) { 
+        } catch (error) {
 
-            if(error == 'AxiosError: Request failed with status code 418') {
+            if (error == 'AxiosError: Request failed with status code 418') {
                 alert('Erro ao inserir \n Categoria ja cadastrada ')
 
             }
-            console.error('testeS '+error);
+            console.error('testeS ' + error);
         }
     }
     return (
         <>
             <div class="p-4 sm:ml-64">
                 <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-
                     <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                         <ul class="flex flex-wrap mb-6">
                             <li class="mr-2">
-                                <Link to="/Objetivos" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:blue-blue-500 dark:border-blue-500">Objetivos</Link>
+                                <Link to="/Lancamentos" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Receitas</Link>
+                            </li>
+                            <li class="mr-2">
+                                <Link to="/Categorias/Despesas" class="inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg active dark:text-red-500 dark:border-red-500">Despesas</Link>
                             </li>
                         </ul>
 
@@ -123,43 +123,99 @@ export default function FormElements() {
                             >
                                 <Modal.Header />
                                 <Modal.Body>
-                                                        <div className="space-y-6">
-                                                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Criar Categoria</h3>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Nome da Categoria"
-                                                                    />
-                                                                </div>
-                                                                <TextInput
-                                                                    addon="Nome"
-                                                                    id="nomePost"
-                                                                    placeholder='Nome da Categoria'
-                                                                    type='text'
-                                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
-                                                                    required
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Descrição da Categoria"
-                                                                    />
-                                                                </div>
-                                                                <TextInput
-                                                                    addon="Descrição"
-                                                                    id="descPost"
-                                                                    placeholder='Descrição da Categoria'
-                                                                    value={inputDesc} onChange={event => setInputDesc(event.target.value)}
-                                                                />
-                                                            </div>
+                                    <div className="space-y-6">
+                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Adicionar Despesa</h3>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Nome"
+                                                />
+                                            </div>
+                                            <TextInput
+                                                id="nomePost"
+                                                placeholder='Nome'
+                                                type='text'
+                                                value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Descrição"
+                                                />
+                                            </div>
+                                            <TextInput
+                                                id="descPost"
+                                                placeholder='Descrição'
+                                                value={inputDesc} onChange={event => setInputDesc(event.target.value)}
+                                            />
+                                        </div>
+                                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                                            <div>
+                                                <div className="mb-2 block">
+                                                    <Label
+                                                        value="Valor"
+                                                    />
+                                                </div>
+                                                <TextInput
+                                                    id="nomePost"
+                                                    placeholder='Valor'
+                                                    type='text'
+                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <div className="mb-2 block">
+                                                    <Label
+                                                        value="Data"
+                                                    />
+                                                </div>
+                                                <TextInput
+                                                    id="nomePost"
+                                                    placeholder='Data'
+                                                    type='text'
+                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <div className="mb-2 block">
+                                                    <Label
+                                                        value="Categoria"
+                                                    />
+                                                </div>
+                                                <TextInput
+                                                    id="nomePost"
+                                                    placeholder='Categoria'
+                                                    type='text'
+                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <div className="mb-2 block">
+                                                    <Label
+                                                        value="Conta"
+                                                    />
+                                                </div>
+                                                <TextInput
+                                                    id="nomePost"
+                                                    placeholder='Conta'
+                                                    type='text'
+                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
 
-                                                            <div className="w-full">
-                                                                <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Salvar</button>
-                                                            </div>
+                                        <div className="w-full">
+                                            <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">Salvar</button>
+                                        </div>
 
-                                                        </div>
-                                                    </Modal.Body>
+                                    </div>
+                                </Modal.Body>
                             </Modal>
                         </div>
 
@@ -170,7 +226,7 @@ export default function FormElements() {
                         )}
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-blue-700 uppercase bg-blue-100 dark:bg-blue-700 dark:text-blue-400">
+                                <thead class="text-xs text-red-700 uppercase bg-red-100 dark:bg-red-700 dark:text-red-400">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
                                             Nome
@@ -182,10 +238,13 @@ export default function FormElements() {
                                             Valor
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Metas
+                                            Data
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Data
+                                            Categoria
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Conta
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             <span class="sr-only">Edit</span>
@@ -198,7 +257,7 @@ export default function FormElements() {
                                             <td>{item.nomeCat}</td>
                                             <td>{item.descCat}</td>
                                             <td class="px-6 py-4 text-right">
-                                                <a class="font-medium text-blue-600 dark:text-grblueeen-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
+                                                <a class="font-medium text-red-600 dark:text-red-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
                                                 <Modal
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
@@ -240,13 +299,13 @@ export default function FormElements() {
                                                                 <TextInput
                                                                     id="idEdit"
                                                                     value={item.idCat}
-                                                                    type='hidden'
+                                                                    // type='hidden'
                                                                     disabled
                                                                 />
                                                             </div>
 
                                                             <div className="w-full">
-                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Atualizar</button>
+                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
                                                             </div>
 
                                                         </div>
@@ -265,8 +324,13 @@ export default function FormElements() {
                     </div>
 
 
+
+
                 </div>
             </div>
+
         </>
     )
 }
+
+
