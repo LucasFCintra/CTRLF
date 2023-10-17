@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './routes/Dashboard';
 import Configuracoes from './routes/Configuracoes';
 import Categorias from './routes/Categorias';
-import Despesas from './routes/Despesas';
+import CategDespesas from './routes/CategDespesas';
 import Contato from './routes/Contato';
 import SobreNos from './routes/SobreNos';
 import Login from './routes/Login';
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/Categorias/Despesas",
-        element: <Despesas />
+        element: <CategDespesas />
       },
       {
         path: "/Contato",
