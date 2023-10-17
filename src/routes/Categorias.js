@@ -124,7 +124,7 @@ export default function FormElements() {
                                 <Modal.Header />
                                 <Modal.Body>
                                                         <div className="space-y-6">
-                                                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Criar Categoria</h3>
+                                                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Adicionar Categoria</h3>
                                                             <div>
                                                                 <div className="mb-2 block">
                                                                     <Label

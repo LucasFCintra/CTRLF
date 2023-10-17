@@ -38,7 +38,7 @@ export default function FormElements() {
             .catch(error => {
                 setError(error.message);
             });
-    }, []); 
+    }, []);
     const [inputNome, setInputNome] = useState('');
     const [inputDesc, setInputDesc] = useState('');
 
@@ -53,10 +53,10 @@ export default function FormElements() {
             const response = await axios.put(`http://localhost:8687/api/categoria`, data);
             console.log("Clicou: " + JSON.stringify(response))
 
-            if(response.status == 200 ){
+            if (response.status == 200) {
                 window.location.href = "/Objetivos"
-                
-            
+
+
             }
 
             console.log(response.data);
@@ -64,7 +64,7 @@ export default function FormElements() {
             console.error(error);
         }
     }
-    
+
     async function postData() {
 
         try {
@@ -72,28 +72,28 @@ export default function FormElements() {
                 // idCat: document.getElementById('idEdit').value,
                 nomeCat: inputNome,//document.getElementById('nomeEdit').value,
                 descCat: inputDesc, //document.getElementById('descEdit').value
-                ativoCat:'A',
-                fkUserCat:1, //depois pegar esse valor do localStorage
-                tipoCat:'receita'
+                ativoCat: 'A',
+                fkUserCat: 1, //depois pegar esse valor do localStorage
+                tipoCat: 'receita'
             }
             // console.log("Clicou: " + JSON.stringify(data))
 
             const response = await axios.post(`http://localhost:8687/api/categoria`, data);
-            console.log('Teste'+JSON.stringify(response));
- 
-            if(response.status == 200 ){
+            console.log('Teste' + JSON.stringify(response));
+
+            if (response.status == 200) {
                 window.location.href = "/Objetivos"
-                
-            
+
+
             }
 
-        } catch (error) { 
+        } catch (error) {
 
-            if(error == 'AxiosError: Request failed with status code 418') {
+            if (error == 'AxiosError: Request failed with status code 418') {
                 alert('Erro ao inserir \n Categoria ja cadastrada ')
 
             }
-            console.error('testeS '+error);
+            console.error('testeS ' + error);
         }
     }
     return (
@@ -123,43 +123,85 @@ export default function FormElements() {
                             >
                                 <Modal.Header />
                                 <Modal.Body>
-                                                        <div className="space-y-6">
-                                                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Criar Categoria</h3>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Nome da Categoria"
-                                                                    />
-                                                                </div>
-                                                                <TextInput
-                                                                    addon="Nome"
-                                                                    id="nomePost"
-                                                                    placeholder='Nome da Categoria'
-                                                                    type='text'
-                                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
-                                                                    required
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Descrição da Categoria"
-                                                                    />
-                                                                </div>
-                                                                <TextInput
-                                                                    addon="Descrição"
-                                                                    id="descPost"
-                                                                    placeholder='Descrição da Categoria'
-                                                                    value={inputDesc} onChange={event => setInputDesc(event.target.value)}
-                                                                />
-                                                            </div>
+                                    <div className="space-y-6">
+                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Adicionar Objetivo</h3>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Nome"
+                                                />
+                                            </div>
+                                            <TextInput
+                                                id="nomePost"
+                                                placeholder='Nome'
+                                                type='text'
+                                                value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Descrição"
+                                                />
+                                            </div>
+                                            <TextInput
+                                                id="descPost"
+                                                placeholder='Descrição'
+                                                value={inputDesc} onChange={event => setInputDesc(event.target.value)}
+                                            />
+                                        </div>
+                                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                                            <div>
+                                                <div className="mb-2 block">
+                                                    <Label
+                                                        value="Valor"
+                                                    />
+                                                </div>
+                                                <TextInput
+                                                    id="nomePost"
+                                                    placeholder='Valor'
+                                                    type='text'
+                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <div className="mb-2 block">
+                                                    <Label
+                                                        value="Meta"
+                                                    />
+                                                </div>
+                                                <TextInput
+                                                    id="nomePost"
+                                                    placeholder='Meta'
+                                                    type='text'
+                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <div className="mb-2 block">
+                                                    <Label
+                                                        value="Data"
+                                                    />
+                                                </div>
+                                                <TextInput
+                                                    id="nomePost"
+                                                    placeholder='Data'
+                                                    type='text'
+                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
 
-                                                            <div className="w-full">
-                                                                <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Salvar</button>
-                                                            </div>
+                                        <div className="w-full">
+                                            <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Salvar</button>
+                                        </div>
 
-                                                        </div>
-                                                    </Modal.Body>
+                                    </div>
+                                </Modal.Body>
                             </Modal>
                         </div>
 
