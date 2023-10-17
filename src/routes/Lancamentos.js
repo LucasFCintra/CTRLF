@@ -27,11 +27,10 @@ export default function FormElements() {
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
-        const api = 'http://localhost:8687/api/rec/categoria/' + 1
+        const api = 'http://localhost:8687/api/lancamento/' + 1
 
         axios.get(api)
-            .then(response => {
-                console.log(response.data)
+            .then(response => { 
                 setItems(response.data);
                 setError(null);
             })
@@ -39,16 +38,28 @@ export default function FormElements() {
                 setError(error.message);
             });
     }, []);
+ 
+
     const [inputNome, setInputNome] = useState('');
     const [inputDesc, setInputDesc] = useState('');
+    const [inputLanc, setInputLanc] = useState('');
+    const [inputData, setInputData] = useState('');
+    const [inputCat, setInputCat] = useState('');
+    const [inputConta, setInputCon] = useState('');
+    // const [inputDesc, setInputDesc] = useState('');
 
     async function updateData() {
 
         try {
             const data = {
                 idCat: document.getElementById('idEdit').value,
-                nomeCat: inputNome,//document.getElementById('nomeEdit').value,
-                descCat: inputDesc, //document.getElementById('descEdit').value
+                nomeLanc: inputNome,//document.getElementById('nomeEdit').value,
+                descLanc: inputDesc, //document.getElementById('descEdit').value
+                valorLanc:inputLanc,
+                dataLanc:inputData,
+                fkUserLanc:inputLanc,
+                fkCatLanc:inputCat,
+                fkConLanc:inputConta
             }
             const response = await axios.put(`http://localhost:8687/api/categoria`, data);
             console.log("Clicou: " + JSON.stringify(response))
@@ -256,9 +267,13 @@ export default function FormElements() {
                                 </thead>
                                 <tbody>
                                     {items.map(item => (
-                                        <tr key={item.idCat}>
-                                            <td>{item.nomeCat}</td>
-                                            <td>{item.descCat}</td>
+                                        <tr key={item.idLanc}>
+                                            <td>{item.nomeLanc}</td>
+                                            <td>{item.descLanc}</td>
+                                            <td>{item.valorLanc}</td>
+                                            <td>{item.dataLanc}</td>
+                                            <td>{item.fkCatLanc}</td>
+                                            <td>{item.fkConLanc}</td>
                                             <td class="px-6 py-4 text-right">
                                                 <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
                                                 <Modal
@@ -275,13 +290,12 @@ export default function FormElements() {
                                                             <div>
                                                                 <div className="mb-2 block">
                                                                     <Label
-                                                                        value="Nome da Categoria"
+                                                                        value="Nome do Lançamento"
                                                                     />
                                                                 </div>
-                                                                <TextInput
-                                                                    addon="Nome"
+                                                                <TextInput 
                                                                     id="nomeEdit"
-                                                                    placeholder={item.nomeCat}
+                                                                    placeholder={item.nomeLanc}
                                                                     type='text'
                                                                     value={inputNome} onChange={event => setInputNome(event.target.value)}
                                                                     required
@@ -290,13 +304,12 @@ export default function FormElements() {
                                                             <div>
                                                                 <div className="mb-2 block">
                                                                     <Label
-                                                                        value="Descrição da Categoria"
+                                                                        value="Descrição do Lançamento"
                                                                     />
                                                                 </div>
                                                                 <TextInput
-                                                                    addon="Descrição"
                                                                     id="descEdit"
-                                                                    placeholder={item.descCat}
+                                                                    placeholder={item.descLanc}
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
                                                                 <TextInput
@@ -304,6 +317,62 @@ export default function FormElements() {
                                                                     value={item.idCat}
                                                                     type='hidden'
                                                                     disabled
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Valor do Lançamento"
+                                                                    />
+                                                                </div>
+                                                                <TextInput 
+                                                                    id="valorEdit"
+                                                                    placeholder={item.nomeLanc}
+                                                                    type='text'
+                                                                    value={inputLanc} onChange={event => setInputLanc(event.target.value)}
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Data do Lançamento"
+                                                                    />
+                                                                </div>
+                                                                <TextInput 
+                                                                    id="dataEdit"
+                                                                    placeholder={item.nomeLanc}
+                                                                    type='date'
+                                                                    value={inputData} onChange={event => setInputData(event.target.value)}
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Categoria do Lançamento"
+                                                                    />
+                                                                </div>
+                                                                <TextInput 
+                                                                    id="catEdit"
+                                                                    placeholder={item.fkCatLanc}
+                                                                    type='choice'
+                                                                    value={inputCat} onChange={event => setInputCat(event.target.value)}
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Conta do Lançamento"
+                                                                    />
+                                                                </div>
+                                                                <TextInput
+                                                                    id="contaEdit"
+                                                                    placeholder={item.fkConLanc}
+                                                                    type='choice'
+                                                                    value={inputConta} onChange={event => setInputCon(event.target.value)}
+                                                                    required
                                                                 />
                                                             </div>
 

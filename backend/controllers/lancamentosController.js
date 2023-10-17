@@ -4,8 +4,9 @@ const Receita = require("../models/Lancamentos")
 class receitaController{
 
   async index(req,res){
-    var id = req.body;
+    var id = req.params.id;
     var receita = await Receita.findAll(id)
+    console.log(receita)
     res.json(receita)
   }
 

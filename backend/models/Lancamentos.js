@@ -5,7 +5,7 @@ class Lancamentos{
   async findAll(id){
 
     try{
-     var result= await knex.select(["nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
+     var result= await knex.select(["idLanc","nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
       return result
     }catch(err){
       console.log(err)
