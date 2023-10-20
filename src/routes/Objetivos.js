@@ -27,7 +27,7 @@ export default function FormElements() {
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
-        const api = 'http://localhost:8687/api/rec/categoria/' + 1
+        const api = 'http://localhost:8687/api/objetivo/' + 1
 
         axios.get(api)
             .then(response => {
@@ -39,18 +39,29 @@ export default function FormElements() {
                 setError(error.message);
             });
     }, []);
+    const [inputId, setInputId] = useState(null);
     const [inputNome, setInputNome] = useState('');
     const [inputDesc, setInputDesc] = useState('');
+    const [inputValor, setInputValor] = useState('');
+    const [inputMeta, setInputMeta] = useState('');
+    const [inputData, setInputData] = useState('');
+
+    async function updateInfos(id) {
+        setInputId(id)
+    }
 
     async function updateData() {
 
         try {
             const data = {
-                idCat: document.getElementById('idEdit').value,
-                nomeCat: inputNome,//document.getElementById('nomeEdit').value,
-                descCat: inputDesc, //document.getElementById('descEdit').value
+                idObj: inputId,
+                nomeObj: inputNome,//document.getElementById('nomeEdit').value,
+                descObj: inputDesc, //document.getElementById('descEdit').value
+                valorObj: inputValor,
+                metaObj: inputMeta,
+                dataObj: inputData,
             }
-            const response = await axios.put(`http://localhost:8687/api/categoria`, data);
+            const response = await axios.put(`http://localhost:8687/api/objetivo`, data);
             console.log("Clicou: " + JSON.stringify(response))
 
             if (response.status == 200) {
@@ -70,15 +81,16 @@ export default function FormElements() {
         try {
             const data = {
                 // idCat: document.getElementById('idEdit').value,
-                nomeCat: inputNome,//document.getElementById('nomeEdit').value,
-                descCat: inputDesc, //document.getElementById('descEdit').value
-                ativoCat: 'A',
-                fkUserCat: 1, //depois pegar esse valor do localStorage
-                tipoCat: 'receita'
+                nomeObj: inputNome,//document.getElementById('nomeEdit').value,
+                descObj: inputDesc, //document.getElementById('descEdit').value
+                valorObj: inputValor,
+                metaObj: inputMeta,
+                dataObj: inputData,
+                fkUserObj: 1
             }
             // console.log("Clicou: " + JSON.stringify(data))
 
-            const response = await axios.post(`http://localhost:8687/api/categoria`, data);
+            const response = await axios.post(`http://localhost:8687/api/objetivo`, data);
             console.log('Teste' + JSON.stringify(response));
 
             if (response.status == 200) {
@@ -159,10 +171,10 @@ export default function FormElements() {
                                                     />
                                                 </div>
                                                 <TextInput
-                                                    id="nomePost"
+                                                    id="valorPost"
                                                     placeholder='Valor'
                                                     type='text'
-                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    value={inputValor} onChange={event => setInputValor(event.target.value)}
                                                     required
                                                 />
                                             </div>
@@ -173,10 +185,10 @@ export default function FormElements() {
                                                     />
                                                 </div>
                                                 <TextInput
-                                                    id="nomePost"
+                                                    id="metaPost"
                                                     placeholder='Meta'
                                                     type='text'
-                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    value={inputMeta} onChange={event => setInputMeta(event.target.value)}
                                                     required
                                                 />
                                             </div>
@@ -187,10 +199,10 @@ export default function FormElements() {
                                                     />
                                                 </div>
                                                 <TextInput
-                                                    id="nomePost"
+                                                    id="dataPost"
                                                     placeholder='Data'
-                                                    type='text'
-                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                    type='date'
+                                                    value={inputData} onChange={event => setInputData(event.target.value)}
                                                     required
                                                 />
                                             </div>
@@ -236,11 +248,16 @@ export default function FormElements() {
                                 </thead>
                                 <tbody>
                                     {items.map(item => (
-                                        <tr key={item.idCat}>
-                                            <td>{item.nomeCat}</td>
-                                            <td>{item.descCat}</td>
+                                        <tr key={item.idObj}>
+                                            <td>{item.nomeObj}</td>
+                                            <td>{item.descObj}</td>
+                                            <td>{item.valorObj}</td>
+                                            <td>{item.metaObj}</td>
+                                            <td>{item.dataObj}</td>
                                             <td class="px-6 py-4 text-right">
-                                                <a class="font-medium text-blue-600 dark:text-grblueeen-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & props.setOpenModal('initial-focus')} >
+                                                    <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
+                                                </button>
                                                 <Modal
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
@@ -251,44 +268,76 @@ export default function FormElements() {
                                                     <Modal.Header />
                                                     <Modal.Body>
                                                         <div className="space-y-6">
-                                                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Editar Categoria</h3>
+                                                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Editar Objetivo</h3>
                                                             <div>
                                                                 <div className="mb-2 block">
                                                                     <Label
-                                                                        value="Nome da Categoria"
+                                                                        value="Nome"
                                                                     />
                                                                 </div>
                                                                 <TextInput
-                                                                    addon="Nome"
-                                                                    id="nomeEdit"
-                                                                    placeholder={item.nomeCat}
+                                                                    id="nomePost"
                                                                     type='text'
+                                                                    placeholder={item.nomeObj}
                                                                     value={inputNome} onChange={event => setInputNome(event.target.value)}
-                                                                    required
                                                                 />
                                                             </div>
                                                             <div>
                                                                 <div className="mb-2 block">
                                                                     <Label
-                                                                        value="Descrição da Categoria"
+                                                                        value="Descrição"
                                                                     />
                                                                 </div>
                                                                 <TextInput
-                                                                    addon="Descrição"
-                                                                    id="descEdit"
-                                                                    placeholder={item.descCat}
+                                                                    id="descPost"
+                                                                    placeholder={item.descObj}
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
-                                                                <TextInput
-                                                                    id="idEdit"
-                                                                    value={item.idCat}
-                                                                    type='hidden'
-                                                                    disabled
-                                                                />
+                                                            </div>
+                                                            <div class="grid gap-6 mb-6 md:grid-cols-2">
+                                                                <div>
+                                                                    <div className="mb-2 block">
+                                                                        <Label
+                                                                            value="Valor"
+                                                                        />
+                                                                    </div>
+                                                                    <TextInput
+                                                                        id="valorPost"
+                                                                        placeholder={item.valorObj}
+                                                                        type='text'
+                                                                        value={inputValor} onChange={event => setInputValor(event.target.value)}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <div className="mb-2 block">
+                                                                        <Label
+                                                                            value="Meta"
+                                                                        />
+                                                                    </div>
+                                                                    <TextInput
+                                                                        id="metaPost"
+                                                                        placeholder={item.valorObj}
+                                                                        type='text'
+                                                                        value={inputMeta} onChange={event => setInputMeta(event.target.value)}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <div className="mb-2 block">
+                                                                        <Label
+                                                                            value="Data"
+                                                                        />
+                                                                    </div>
+                                                                    <TextInput
+                                                                        id="dataPost"
+                                                                        placeholder={item.dataObj}
+                                                                        type='date'
+                                                                        value={inputData} onChange={event => setInputData(event.target.value)}
+                                                                    />
+                                                                </div>
                                                             </div>
 
                                                             <div className="w-full">
-                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Atualizar</button>
+                                                                <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Salvar</button>
                                                             </div>
 
                                                         </div>

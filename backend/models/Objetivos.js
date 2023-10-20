@@ -58,7 +58,7 @@ class Objetivos{
   }
 
   async update(idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj){
-
+    console.log(idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj)
     var id = await this.findById(idObj)
 
     if(id != undefined){
@@ -87,7 +87,7 @@ class Objetivos{
         edit.valorObj = valorObj
       }
 
-
+      console.log(edit)
       try{
         await  knex.update(edit).where({idObj:idObj}).table("objetivos")
         return {status:true}
