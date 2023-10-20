@@ -22,12 +22,13 @@ export default function FormElements() {
     const props = { openModal, setOpenModal, emailInputRef };
     const propsPost = { openModalPost, setOpenModalPost, emailInputRefPost };
     const [items, setItems] = useState([]);
-    const [error, setError] = useState(null);   
-     const [itemsCat, setItemsCat] = useState([]);
+    const [error, setError] = useState(null);
+    const [itemsCat, setItemsCat] = useState([]);
     const [errorCat, setErrorCat] = useState(null);
     const [itemsCon, setItemsCon] = useState([]);
-   const [errorCon, setErrorCon] = useState(null);
-
+    const [errorCon, setErrorCon] = useState(null);
+    const [itemsUp2, setItemsUp2] = useState([]);
+    const [errorUp2, setErrorUp2] = useState(null);
 
 
     useEffect(() => {
@@ -35,7 +36,7 @@ export default function FormElements() {
         const api = 'http://localhost:8687/api/lancamento/' + 1
 
         axios.get(api)
-            .then(response => { 
+            .then(response => {
                 setItems(response.data);
                 setError(null);
             })
@@ -45,16 +46,16 @@ export default function FormElements() {
     }, []);
 
 
-    
 
-// console.log(items)
+
+    // console.log(items)
     const [inputNome, setInputNome] = useState('');
     const [inputDesc, setInputDesc] = useState('');
     const [inputLanc, setInputLanc] = useState('');
     const [inputData, setInputData] = useState('');
     const [inputCat, setInputCat] = useState('');
     const [inputConta, setInputCon] = useState('');
-    const [inputId, setInputId] = useState('');
+    const [inputId, setInputId] = useState(null);
     // const [inputDesc, setInputDesc] = useState('');
     const [postNome, setpostNome] = useState('');
     const [postDesc, setpostDesc] = useState('');
@@ -64,57 +65,75 @@ export default function FormElements() {
     const [postConta, setpostCon] = useState('');
 
     // async function getCategorias(){
-        var apiCat = 'http://localhost:8687/api/categoria/' + 1
+    var apiCat = 'http://localhost:8687/api/categoria/' + 1
 
 
-        var apiCon = 'http://localhost:8687/api/conta/' + 1
+    var apiCon = 'http://localhost:8687/api/conta/' + 1
 
-        axios.get(apiCon)
-    .then(response => { 
-        setItemsCon(response.data);
-        setErrorCon(null);
-    })
-    .catch(error => {
-        setErrorCon(error.message);
-    }); 
+    axios.get(apiCon)
+        .then(response => {
+            setItemsCon(response.data);
+            setErrorCon(null);
+        })
+        .catch(error => {
+            setErrorCon(error.message);
+        });
 
 
-          axios.get(apiCat)
-    .then(response => { 
-        setItemsCat(response.data);
-        setErrorCat(null);
-    })
-    .catch(error => {
-        setErrorCat(error.message);
-    });
+    axios.get(apiCat)
+        .then(response => {
+            setItemsCat(response.data);
+            setErrorCat(null);
+        })
+        .catch(error => {
+            setErrorCat(error.message);
+        });
     // }
 
     // getCategorias()
     // console.log(itemsCat)
 
-    async function getContas(){
-   
-    }
-// getContas()     
-// console.log(itemsCon)
+    async function getContas() {
 
+    }
+    // getContas()     
+    // console.log(itemsCon)
+    async function updateInfos(id) {
+         setInputId( id)    
+       var idUpdate = id
+        var api = 'http://localhost:8687/api/v2/lancamento/' + id
+
+        await axios.get(api).then(response => {
+            setItemsUp2(response.data);
+            setErrorUp2(null);
+        })
+            .catch(error => {
+                setErrorUp2(error.message);
+            }); 
+        var nomeEdit = document.getElementById('nomeEdit').placeholder  = itemsUp2.nomeLanc
+        var descEdit = document.getElementById('descEdit').placeholder  = itemsUp2.descLanc
+        var valorEdit = document.getElementById('valorEdit').placeholder  = itemsUp2.valorLanc
+        var dataEdit = document.getElementById('dataEdit').placeholder  = itemsUp2.dataLanc
+        var catEdit = document.getElementById('catEdit').placeholder  = itemsUp2.nomeCat
+        var conEdit = document.getElementById('conEdit').placeholder  = itemsUp2.descConta
+ 
+    }
     async function updateData() {
         // alert('Clicou')
 
-        var id =  document.getElementById('idLancEdit').value;
-        alert(inputId)
+           alert(inputId)
         try {
             const data = {
-                idLanc:inputId,
+                idLanc: inputId,
                 nomeLanc: inputNome,//document.getElementById('nomeEdit').value,
                 descLanc: inputDesc, //document.getElementById('descEdit').value
-                valorLanc:inputLanc,
-                dataLanc:inputData,
-                fkUserLanc:"1",
-                fkCatLanc:inputCat,
-                fkConLanc:inputConta
+                valorLanc: inputLanc,
+                dataLanc: inputData,
+                fkUserLanc: "1",
+                fkCatLanc: inputCat,
+                fkConLanc: inputConta
             }
-                console.log('Edit: \n'+JSON.stringify(data))
+            console.log('Edit: \n' + JSON.stringify(data))
             const response = await axios.put(`http://localhost:8687/api/lancamento`, data);
             console.log("Clicou: " + JSON.stringify(response))
 
@@ -137,11 +156,11 @@ export default function FormElements() {
                 idLanc: document.getElementById('idPost').value,
                 nomeLanc: postNome,//document.getElementById('nomeEdit').value,
                 descLanc: postDesc, //document.getElementById('descEdit').value
-                valorLanc:postLanc,
-                dataLanc:postDataVal,
-                fkUserLanc:postLanc,
-                fkCatLanc:postCat,
-                fkConLanc:postConta
+                valorLanc: postLanc,
+                dataLanc: postDataVal,
+                fkUserLanc: postLanc,
+                fkCatLanc: postCat,
+                fkConLanc: postConta
             }
             // console.log("Clicou: " + JSON.stringify(data))
 
@@ -193,90 +212,90 @@ export default function FormElements() {
                             >
                                 <Modal.Header />
                                 <Modal.Body>
-                                <div className="space-y-6">
-                                                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Adicionar Lançamento</h3>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Nome do Lançamento"
-                                                                    />
-                                                                </div>
-                                                                <TextInput 
-                                                                    id="nomePost" 
-                                                                    type='text'
-                                                                    value={postNome} onChange={event => setpostNome(event.target.value)}
-                                                                    required
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Descrição do Lançamento"
-                                                                    />
-                                                                </div>
-                                                                <TextInput
-                                                                    id="descPost" 
-                                                                    value={postDesc} onChange={event => setpostDesc(event.target.value)}
-                                                                /> 
-                                                            </div>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Valor do Lançamento"
-                                                                    />
-                                                                </div>
-                                                                <TextInput 
-                                                                    id="valorPost" 
-                                                                    type='text'
-                                                                    value={postLanc} onChange={event => setpostLanc(event.target.value)}
-                                                                    required
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Data do Lançamento"
-                                                                    />
-                                                                </div>
-                                                                <TextInput 
-                                                                    id="dataPost" 
-                                                                    type='date'
-                                                                    value={postDataVal} onChange={event => setpostData(event.target.value)}
-                                                                    required
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Categoria do Lançamento"
-                                                                    />
-                                                                </div>
-                                                                <select id="catPost" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                                                {itemsCat.map(item =>(
-                                                                    <option value={item.idCat}>{item.nomeCat}</option>
-                                                                 ))}
-                                                                </select>  
-                                                                 
-                                                            </div>
-                                                            <div>
-                                                                <div className="mb-2 block">
-                                                                    <Label
-                                                                        value="Conta do Lançamento"
-                                                                    />
-                                                                </div>
-                                                                <select id="conPost" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                                                {itemsCon.map(item =>(
-                                                                    <option value={item.idCon}>{item.descConta}</option>
-                                                                 ))}
-                                                                </select>
-                                                            </div>
+                                    <div className="space-y-6">
+                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Adicionar Lançamento</h3>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Nome do Lançamento"
+                                                />
+                                            </div>
+                                            <TextInput
+                                                id="nomePost"
+                                                type='text'
+                                                value={postNome} onChange={event => setpostNome(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Descrição do Lançamento"
+                                                />
+                                            </div>
+                                            <TextInput
+                                                id="descPost"
+                                                value={postDesc} onChange={event => setpostDesc(event.target.value)}
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Valor do Lançamento"
+                                                />
+                                            </div>
+                                            <TextInput
+                                                id="valorPost"
+                                                type='text'
+                                                value={postLanc} onChange={event => setpostLanc(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Data do Lançamento"
+                                                />
+                                            </div>
+                                            <TextInput
+                                                id="dataPost"
+                                                type='date'
+                                                value={postDataVal} onChange={event => setpostData(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Categoria do Lançamento"
+                                                />
+                                            </div>
+                                            <select id="catPost" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                                {itemsCat.map(item => (
+                                                    <option value={item.idCat}>{item.nomeCat}</option>
+                                                ))}
+                                            </select>
+
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Conta do Lançamento"
+                                                />
+                                            </div>
+                                            <select id="conPost" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                                {itemsCon.map(item => (
+                                                    <option value={item.idCon}>{item.descConta}</option>
+                                                ))}
+                                            </select>
+                                        </div>
 
 
-                                                            <div className="w-full">
-                                                                <button type="button" onClick={ postData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Inserir Dados</button>
-                                                            </div>
+                                        <div className="w-full">
+                                            <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Inserir Dados</button>
+                                        </div>
 
-                                                        </div>
+                                    </div>
                                 </Modal.Body>
                             </Modal>
                         </div>
@@ -287,11 +306,11 @@ export default function FormElements() {
                             <p className="text-red-600 mb-4">Erro ao buscar os itens: {error}</p>
                         )}
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        
+
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            
+
                                 <thead class="text-xs text-green-700 uppercase bg-green-100 dark:bg-green-700 dark:text-green-400">
-                        
+
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
                                             Nome
@@ -317,9 +336,9 @@ export default function FormElements() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                           
 
-                                    {items.map(item => ( 
+
+                                    {items.map(item => (
                                         <tr key={item.idLanc}>
                                             <td>{item.nomeLanc}</td>
                                             <td>{item.descLanc}</td>
@@ -328,9 +347,11 @@ export default function FormElements() {
                                             <td>{item.nomeCat}</td>
                                             <td>{item.descConta}</td>
                                             <td>{item.idLanc}</td>
-                                            
+
                                             <td class="px-6 py-4 text-right">
-                                                <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & props.setOpenModal('initial-focus')} >
+                                                    <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
+                                                </button>
                                                 <Modal
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
@@ -348,12 +369,12 @@ export default function FormElements() {
                                                                         value="Nome do Lançamento"
                                                                     />
                                                                 </div>
-                                                                <TextInput 
+                                                                <TextInput
                                                                     id="nomeEdit"
                                                                     placeholder={item.nomeLanc}
                                                                     type='text'
-                                                                    value={inputNome} 
-                                                                     onChange={event => setInputNome(event.target.value) 
+                                                                    value={inputNome}
+                                                                    onChange={event => setInputNome(event.target.value)
                                                                     }
                                                                     required
                                                                 />
@@ -369,8 +390,8 @@ export default function FormElements() {
                                                                     placeholder={item.descLanc}
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
-                                                              <input value ={item.idLanc} id = 'idLancEdit' name='idLancEdit' onLoad={event => setInputId(event.target.value)}/>
-                                                                    
+                                                                <input value={item.idLanc} id='idLancEdit' name='idLancEdit' onLoad={event => setInputId(event.target.value)} />
+
                                                             </div>
                                                             <div>
                                                                 <div className="mb-2 block">
@@ -378,7 +399,7 @@ export default function FormElements() {
                                                                         value="Valor do Lançamento"
                                                                     />
                                                                 </div>
-                                                                <TextInput 
+                                                                <TextInput
                                                                     id="valorEdit"
                                                                     placeholder={item.valorLanc}
                                                                     type='text'
@@ -392,7 +413,7 @@ export default function FormElements() {
                                                                         value="Data do Lançamento"
                                                                     />
                                                                 </div>
-                                                                <TextInput 
+                                                                <TextInput
                                                                     id="dataEdit"
                                                                     placeholder={item.nomeLanc}
                                                                     type='date'
@@ -407,11 +428,11 @@ export default function FormElements() {
                                                                     />
                                                                 </div>
                                                                 <select id="catEdit" value={inputCat} onChange={event => setInputCat(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                                                {itemsCat.map(item =>(
-                                                                    <option value={item.idCat}>{item.nomeCat}</option>
-                                                                 ))}
-                                                                </select>  
-                                                                 
+                                                                    {itemsCat.map(item => (
+                                                                        <option value={item.idCat}>{item.nomeCat}</option>
+                                                                    ))}
+                                                                </select>
+
                                                             </div>
                                                             <div>
                                                                 <div className="mb-2 block">
@@ -419,16 +440,16 @@ export default function FormElements() {
                                                                         value="Conta do Lançamento"
                                                                     />
                                                                 </div>
-                                                                <select id="conEdit"   value={inputConta} onChange={event => setInputCon(event.target.value)}  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                                                {itemsCon.map(item =>(
-                                                                    <option value={item.idConta}>{item.descConta}</option>
-                                                                 ))}
+                                                                <select id="conEdit" value={inputConta} onChange={event => setInputCon(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                                                    {itemsCon.map(item => (
+                                                                        <option value={item.idConta}>{item.descConta}</option>
+                                                                    ))}
                                                                 </select>
                                                             </div>
 
 
                                                             <div className="w-full">
-                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
+                                                                <button type="button" onClick={ updateData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
                                                             </div>
 
                                                         </div>
@@ -441,7 +462,7 @@ export default function FormElements() {
                                     ))}
 
                                 </tbody>
-                                
+
                             </table>
                         </div>
 
@@ -449,7 +470,7 @@ export default function FormElements() {
 
 
                 </div>
-                
+
             </div>
         </>
     )
