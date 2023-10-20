@@ -5,7 +5,7 @@ class categoriasModel{
   async findAll(id){
     try{
      var result= await knex.select(["idCat","nomeCat","descCat","fkUserCat"]).where({fkUserCat:id}).table("categorias")
-     console.log('CatModel:'  + JSON.stringify(id) +' | '+result )
+    //  console.log('CatModel:'  + JSON.stringify(id) +' | '+result )
 
      return result
     }catch(err){
@@ -16,7 +16,7 @@ class categoriasModel{
   async findAllRec(id){
     try{
      var result= await knex.select(["idCat","nomeCat","descCat","fkUserCat"]).where({fkUserCat:id,tipoCat:"receita"}).table("categorias")
-     console.log('CatModel:'  + JSON.stringify(id) +' | '+result )
+    //  console.log('CatModel:'  + JSON.stringify(id) +' | '+result )
 
      return result
     }catch(err){
@@ -26,7 +26,7 @@ class categoriasModel{
   async findAllDes(id){
     try{
      var result= await knex.select(["idCat","nomeCat","descCat","fkUserCat"]).where({fkUserCat:id,tipoCat:"despesa"}).table("categorias")
-     console.log('CatModel:'  + JSON.stringify(id) +' | '+result )
+    //  console.log('CatModel:'  + JSON.stringify(id) +' | '+result )
 
      return result
     }catch(err){
@@ -37,7 +37,7 @@ class categoriasModel{
 
 
   async findById(id,idUser){
-    console.log('CatModel:'  + id + ' ' + idUser )
+    // console.log('CatModel:'  + id + ' ' + idUser )
 
     try{
      var result = await knex.select(["idCat","nomeCat","descCat","fkUserCat"])
@@ -58,7 +58,7 @@ class categoriasModel{
 
     try{
      var result = await knex.select(["nomeCat","descCat"]).where({nomeCat:nomeCat,fkUserCat:fkUserCat}).table("categorias")
-     console.log('Find Result:'+JSON.stringify(result))
+    //  console.log('Find Result:'+JSON.stringify(result))
      if(result.length > 0){
       return true
      }else{
@@ -74,7 +74,7 @@ class categoriasModel{
     // console.log("Model: ", nomeCat, descCat)
 
     var result = await this.findByCat(nomeCat,fkUserCat);
-    console.log('Create result ='  + result)
+    // console.log('Create result ='  + result)
     if(result === false){
 
     try{
@@ -123,7 +123,7 @@ var edit = {
   descCat:descCat
 }
       try{
-        console.log('Model update id:'+idCat);
+        // console.log('Model update id:'+idCat);
         await  knex.update(edit).where({idCat:idCat}).table("categorias")
         return {status:true, msg:'Dados inseridos com sucesso'}
       }catch(err){

@@ -5,7 +5,17 @@ class Lancamentos{
   async findAll(id){
 
     try{
-     var result= await knex.select(["idLanc","nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
+     var result= await  knex.select('*')
+     .from('lancamentos')
+     .leftOuterJoin('categorias', function() {
+       this
+         .on('categorias.idCat', '=', 'lancamentos.fkCatLanc')
+     }).leftOuterJoin('contas', function() {
+      this
+        .on('contas.idConta', '=', 'lancamentos.fkConLanc')
+    })
+     
+    //  knex.select(["idLanc","nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
       return result
     }catch(err){
       console.log(err)
@@ -13,9 +23,19 @@ class Lancamentos{
   }
 
   async findById(id){
-    console.log("Model: ", id)
+    // console.log("Model Id: ", id)
     try{
-     var result = await knex.select(["nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
+     var result = await knex.select('*')
+     .from('lancamentos')
+     .leftOuterJoin('categorias', function() {
+       this
+         .on('categorias.idCat', '=', 'lancamentos.fkCatLanc')
+     }).leftOuterJoin('contas', function() {
+      this
+        .on('contas.idConta', '=', 'lancamentos.fkConLanc')
+    })
+    
+    // knex.select(["nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
      if(result.length > 0){
       return result[0]
      }else{
@@ -27,8 +47,7 @@ class Lancamentos{
     }
   }
   async findByMes(id){
-    console.log("Model: ", id)
-    try{
+     try{
      var result = await knex.select(["nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"])
      .where({fkUserLanc:id})
      .addWhere(dataLanc, '>=' , dtInic)
@@ -63,7 +82,7 @@ class Lancamentos{
     // console.log("Model: ", NOME, DESCRICAO)
     try{
    await knex.insert({nomeLanc:nomeLanc,descLanc:descLanc,valorLanc:valorLanc,dataLanc:dataLanc,fkUserLanc:fkUserLanc,fkCatLanc:fkCatLanc,fkConLanc:fkConLanc}).table("lancamentos")
-      // .raw(`insert into lancamentos(IDRECEITA,nomeLanc,descLanc,valorLanc,dataLanc,fkUserLanc,fkCatLanc,fkConLanc) VALUES(NULL,'${nomeLanc}','${descLanc}','${valorLanc}',${dataLanc},${fkUserLanc},${fkCatLanc},${fkConLanc})`)
+      // .raw(`insert into lancamentos(idLanc,nomeLanc,descLanc,valorLanc,dataLanc,fkUserLanc,fkCatLanc,fkConLanc) VALUES(NULL,'${nomeLanc}','${descLanc}','${valorLanc}',${dataLanc},${fkUserLanc},${fkCatLanc},${fkConLanc})`)
       
     }catch(err){
       console.log(err)
@@ -71,23 +90,17 @@ class Lancamentos{
 
   }
 
-  async update(IDRECEITA,nomeLanc,descLanc,valorLanc,dataLanc,fkUserLanc,fkCatLanc,fkConLanc){
-
-    var id = await this.findById(IDRECEITA)
+  async update(idLanc,nomeLanc,descLanc,valorLanc,dataLanc,fkUserLanc,fkCatLanc,fkConLanc){
+ 
+    var id = await this.findById(idLanc)
 
     if(id != undefined){
       var edit = {};
 
       if(nomeLanc != undefined){
-        if(nomeLanc != Lancamentos.nomeLanc){
-          var result = await this.findByLancamentos(nomeLanc)
-            if(result == false){
-              edit.nomeLanc = nomeLanc
-            }else{
-              return{status: false, err:"Lancamentos ja cadastrada"}
-            }
-        }
-      }
+             edit.nomeLanc = nomeLanc
+       }
+      
       if(descLanc != undefined){
         edit.descLanc = descLanc
       }
@@ -101,24 +114,22 @@ class Lancamentos{
         edit.fkUserLanc = fkUserLanc
       }
       if(fkCatLanc != undefined){
-        let id = await this.findById(fkConLanc)
-        
-        if(id != undefined){
+         
         edit.fkCatLanc = fkCatLanc
       }
-    }
+   
       if(fkConLanc != undefined){
         
-        let id = await this.findById(fkConLanc)
-        
-        if(id != undefined){
+     
         edit.fkConLanc = fkConLanc
-      }
+  
 
     }
+  
 
       try{
-        await  knex.update(edit).where({IDRECEITA:IDRECEITA}).table("lancamentos")
+        // console.log('Edit update: \n'+edit)
+        await  knex.update(edit).where({idLanc:idLanc}).table("lancamentos")
         return {status:true}
       }catch(err){
         return {status:false,err:err}
@@ -130,14 +141,14 @@ class Lancamentos{
 
   }
 
-  async delete(IDRECEITA){
+  async delete(idLanc){
 
-    console.log("Model: ", IDRECEITA)
-    var idIsTrue = await this.findById(IDRECEITA)
-    console.log(idIsTrue)
+    console.log("Model: ", idLanc)
+    var idIsTrue = await this.findById(idLanc)
+    // console.log(idIsTrue)
     if(idIsTrue != undefined){
       try{
-        await knex.delete().where({IDRECEITA:IDRECEITA}).table("lancamentos")
+        await knex.delete().where({idLanc:idLanc}).table("lancamentos")
         return {stats: true}
       }catch(err){
         return {stats:false, err:err}

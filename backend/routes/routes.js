@@ -35,15 +35,15 @@ router.delete("/api/lancamento",receitaController.delete);
 
 /*ROTAS API Conta*/
 
-router.get('/api/objetivo',objetivoController.index);
-router.get('/api/objetivo/:id',objetivoController.indexOne);
+router.get('/api/objetivo/:id',objetivoController.index);
+router.get('/api/v2/objetivo/:id',objetivoController.indexOne);
 router.post("/api/objetivo",objetivoController.create);
 router.put("/api/objetivo",objetivoController.update);
 router.delete("/api/objetivo",objetivoController.delete);
 
 /* ROTAS API BANCO */
-router.get('/api/conta',contaController.index);
-router.get('/api/conta/:id',contaController.indexOne);
+router.get('/api/conta/:id',contaController.index);
+router.get('/api/v2/conta/:id',contaController.indexOne);
 router.post("/api/conta",contaController.create);
 router.put("/api/conta", contaController.update);
 router.delete("/api/conta",contaController.delete);

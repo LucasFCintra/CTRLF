@@ -6,7 +6,7 @@ class categoriasController{
 
   async index(req,res){
     var fkUserCat = req.params.id;
-    console.log('catController: '+ JSON.stringify(fkUserCat))
+    // console.log('catController: '+ JSON.stringify(fkUserCat))
     var cat = await Categoria.findAll(fkUserCat)
     res.json(cat)
   }

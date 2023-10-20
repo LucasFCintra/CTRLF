@@ -46,7 +46,7 @@ export default function FormElements() {
 
         try {
             const data = {
-                idCat: document.getElementById('idEdit').value,
+                idCat: document.getElementsByClassName('idCat').value,
                 nomeCat: inputNome,//document.getElementById('nomeEdit').value,
                 descCat: inputDesc, //document.getElementById('descEdit').value
             }
@@ -183,7 +183,7 @@ export default function FormElements() {
                                 </thead>
                                 <tbody>
                                     {items.map(item => (
-                                        <tr key={item.idCat}>
+                                        <tr  key={item.idCat} className='idCat' value={item.idCat}>
                                             <td>{item.nomeCat}</td>
                                             <td>{item.descCat}</td>
                                             <td class="px-6 py-4 text-right">
