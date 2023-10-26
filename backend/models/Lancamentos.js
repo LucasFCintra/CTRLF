@@ -6,7 +6,7 @@ class Lancamentos{
 
     try{
      var result= await  knex.select('*')
-     .from('lancamentos').sum('valorLanc')
+     .from('lancamentos')//.sum('valorLanc')
      .where({fkUserLanc:id})
      .leftOuterJoin('categorias', function() {
        this
@@ -25,7 +25,7 @@ class Lancamentos{
     }
   }
 
-  async dashboard(id){
+  /*async dashboard(id){
 
     try{
      var result= await  knex.select('*').sum()
@@ -44,7 +44,7 @@ class Lancamentos{
     }catch(err){
       console.log(err)
     }
-  }
+  }*/
 
 
   async findById(id){

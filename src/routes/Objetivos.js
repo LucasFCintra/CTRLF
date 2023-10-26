@@ -283,12 +283,12 @@ export default function FormElements() {
                                 <tbody>
                                     {items.map(item => (
                                         <tr key={item.idObj}>
-                                            <td>{item.nomeObj}</td>
-                                            <td>{item.descObj}</td>
-                                            <td>{item.nomeCat}</td>
-                                            <td>{item.valorObj}</td>
-                                            <td>{item.metaObj}</td>
-                                            <td>{item.dataObj}</td>
+                                            <td class='pl-6'>{item.nomeObj}</td>
+                                            <td class='pl-6'>{item.descObj}</td>
+                                            <td class='pl-6'>{item.nomeCat}</td>
+                                            <td class='pl-6'>{item.valorObj}</td>
+                                            <td class='pl-6'>{item.metaObj}</td>
+                                            <td class='pl-6'>{item.dataObj}</td>
                                             <td class="px-6 py-4 text-right">
                                                 <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & props.setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>

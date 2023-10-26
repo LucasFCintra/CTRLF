@@ -36,7 +36,7 @@ export default class Dashboard extends Component {
                                 </div>
                                 <div className='grid grid-rows-1 mt-2 ml-5'>
                                     <div className='grid grid-cols-2'>
-                                        <span class="text-2xl font-bold leading-tight text-white dark:text-gray-400">R$ 00,00</span>
+                                        <span class="text-2xl font-bold leading-tight text-white dark:text-white">R$ 00,00</span>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@ export default class Dashboard extends Component {
                                 </div>
                                 <div className='grid grid-rows-1 mt-2 ml-5'>
                                     <div className='grid grid-cols-2'>
-                                        <span class="text-2xl font-bold leading-tight text-white dark:text-gray-400">R$ 00,00</span>
+                                        <span class="text-2xl font-bold leading-tight text-white dark:text-white">R$ 00,00</span>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@ export default class Dashboard extends Component {
                                 </div>
                                 <div className='grid grid-rows-1 mt-2 ml-5'>
                                     <div className='grid grid-cols-2'>
-                                        <span class="text-2xl font-bold leading-tight text-white dark:text-gray-400">R$ 00,00</span>
+                                        <span class="text-2xl font-bold leading-tight text-white dark:text-white">R$ 00,00</span>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@ export default class Dashboard extends Component {
                                         </li>
                                     </ul>
                                     <ul>
-
+                                        
                                     </ul>
 
                                 </div>

@@ -172,7 +172,7 @@ export default function FormElements() {
             // console.log('Teste' + JSON.stringify(response));
 
             if (response.status == 200) {
-                // window.location.href = "/Lancamentos"
+                window.location.href = "/Lancamentos"
 
 
             }
@@ -351,12 +351,12 @@ export default function FormElements() {
 
                                     {items.map(item => (
                                         <tr key={item.idLanc}>
-                                            <td>{item.nomeLanc}</td>
-                                            <td>{item.descLanc}</td>
-                                            <td>{item.valorLanc}</td>
-                                            <td>{item.dataLanc}</td>
-                                            <td>{item.nomeCat}</td>
-                                            <td>{item.descConta}</td>
+                                            <td class='pl-6'>{item.nomeLanc}</td>
+                                            <td class='pl-6'>{item.descLanc}</td>
+                                            <td class='pl-6'>{item.valorLanc}</td>
+                                            <td class='pl-6'>{item.dataLanc}</td>
+                                            <td class='pl-6'>{item.nomeCat}</td>
+                                            <td class='pl-6'>{item.descConta}</td>
 
                                             <td class="px-6 py-4 text-right">
                                                 <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & props.setOpenModal('initial-focus')} >

@@ -242,10 +242,10 @@ export default function FormElements() {
                                 <tbody>
                                     {items.map(item => (
                                         <tr key={item.idConta}>
-                                            <td>{item.descConta}</td>
-                                            <td>{item.tipoConta}</td>
-                                            <td>{item.valorConta}</td>
-                                            <td>{item.valorAtualConta}</td>
+                                            <td class='pl-6'>{item.descConta}</td>
+                                            <td class='pl-6'>{item.tipoConta}</td>
+                                            <td class='pl-6'>{item.valorConta}</td>
+                                            <td class='pl-6'>{item.valorAtualConta}</td>
                                             <td class="px-6 py-4 text-right">
                                             <button value={item.idConta} id='idLancEdit' onClick={() => updateInfos(item.idConta) & props.setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>

@@ -184,8 +184,8 @@ export default function FormElements() {
                                 <tbody>
                                     {items.map(item => (
                                         <tr  key={item.idCat} className='idCat' value={item.idCat}>
-                                            <td>{item.nomeCat}</td>
-                                            <td>{item.descCat}</td>
+                                            <td class='pl-6'>{item.nomeCat}</td>
+                                            <td class='pl-6'>{item.descCat}</td>
                                             <td class="px-6 py-4 text-right">
                                                 <a class="font-medium text-orange-600 dark:text-orange-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
                                                 <Modal

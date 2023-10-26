@@ -24,12 +24,32 @@ export default function FormElements() {
     const propsPost = { openModalPost, setOpenModalPost, emailInputRefPost };
     const [items, setItems] = useState([]);
     const [error, setError] = useState(null);
+    const [itemsCat, setItemsCat] = useState([]);
+    const [errorCat, setErrorCat] = useState(null);
+    const [itemsCon, setItemsCon] = useState([]);
+    const [errorCon, setErrorCon] = useState(null);
+    const [itemsUp2, setItemsUp2] = useState([]);
+    const [errorUp2, setErrorUp2] = useState(null);
+    const [inputId, setInputId] = useState(null);
+    const [inputNome, setInputNome] = useState('');
+    const [inputDesc, setInputDesc] = useState('');
+    const [inputLanc, setInputLanc] = useState('');
+    const [inputData, setInputData] = useState('');
+    const [inputCat, setInputCat] = useState('');
+    const [inputConta, setInputCon] = useState('');
+    // const [inputDesc, setInputDesc] = useState('');
+    const [postNome, setpostNome] = useState('');
+    const [postDesc, setpostDesc] = useState('');
+    const [postLanc, setpostLanc] = useState('');
+    const [postDataVal, setpostData] = useState('');
+    const [postCat, setpostCat] = useState('');
+    const [postConta, setpostCon] = useState('');
 
 
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
-        const api = 'http://localhost:8687/api/des/categoria/' + 1
+        const api = 'http://localhost:8687/api/lancamento/des/' + 1
 
         axios.get(api)
             .then(response => {
@@ -42,20 +62,83 @@ export default function FormElements() {
             });
     }, []);
 
-    const [inputNome, setInputNome] = useState('');
-    const [inputDesc, setInputDesc] = useState('');
+    var apiCat = 'http://localhost:8687/api/categoria/' + 1
+
+
+    var apiCon = 'http://localhost:8687/api/conta/' + 1
+
+    axios.get(apiCon)
+        .then(response => {
+            setItemsCon(response.data);
+            setErrorCon(null);
+        })
+        .catch(error => {
+            setErrorCon(error.message);
+        });
+
+
+    axios.get(apiCat)
+        .then(response => {
+            setItemsCat(response.data);
+            setErrorCat(null);
+        })
+        .catch(error => {
+            setErrorCat(error.message);
+        });
+
+    async function limparFormPost(id) {
+        // alert('exec')
+        var nomeEdit = document.getElementById('nomePost').value = ''
+        var descEdit = document.getElementById('descPost').value = ''
+        var valorEdit = document.getElementById('valorPost').value = ''
+        var dataEdit = document.getElementById('dataPost').value = ''
+        var catEdit = document.getElementById('catPost').value = '0'
+        var conEdit = document.getElementById('conPost').value = '0'
+    }
+    async function updateInfos(id) {
+        setInputId(id)
+        var idUpdate = id
+        var api = 'http://localhost:8687/api/lancamento/des/' + id
+
+        await axios.get(api).then(response => {
+            setItemsUp2(response.data);
+            setErrorUp2(null);
+        })
+            .catch(error => {
+                setErrorUp2(error.message);
+            });
+
+        console.log(itemsUp2.nomeLanc)
+        var nomeEdit = document.getElementById('nomeEdit').placeholder = itemsUp2.nomeLanc
+        var descEdit = document.getElementById('descEdit').placeholder = itemsUp2.descLanc
+        var valorEdit = document.getElementById('valorEdit').placeholder = itemsUp2.valorLanc
+        var dataEdit = document.getElementById('dataEdit').placeholder = itemsUp2.dataLanc
+        var catEdit = document.getElementById('catEdit').placeholder = itemsUp2.nomeCat
+        var conEdit = document.getElementById('conEdit').placeholder = itemsUp2.descConta
+
+    }
 
     async function updateData() {
 
         try {
             const data = {
-                idCat: document.getElementById('idEdit').value,
-                nomeCat: inputNome,//document.getElementById('nomeEdit').value,
-                descCat: inputDesc, //document.getElementById('descEdit').value
+                idLanc: inputId,
+                nomeLanc: inputNome,//document.getElementById('nomeEdit').value,
+                descLanc: inputDesc, //document.getElementById('descEdit').value
+                valorLanc: inputLanc,
+                dataLanc: inputData,
+                fkUserLanc: 1,
+                fkCatLanc: inputCat,
+                fkConLanc: inputConta
             }
-            const response = await axios.put(`http://localhost:8687/api/categoria`, data);
+            const response = await axios.put(`http://localhost:8687/api/lancamento/des/`, data);
             console.log("Clicou: " + JSON.stringify(response))
 
+            if (response.status == 200) {
+                window.location.href = "/Lancamentos/Despesas"
+
+
+            }
 
             console.log(response.data);
         } catch (error) {
@@ -67,20 +150,22 @@ export default function FormElements() {
 
         try {
             const data = {
-                // idCat: document.getElementById('idEdit').value,
-                nomeCat: inputNome,//document.getElementById('nomeEdit').value,
-                descCat: inputDesc, //document.getElementById('descEdit').value
-                ativoCat: 'A',
-                fkUserCat: 1, //depois pegar esse valor do localStorage
-                tipoCat: 'despesa'
+                nomeLanc: postNome,//document.getElementById('nomeEdit').value,
+                descLanc: postDesc, //document.getElementById('descEdit').value
+                valorLanc: postLanc,
+                dataLanc: postDataVal,
+                fkUserLanc: 1,
+                fkCatLanc: postCat,
+                fkConLanc: postConta,
+                tipoLanc: 'despesa'
             }
             // console.log("Clicou: " + JSON.stringify(data))
 
-            const response = await axios.post(`http://localhost:8687/api/categoria`, data);
+            const response = await axios.post(`http://localhost:8687/api/lancamento/des/`, data);
             console.log('Teste' + JSON.stringify(response));
 
             if (response.status == 200) {
-                window.location.href = "/Categorias/Despesa"
+                window.location.href = "/Lancamento/Despesa"
 
 
             }
@@ -104,7 +189,7 @@ export default function FormElements() {
                                 <Link to="/Lancamentos" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Receitas</Link>
                             </li>
                             <li class="mr-2">
-                                <Link to="/Categorias/Despesas" class="inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg active dark:text-red-500 dark:border-red-500">Despesas</Link>
+                                <Link to="/Lancamentos/Despesas" class="inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg active dark:text-red-500 dark:border-red-500">Despesas</Link>
                             </li>
                         </ul>
 
@@ -123,95 +208,94 @@ export default function FormElements() {
                             >
                                 <Modal.Header />
                                 <Modal.Body>
-                                    <div className="space-y-6">
-                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Adicionar Despesa</h3>
+                                <div className="space-y-6">
+                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Adicionar Lançamento</h3>
                                         <div>
                                             <div className="mb-2 block">
                                                 <Label
-                                                    value="Nome"
+                                                    value="Nome do Lançamento"
                                                 />
                                             </div>
                                             <TextInput
                                                 id="nomePost"
-                                                placeholder='Nome'
                                                 type='text'
-                                                value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                placeholder='Insira o nome'
+                                                value={postNome} onChange={event => setpostNome(event.target.value)}
                                                 required
                                             />
                                         </div>
                                         <div>
                                             <div className="mb-2 block">
                                                 <Label
-                                                    value="Descrição"
+                                                    value="Descrição do Lançamento"
                                                 />
                                             </div>
                                             <TextInput
                                                 id="descPost"
-                                                placeholder='Descrição'
-                                                value={inputDesc} onChange={event => setInputDesc(event.target.value)}
+                                                placeholder='Insira a Descrição'
+                                                value={postDesc} onChange={event => setpostDesc(event.target.value)}
                                             />
                                         </div>
-                                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                                            <div>
-                                                <div className="mb-2 block">
-                                                    <Label
-                                                        value="Valor"
-                                                    />
-                                                </div>
-                                                <TextInput
-                                                    id="nomePost"
-                                                    placeholder='Valor'
-                                                    type='text'
-                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
-                                                    required
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Valor do Lançamento"
                                                 />
                                             </div>
-                                            <div>
-                                                <div className="mb-2 block">
-                                                    <Label
-                                                        value="Data"
-                                                    />
-                                                </div>
-                                                <TextInput
-                                                    id="nomePost"
-                                                    placeholder='Data'
-                                                    type='text'
-                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
-                                                    required
+                                            <TextInput
+                                                id="valorPost"
+                                                type='float'
+                                                placeholder='Insira o valor'
+                                                value={postLanc} onChange={event => setpostLanc(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Data do Lançamento"
                                                 />
                                             </div>
-                                            <div>
-                                                <div className="mb-2 block">
-                                                    <Label
-                                                        value="Categoria"
-                                                    />
-                                                </div>
-                                                <TextInput
-                                                    id="nomePost"
-                                                    placeholder='Categoria'
-                                                    type='text'
-                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
-                                                    required
+                                            <TextInput
+                                                id="dataPost"
+                                                placeholder='dd/mm/aaaa'
+                                                type='date'
+                                                value={postDataVal} onChange={event => setpostData(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Categoria do Lançamento"
                                                 />
                                             </div>
-                                            <div>
-                                                <div className="mb-2 block">
-                                                    <Label
-                                                        value="Conta"
-                                                    />
-                                                </div>
-                                                <TextInput
-                                                    id="nomePost"
-                                                    placeholder='Conta'
-                                                    type='text'
-                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
-                                                    required
+                                            <select id="catPost" value={postCat} onChange={event => setpostCat(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <option  selected value = '0' > -- selecionar Categoria -- </option>
+                                                {itemsCat.map(item => (
+                                                    <option value={item.idCat}>{item.nomeCat}</option>
+                                                ))}
+                                            </select>
+
+                                        </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Conta do Lançamento"
                                                 />
                                             </div>
+                                            <select id="conPost" value={postConta} onChange={event => setpostCon(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <option  selected value='0'> -- selecionar Conta -- </option>
+                                                {itemsCon.map(item => (
+                                                    <option value={item.idConta}>{item.descConta}</option>
+                                                ))}
+                                            </select>
+
                                         </div>
 
+
                                         <div className="w-full">
-                                            <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">Salvar</button>
+                                            <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">Inserir Dados</button>
                                         </div>
 
                                     </div>
@@ -252,12 +336,19 @@ export default function FormElements() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {items.map(item => (
-                                        <tr key={item.idCat}>
-                                            <td>{item.nomeCat}</td>
-                                            <td>{item.descCat}</td>
+                                {items.map(item => (
+                                        <tr key={item.idLanc}>
+                                            <td class='pl-6'>{item.nomeLanc}</td>
+                                            <td class='pl-6'>{item.descLanc}</td>
+                                            <td class='pl-6'>{item.valorLanc}</td>
+                                            <td class='pl-6'>{item.dataLanc}</td>
+                                            <td class='pl-6'>{item.nomeCat}</td>
+                                            <td class='pl-6'>{item.descConta}</td>
+
                                             <td class="px-6 py-4 text-right">
-                                                <a class="font-medium text-red-600 dark:text-red-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & props.setOpenModal('initial-focus')} >
+                                                    <a class="font-medium text-red-600 dark:text-red-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
+                                                </button>
                                                 <Modal
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
@@ -272,40 +363,89 @@ export default function FormElements() {
                                                             <div>
                                                                 <div className="mb-2 block">
                                                                     <Label
-                                                                        value="Nome da Categoria"
+                                                                        value="Nome do Lançamento"
                                                                     />
                                                                 </div>
                                                                 <TextInput
-                                                                    addon="Nome"
                                                                     id="nomeEdit"
-                                                                    placeholder={item.nomeCat}
+                                                                    placeholder={item.nomeLanc}
                                                                     type='text'
-                                                                    value={inputNome} onChange={event => setInputNome(event.target.value)}
+                                                                    value={inputNome}
+                                                                    onChange={event => setInputNome(event.target.value)
+                                                                    }
                                                                     required
                                                                 />
                                                             </div>
                                                             <div>
                                                                 <div className="mb-2 block">
                                                                     <Label
-                                                                        value="Descrição da Categoria"
+                                                                        value="Descrição do Lançamento"
                                                                     />
                                                                 </div>
                                                                 <TextInput
-                                                                    addon="Descrição"
                                                                     id="descEdit"
-                                                                    placeholder={item.descCat}
+                                                                    placeholder={item.descLanc}
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
+                                                                
+                                                            </div>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Valor do Lançamento"
+                                                                    />
+                                                                </div>
                                                                 <TextInput
-                                                                    id="idEdit"
-                                                                    value={item.idCat}
-                                                                    // type='hidden'
-                                                                    disabled
+                                                                    id="valorEdit"
+                                                                    placeholder={item.valorLanc}
+                                                                    type='text'
+                                                                    value={inputLanc} onChange={event => setInputLanc(event.target.value)}
+                                                                    required
                                                                 />
                                                             </div>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Data do Lançamento"
+                                                                    />
+                                                                </div>
+                                                                <TextInput
+                                                                    id="dataEdit"
+                                                                    placeholder={item.nomeLanc}
+                                                                    type='date'
+                                                                    value={inputData} onChange={event => setInputData(event.target.value)}
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Categoria do Lançamento"
+                                                                    />
+                                                                </div>
+                                                                <select id="catEdit" value={inputCat} onChange={event => setInputCat(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                                                    {itemsCat.map(item => (
+                                                                        <option value={item.idCat}>{item.nomeCat}</option>
+                                                                    ))}
+                                                                </select>
+
+                                                            </div>
+                                                            <div>
+                                                                <div className="mb-2 block">
+                                                                    <Label
+                                                                        value="Conta do Lançamento"
+                                                                    />
+                                                                </div>
+                                                                <select id="conEdit" value={inputConta} onChange={event => setInputCon(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                                                    {itemsCon.map(item => (
+                                                                        <option value={item.idConta}>{item.descConta}</option>
+                                                                    ))}
+                                                                </select>
+                                                            </div>
+
 
                                                             <div className="w-full">
-                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
+                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">Atualizar</button>
                                                             </div>
 
                                                         </div>
