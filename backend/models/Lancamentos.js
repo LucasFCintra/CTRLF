@@ -18,6 +18,8 @@ class Lancamentos{
      
     //  knex.select(["idLanc","nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
       return result
+
+      console.log(result)
     }catch(err){
       console.log(err)
     }
@@ -120,34 +122,34 @@ class Lancamentos{
     if(id != undefined){
       var edit = {};
 
-      if(nomeLanc != undefined){
-             edit.nomeLanc = nomeLanc
-       }
-      
-      if(descLanc != undefined){
-        edit.descLanc = descLanc
-      }
-      if(dataLanc != undefined){
-        edit.dataLanc = dataLanc
-      }   
-       if(valorLanc != undefined){
-        edit.valorLanc = valorLanc
-      }
-      if(fkUserLanc != undefined){
-        edit.fkUserLanc = fkUserLanc
-      }
-      if(fkCatLanc != undefined){
-         
-        edit.fkCatLanc = fkCatLanc
-      }
-   
-      if(fkConLanc != undefined){
-        
-     
-        edit.fkConLanc = fkConLanc
-  
+      if(nomeLanc.length > 0){
+        edit.nomeLanc = nomeLanc
+  }
+ 
+ if(descLanc.length > 0){
+   edit.descLanc = descLanc
+ }
+ if(dataLanc.length > 0){
+   edit.dataLanc = dataLanc
+ }   
+  if(valorLanc.length > 0){
+   edit.valorLanc = valorLanc
+ }
+ if(fkUserLanc.length > 0){
+   edit.fkUserLanc = fkUserLanc
+ }
+ if(fkCatLanc.length > 0){
+    
+   edit.fkCatLanc = fkCatLanc
+ }
 
-    }
+ if(fkConLanc.length > 0){
+   
+
+   edit.fkConLanc = fkConLanc
+
+
+}
   
 
       try{

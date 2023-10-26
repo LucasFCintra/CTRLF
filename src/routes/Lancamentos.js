@@ -139,9 +139,9 @@ export default function FormElements() {
             } 
 
             const response = await axios.put(`http://localhost:8687/api/lancamento`, data);
-            console.log("Clicou: " + response)
+            console.log("Clicou: " + JSON.stringify(response))
             
-            if (response[0].status == 200) {
+            if (response.status == 200) {
                 window.location.href = "/Lancamentos"
 
 

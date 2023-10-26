@@ -39,7 +39,7 @@ router.post("/api/lancamento",receitaController.create);
 router.put("/api/lancamento",receitaController.update);
 router.delete("/api/lancamento",receitaController.delete);
 
-router.get('/api/dashboard/:id',receitaController.dashboard);
+// router.get('/api/dashboard/:id',receitaController.dashboard);
 
 
 /*ROTAS API OBJETIVO*/

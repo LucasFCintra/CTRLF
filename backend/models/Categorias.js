@@ -95,12 +95,12 @@ class categoriasModel{
 }
   async update(idCat,nomeCat,descCat/*,ativoCat,fkUserCat*/){
 
-   /* var id = await this.findById(idCat)
+ var id = await this.findById(idCat)
     console.log('Update Controler: '+id)
     if(id != undefined){
       var edit = {};
 
-      if(nomeCat != undefined){
+      if(nomeCat.length > 0){
         if(nomeCat != Categoria.nomeCat){
           var result = await this.findByCat(nomeCat,fkUserCat)
             if(result == false){
@@ -110,19 +110,15 @@ class categoriasModel{
             }
         }
       }
-      if(descCat != undefined){
+      if(descCat.length > 0){
         edit.descCat = descCat
       }
-      if(ativoCat != undefined){
+      if(ativoCat.length > 0){
         edit.ativoCat = ativoCat
       } 
-*/
-var edit = {
-  idCat :idCat,
-  nomeCat:nomeCat,
-  descCat:descCat
-}
-      try{
+    }
+ 
+   try{
         // console.log('Model update id:'+idCat);
         await  knex.update(edit).where({idCat:idCat}).table("categorias")
         return {status:true, msg:'Dados inseridos com sucesso'}

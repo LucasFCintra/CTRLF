@@ -79,18 +79,18 @@ async login(emailUser,senhaUser){
     if (id != undefined) {
       var edit = {};
 
-      if (nomeUser != undefined) {
+      if (nomeUser.length > 0) {
         if (nomeUser != usuariosModel.nomeUser) {
           edit.nomeUser = nomeUser
 
         }
       }
-      if (emailUser != undefined) {
+      if (emailUser.length > 0) {
         edit.emailUser = emailUser
       }
-      if (senhaUser != undefined) {
+      if (senhaUser.length > 0) {
         edit.senhaUser = senhaUser
-      }  if (telefoneUser != undefined) {
+      }  if (telefoneUser.length > 0) {
         edit.telefoneUser = telefoneUser
       }
       console.log('updateModel :'+ edit)

@@ -76,7 +76,7 @@ class Objetivos{
     if(id != undefined){
       var edit = {};
 
-      if(nomeObj != undefined){
+      if(nomeObj.length > 0){
         if(nomeObj != Objetivos.nomeObj){
           var result = await this.findByObjetivos(nomeObj)
             if(result == false){
@@ -86,16 +86,16 @@ class Objetivos{
             }
         }
       }
-      if(descObj != undefined){
+      if(descObj.length > 0){
         edit.descObj = descObj
       }
-      if(metaObj != undefined){
+      if(metaObj.length > 0){
         edit.metaObj = metaObj
       }
-      if(dataObj != undefined){ 
+      if(dataObj.length > 0){ 
         edit.dataObj = dataObj
       }
-      if(valorObj != undefined){  
+      if(valorObj.length > 0){  
         edit.valorObj = valorObj
       }
 
