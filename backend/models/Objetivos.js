@@ -6,11 +6,17 @@ const knex = require("../database/connection")
 
 class Objetivos{
 
-  async findAll(){
+  async findAll(id){
 
     try{
-    var result= await knex.select(["idObj","nomeObj","descObj","valorObj","metaObj","dataObj","fkUserObj"]).table("objetivos")
-      return result
+      var result= await  knex.select('*')
+     .from('objetivos') 
+     .where({fkUserObj:id})
+     .leftOuterJoin('categorias', function() {
+       this
+         .on('categorias.idCat', '=', 'objetivos.fkCatObj')
+     }) 
+     return result
     }catch(err){
       console.log(err)
     }
@@ -19,8 +25,14 @@ class Objetivos{
   async findById(id){
     // console.log("Model: ", id)
     try{
-     var result = await knex.select(["idObj","nomeObj","descObj","valorObj","metaObj","dataObj","fkUserObj"]).where({idObj:id}).table("objetivos")
-     if(result.length > 0){
+      var result= await  knex.select('*')
+      .from('objetivos') 
+      .where({fkUserObj:id})
+      .leftOuterJoin('categorias', function() {
+        this
+          .on('categorias.idCat', '=', 'objetivos.fkCatObj')
+      }) 
+      if(result.length > 0){
       return result[0]
      }else{
        return undefined

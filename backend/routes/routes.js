@@ -8,6 +8,12 @@ const objetivoController = require("../controllers/objetivosController");
 const receitaController = require("../controllers/lancamentosController");
 const usuariosController = require("../controllers/usuariosController");
 
+
+
+
+
+
+
 /*ROTAS API CATEGORIA */
 router.get('/api/categoria/:id',categoriasController.index);
 router.get('/api/rec/categoria/:id',categoriasController.indexRec);
@@ -27,13 +33,16 @@ router.delete("/api/usuario",usuariosController.delete);
 /*ROTAS API RECEITA */
 
 router.get('/api/lancamento/:id',receitaController.index);
+router.get('/api/lancamento/des/:id',receitaController.index);
 router.get('/api/v2/lancamento/:id',receitaController.indexOne);
 router.post("/api/lancamento",receitaController.create);
 router.put("/api/lancamento",receitaController.update);
 router.delete("/api/lancamento",receitaController.delete);
 
+router.get('/api/dashboard/:id',receitaController.dashboard);
 
-/*ROTAS API Conta*/
+
+/*ROTAS API OBJETIVO*/
 
 router.get('/api/objetivo/:id',objetivoController.index);
 router.get('/api/v2/objetivo/:id',objetivoController.indexOne);
@@ -41,7 +50,7 @@ router.post("/api/objetivo",objetivoController.create);
 router.put("/api/objetivo",objetivoController.update);
 router.delete("/api/objetivo",objetivoController.delete);
 
-/* ROTAS API BANCO */
+/* ROTAS API CONTA */
 router.get('/api/conta/:id',contaController.index);
 router.get('/api/v2/conta/:id',contaController.indexOne);
 router.post("/api/conta",contaController.create);

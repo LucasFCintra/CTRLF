@@ -6,7 +6,8 @@ class Lancamentos{
 
     try{
      var result= await  knex.select('*')
-     .from('lancamentos')
+     .from('lancamentos').sum('valorLanc')
+     .where({fkUserLanc:id})
      .leftOuterJoin('categorias', function() {
        this
          .on('categorias.idCat', '=', 'lancamentos.fkCatLanc')
@@ -21,6 +22,28 @@ class Lancamentos{
       console.log(err)
     }
   }
+
+  async dashboard(id){
+
+    try{
+     var result= await  knex.select('*').sum()
+     .from('lancamentos') 
+     .where({fkUserLanc:id})
+     .leftOuterJoin('categorias', function() {
+       this
+         .on('categorias.idCat', '=', 'lancamentos.fkCatLanc')
+     }).leftOuterJoin('contas', function() {
+      this
+        .on('contas.idConta', '=', 'lancamentos.fkConLanc')
+    })
+     
+    //  knex.select(["idLanc","nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
+      return result
+    }catch(err){
+      console.log(err)
+    }
+  }
+
 
   async findById(id){
     // console.log("Model Id: ", id)

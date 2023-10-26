@@ -5,7 +5,8 @@ const Objetivo = require("../models/Objetivos")
 class objetivoController{
 
   async index(req,res){
-    var objetivo = await Objetivo.findAll()
+    var id = req.params.id
+    var objetivo = await Objetivo.findAll(id)
     res.json(objetivo)
   }
 

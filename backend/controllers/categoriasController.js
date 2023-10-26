@@ -12,7 +12,7 @@ class categoriasController{
   }
   async indexRec(req,res){
     var fkUserCat = req.params.id;
-    console.log('catController: '+ JSON.stringify(fkUserCat))
+    // console.log('catController: '+ JSON.stringify(fkUserCat))
     var cat = await Categoria.findAllRec(fkUserCat)
     res.json(cat)
   }

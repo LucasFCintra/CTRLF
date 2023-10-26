@@ -70,7 +70,7 @@ class categoriasModel{
     }
   }
 
-  async create(nomeCat,descCat,ativoCat,fkUserCat,tipoCat){
+  async create(nomeCat,descCat,ativoCat,fkUserCat,tipoCat,fkUserLanc){
     // console.log("Model: ", nomeCat, descCat)
 
     var result = await this.findByCat(nomeCat,fkUserCat);
@@ -78,7 +78,7 @@ class categoriasModel{
     if(result === false){
 
     try{
-      await knex.insert({nomeCat:nomeCat,descCat:descCat,ativoCat:ativoCat, fkUserCat:fkUserCat,tipoCat:tipoCat}).table("categorias")
+      await knex.insert({nomeCat:nomeCat,descCat:descCat,ativoCat:ativoCat, fkUserCat:fkUserCat,tipoCat:tipoCat,fkUserLanc:fkUserLanc}).table("categorias")
     return {status:true,msg:'Categoria criada com sucesso'}
 
     }catch(err){

@@ -5,7 +5,8 @@ const Conta = require("../models/Contas")
 class contaController{
 
   async index(req,res){
-    var conta = await Conta.findAll()
+    var id = req.params.id
+    var conta = await Conta.findAll(id)
     res.json(conta)
   }
 
@@ -20,8 +21,8 @@ class contaController{
   }
 
   async create(req,res){
-    var{idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser} = req.body;
-    console.log(idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser)
+    var{ descConta, tipoConta, valorConta,valorAtualConta,fkContaUser} = req.body;
+    console.log('Conta Controller: ', descConta, tipoConta, valorConta,valorAtualConta,fkContaUser)
 
     if(descConta != undefined || tipoConta != undefined || fkContaUser < 0){
       await Conta.create(descConta, tipoConta, valorConta,valorAtualConta,fkContaUser)
@@ -34,11 +35,11 @@ class contaController{
 
   async update(req,res){
 
-    var {idConta,idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser} = req.body;
-
+    var {idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser} = req.body;
+    // console.log('Conta Controller: ',idConta,idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser)
     if(idConta != undefined && idConta > 0){
 
-      var result = await Conta.update(idConta,idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser)
+      var result = await Conta.update(idConta, descConta, tipoConta, valorConta,valorAtualConta,fkContaUser)
       
       if(result.status){
         res.status(200).send("Dados atualizados com sucesso")

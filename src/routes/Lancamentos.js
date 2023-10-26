@@ -29,6 +29,20 @@ export default function FormElements() {
     const [errorCon, setErrorCon] = useState(null);
     const [itemsUp2, setItemsUp2] = useState([]);
     const [errorUp2, setErrorUp2] = useState(null);
+    const [inputId, setInputId] = useState(null);
+    const [inputNome, setInputNome] = useState('');
+    const [inputDesc, setInputDesc] = useState('');
+    const [inputLanc, setInputLanc] = useState('');
+    const [inputData, setInputData] = useState('');
+    const [inputCat, setInputCat] = useState('');
+    const [inputConta, setInputCon] = useState('');
+    // const [inputDesc, setInputDesc] = useState('');
+    const [postNome, setpostNome] = useState('');
+    const [postDesc, setpostDesc] = useState('');
+    const [postLanc, setpostLanc] = useState('');
+    const [postDataVal, setpostData] = useState('');
+    const [postCat, setpostCat] = useState('');
+    const [postConta, setpostCon] = useState('');
 
 
     useEffect(() => {
@@ -49,20 +63,6 @@ export default function FormElements() {
 
 
     // console.log(items)
-    const [inputNome, setInputNome] = useState('');
-    const [inputDesc, setInputDesc] = useState('');
-    const [inputLanc, setInputLanc] = useState('');
-    const [inputData, setInputData] = useState('');
-    const [inputCat, setInputCat] = useState('');
-    const [inputConta, setInputCon] = useState('');
-    const [inputId, setInputId] = useState(null);
-    // const [inputDesc, setInputDesc] = useState('');
-    const [postNome, setpostNome] = useState('');
-    const [postDesc, setpostDesc] = useState('');
-    const [postLanc, setpostLanc] = useState('');
-    const [postDataVal, setpostData] = useState('');
-    const [postCat, setpostCat] = useState('');
-    const [postConta, setpostCon] = useState('');
 
     // async function getCategorias(){
     var apiCat = 'http://localhost:8687/api/categoria/' + 1
@@ -93,14 +93,18 @@ export default function FormElements() {
     // getCategorias()
     // console.log(itemsCat)
 
-    async function getContas() {
-
-    }
-    // getContas()     
-    // console.log(itemsCon)
+    async function limparFormPost(id){
+        // alert('exec')
+        var nomeEdit = document.getElementById('nomePost').value = ''
+        var descEdit = document.getElementById('descPost').value = ''
+        var valorEdit = document.getElementById('valorPost').value = ''
+        var dataEdit = document.getElementById('dataPost').value =''
+        var catEdit = document.getElementById('catPost').value ='0'
+        var conEdit = document.getElementById('conPost').value = '0'
+    } 
     async function updateInfos(id) {
-         setInputId( id)    
-       var idUpdate = id
+        setInputId(id)
+        var idUpdate = id
         var api = 'http://localhost:8687/api/v2/lancamento/' + id
 
         await axios.get(api).then(response => {
@@ -109,19 +113,19 @@ export default function FormElements() {
         })
             .catch(error => {
                 setErrorUp2(error.message);
-            }); 
-        var nomeEdit = document.getElementById('nomeEdit').placeholder  = itemsUp2.nomeLanc
-        var descEdit = document.getElementById('descEdit').placeholder  = itemsUp2.descLanc
-        var valorEdit = document.getElementById('valorEdit').placeholder  = itemsUp2.valorLanc
-        var dataEdit = document.getElementById('dataEdit').placeholder  = itemsUp2.dataLanc
-        var catEdit = document.getElementById('catEdit').placeholder  = itemsUp2.nomeCat
-        var conEdit = document.getElementById('conEdit').placeholder  = itemsUp2.descConta
- 
+            });
+
+        console.log(itemsUp2.nomeLanc)
+        var nomeEdit = document.getElementById('nomeEdit').placeholder = itemsUp2.nomeLanc
+        var descEdit = document.getElementById('descEdit').placeholder = itemsUp2.descLanc
+        var valorEdit = document.getElementById('valorEdit').placeholder = itemsUp2.valorLanc
+        var dataEdit = document.getElementById('dataEdit').placeholder = itemsUp2.dataLanc
+        var catEdit = document.getElementById('catEdit').placeholder = itemsUp2.nomeCat
+        var conEdit = document.getElementById('conEdit').placeholder = itemsUp2.descConta
+
     }
     async function updateData() {
-        // alert('Clicou')
-
-           alert(inputId)
+        // alert('Clicou') 
         try {
             const data = {
                 idLanc: inputId,
@@ -129,16 +133,16 @@ export default function FormElements() {
                 descLanc: inputDesc, //document.getElementById('descEdit').value
                 valorLanc: inputLanc,
                 dataLanc: inputData,
-                fkUserLanc: "1",
+                fkUserLanc: 1,
                 fkCatLanc: inputCat,
                 fkConLanc: inputConta
-            }
-            console.log('Edit: \n' + JSON.stringify(data))
-            const response = await axios.put(`http://localhost:8687/api/lancamento`, data);
-            console.log("Clicou: " + JSON.stringify(response))
+            } 
 
-            if (response.status == 200) {
-                // window.location.href = "/Lancamentos"
+            const response = await axios.put(`http://localhost:8687/api/lancamento`, data);
+            console.log("Clicou: " + response)
+            
+            if (response[0].status == 200) {
+                window.location.href = "/Lancamentos"
 
 
             }
@@ -153,22 +157,22 @@ export default function FormElements() {
 
         try {
             const data = {
-                idLanc: document.getElementById('idPost').value,
                 nomeLanc: postNome,//document.getElementById('nomeEdit').value,
                 descLanc: postDesc, //document.getElementById('descEdit').value
                 valorLanc: postLanc,
                 dataLanc: postDataVal,
-                fkUserLanc: postLanc,
+                fkUserLanc: 1,
                 fkCatLanc: postCat,
-                fkConLanc: postConta
+                fkConLanc: postConta,
+                tipoLanc: 'receita'
             }
-            // console.log("Clicou: " + JSON.stringify(data))
+            console.log("Clicou: " + JSON.stringify(data))
 
             const response = await axios.post(`http://localhost:8687/api/lancamento`, data);
-            console.log('Teste' + JSON.stringify(response));
+            // console.log('Teste' + JSON.stringify(response));
 
             if (response.status == 200) {
-                window.location.href = "/Lancamentos"
+                // window.location.href = "/Lancamentos"
 
 
             }
@@ -179,7 +183,7 @@ export default function FormElements() {
                 alert('Erro ao inserir \n Categoria ja cadastrada ')
 
             }
-            console.error('testeS ' + error);
+            console.error('teste ' + error);
         }
     }
     return (
@@ -198,11 +202,11 @@ export default function FormElements() {
                         </ul>
 
                         <div className='fixed top-24 right-12 group'>
-                            <Button type="button" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" onClick={() => propsPost.setOpenModalPost('initial-focus')}>
+                            <button value={1}type="button" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" onClick={() => propsPost.setOpenModalPost('initial-focus') }>
                                 <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
                                 </svg>
-                            </Button>
+                            </button>
                             <Modal
                                 show={propsPost.openModalPost === 'initial-focus'}
                                 size="md"
@@ -223,6 +227,7 @@ export default function FormElements() {
                                             <TextInput
                                                 id="nomePost"
                                                 type='text'
+                                                placeholder='Insira o nome'
                                                 value={postNome} onChange={event => setpostNome(event.target.value)}
                                                 required
                                             />
@@ -235,6 +240,7 @@ export default function FormElements() {
                                             </div>
                                             <TextInput
                                                 id="descPost"
+                                                placeholder='Insira a Descrição'
                                                 value={postDesc} onChange={event => setpostDesc(event.target.value)}
                                             />
                                         </div>
@@ -246,7 +252,8 @@ export default function FormElements() {
                                             </div>
                                             <TextInput
                                                 id="valorPost"
-                                                type='text'
+                                                type='float'
+                                                placeholder='Insira o valor'
                                                 value={postLanc} onChange={event => setpostLanc(event.target.value)}
                                                 required
                                             />
@@ -259,6 +266,7 @@ export default function FormElements() {
                                             </div>
                                             <TextInput
                                                 id="dataPost"
+                                                placeholder='dd/mm/aaaa'
                                                 type='date'
                                                 value={postDataVal} onChange={event => setpostData(event.target.value)}
                                                 required
@@ -270,7 +278,8 @@ export default function FormElements() {
                                                     value="Categoria do Lançamento"
                                                 />
                                             </div>
-                                            <select id="catPost" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <select id="catPost" value={postCat} onChange={event => setpostCat(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <option  selected value = '0' > -- selecionar Categoria -- </option>
                                                 {itemsCat.map(item => (
                                                     <option value={item.idCat}>{item.nomeCat}</option>
                                                 ))}
@@ -283,11 +292,13 @@ export default function FormElements() {
                                                     value="Conta do Lançamento"
                                                 />
                                             </div>
-                                            <select id="conPost" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <select id="conPost" value={postConta} onChange={event => setpostCon(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <option  selected value='0'> -- selecionar Conta -- </option>
                                                 {itemsCon.map(item => (
-                                                    <option value={item.idCon}>{item.descConta}</option>
+                                                    <option value={item.idConta}>{item.descConta}</option>
                                                 ))}
                                             </select>
+
                                         </div>
 
 
@@ -346,7 +357,6 @@ export default function FormElements() {
                                             <td>{item.dataLanc}</td>
                                             <td>{item.nomeCat}</td>
                                             <td>{item.descConta}</td>
-                                            <td>{item.idLanc}</td>
 
                                             <td class="px-6 py-4 text-right">
                                                 <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & props.setOpenModal('initial-focus')} >
@@ -390,8 +400,7 @@ export default function FormElements() {
                                                                     placeholder={item.descLanc}
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
-                                                                <input value={item.idLanc} id='idLancEdit' name='idLancEdit' onLoad={event => setInputId(event.target.value)} />
-
+                                                                
                                                             </div>
                                                             <div>
                                                                 <div className="mb-2 block">
@@ -449,7 +458,7 @@ export default function FormElements() {
 
 
                                                             <div className="w-full">
-                                                                <button type="button" onClick={ updateData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
+                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Atualizar</button>
                                                             </div>
 
                                                         </div>

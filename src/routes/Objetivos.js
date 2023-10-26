@@ -24,10 +24,24 @@ export default function FormElements() {
     const [items, setItems] = useState([]);
     const [error, setError] = useState(null);
 
+    const [itemsCat, setItemsCat] = useState([]);
+    const [errorCat, setErrorCat] = useState(null);
 
+
+    
+    const [inputId, setInputId] = useState(null);
+    const [inputNome, setInputNome] = useState('');
+    const [inputDesc, setInputDesc] = useState('');
+    const [inputValor, setInputValor] = useState('');
+    const [inputMeta, setInputMeta] = useState('');
+    const [inputData, setInputData] = useState('');
+    const [postCat, setpostCat] = useState('');
+    const [inputCat, setInputCat] = useState('');
+    
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
         const api = 'http://localhost:8687/api/objetivo/' + 1
+        const apiCat = 'http://localhost:8687/api/categoria/' + 1
 
         axios.get(api)
             .then(response => {
@@ -38,13 +52,17 @@ export default function FormElements() {
             .catch(error => {
                 setError(error.message);
             });
+
+            axios.get(apiCat)
+            .then(response => {
+                setItemsCat(response.data);
+                setErrorCat(null);
+            })
+            .catch(error => {
+                setErrorCat(error.message);
+            });
     }, []);
-    const [inputId, setInputId] = useState(null);
-    const [inputNome, setInputNome] = useState('');
-    const [inputDesc, setInputDesc] = useState('');
-    const [inputValor, setInputValor] = useState('');
-    const [inputMeta, setInputMeta] = useState('');
-    const [inputData, setInputData] = useState('');
+
 
     async function updateInfos(id) {
         setInputId(id)
@@ -163,6 +181,20 @@ export default function FormElements() {
                                                 value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                             />
                                         </div>
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Categoria do Lançamento"
+                                                />
+                                            </div>
+                                            <select id="catPost" value={postCat} onChange={event => setpostCat(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <option  selected value = '0' > -- selecionar Categoria -- </option>
+                                                {itemsCat.map(item => (
+                                                    <option value={item.idCat}>{item.nomeCat}</option>
+                                                ))}
+                                            </select>
+
+                                        </div>
                                         <div class="grid gap-6 mb-6 md:grid-cols-2">
                                             <div>
                                                 <div className="mb-2 block">
@@ -231,6 +263,8 @@ export default function FormElements() {
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Descrição
+                                        </th>  <th scope="col" class="px-6 py-3">
+                                            Categoria
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Valor
@@ -251,6 +285,7 @@ export default function FormElements() {
                                         <tr key={item.idObj}>
                                             <td>{item.nomeObj}</td>
                                             <td>{item.descObj}</td>
+                                            <td>{item.nomeCat}</td>
                                             <td>{item.valorObj}</td>
                                             <td>{item.metaObj}</td>
                                             <td>{item.dataObj}</td>
@@ -293,7 +328,20 @@ export default function FormElements() {
                                                                     placeholder={item.descObj}
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
-                                                            </div>
+                                                            </div>  <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Categoria do Lançamento"
+                                                />
+                                            </div>
+                                            <select id="catPost" value={postCat} onChange={event => setpostCat(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <option  selected value = '0' > -- selecionar Categoria -- </option>
+                                                {itemsCat.map(item => (
+                                                    <option value={item.idCat}>{item.nomeCat}</option>
+                                                ))}
+                                            </select>
+
+                                        </div>
                                                             <div class="grid gap-6 mb-6 md:grid-cols-2">
                                                                 <div>
                                                                     <div className="mb-2 block">
@@ -337,7 +385,7 @@ export default function FormElements() {
                                                             </div>
 
                                                             <div className="w-full">
-                                                                <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Salvar</button>
+                                                                <button type="button" onClick={updateData} class="w-full focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Salvar</button>
                                                             </div>
 
                                                         </div>
