@@ -119,8 +119,8 @@ export default function Dashboard() {
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-5 mb-5">
-                        <div class="grid grid-rows-3 items-start rounded bg-gray-50 h-50     dark:bg-gray-900">
-                            <div class='gird grid-rows-3 pt-2 ml-5'>
+                        <div class="grid items-start rounded bg-gray-50 dark:bg-gray-900">
+                            <div class='gird grid-rows-3 pt-2 ml-5 mb-5'>
                                 <ul role="list" class="space-y-5">
                                     <li class="flex space-x-3 items-center">
                                         <p class="text-2xl text-gray-400 dark:text-white">
@@ -134,12 +134,15 @@ export default function Dashboard() {
                                 <ul>
                                     <li>
 
-                                        <div class="relative overflow-x-auto">
+                                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5 mr-5">
+
                                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+                                                <thead class="text-xs text-green-700 uppercase bg-green-100 dark:bg-green-700 dark:text-green-400">
+
                                                     <tr>
                                                         <th scope="col" class="px-6 py-3">
-                                                            Lancamentos
+                                                            Nome
                                                         </th>
                                                         <th scope="col" class="px-6 py-3">
                                                             Valor
@@ -150,6 +153,8 @@ export default function Dashboard() {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+
+
                                                     {lancRec.map(item => (
                                                         <tr key={item.idLanc} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" value={item.idLanc}>
                                                             <td class="px-6 py-4">{item.nomeLanc}</td>
@@ -157,7 +162,9 @@ export default function Dashboard() {
                                                             <td class="px-6 py-4">{item.dataLanc}</td>
                                                         </tr>
                                                     ))}
+
                                                 </tbody>
+
                                             </table>
                                         </div>
 
@@ -166,8 +173,8 @@ export default function Dashboard() {
 
                             </div>
                         </div>
-                        <div class="grid grid-rows-2 items-start rounded bg-gray-50 h-28 dark:bg-gray-900">
-                            <div class='gird grid-rows-2 pt-2 ml-5'>
+                        <div class="grid items-start rounded bg-gray-50 dark:bg-gray-900">
+                            <div class='gird grid-rows-3 pt-2 ml-5 mb-5'>
                                 <ul role="list" class="space-y-5">
                                     <li class="flex space-x-3 items-center">
                                         <p class="text-2xl text-gray-400 dark:text-white">
@@ -175,18 +182,21 @@ export default function Dashboard() {
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.905 1.316 15.633 6M18 10h-5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5m0-5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1m0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1v-3m-6.367-9L7.905 1.316 2.352 6h9.281Z" />
                                             </svg>
                                         </p>
-                                        <h5 class="mb-1 pt-2 text-xl font-medium text-gray-400 dark:text-white">Despesas recentes</h5>
+                                        <h5 class="mb-1 pt-2 text-xl font-medium text-gray-400 dark:text-white">Receitas recentes</h5>
                                     </li>
                                 </ul>
                                 <ul>
                                     <li>
 
-                                        <div class="relative overflow-x-auto">
+                                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5 mr-5">
+
                                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+                                                <thead class="text-xs text-red-700 uppercase bg-red-100 dark:bg-red-700 dark:text-red-400">
+
                                                     <tr>
                                                         <th scope="col" class="px-6 py-3">
-                                                            Lancamentos
+                                                            Nome
                                                         </th>
                                                         <th scope="col" class="px-6 py-3">
                                                             Valor
@@ -197,6 +207,8 @@ export default function Dashboard() {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+
+
                                                     {lancDes.map(item => (
                                                         <tr key={item.idLanc} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" value={item.idLanc}>
                                                             <td class="px-6 py-4">{item.nomeLanc}</td>
@@ -204,9 +216,12 @@ export default function Dashboard() {
                                                             <td class="px-6 py-4">{item.dataLanc}</td>
                                                         </tr>
                                                     ))}
+
                                                 </tbody>
+
                                             </table>
                                         </div>
+
                                     </li>
                                 </ul>
 

@@ -43,7 +43,7 @@ class receitaController{
   }
 
   async create(req,res){
-    var{nomeLanc,descLanc,dataLanc,valorLanc,dataLanc,fkCatLanc,fkConLanc,fkUserLanc,tipoLanc} = req.body;
+    var{nomeLanc,descLanc,valorLanc,dataLanc,fkCatLanc,fkConLanc,fkUserLanc,tipoLanc} = req.body;
     console.log(nomeLanc,descLanc,valorLanc,dataLanc,fkCatLanc,fkConLanc,fkUserLanc)
 
     if(nomeLanc != undefined || descLanc != undefined || valorLanc < 0 || dataLanc != undefined  || fkUserLanc < 0 || fkCatLanc < 0  || fkConLanc < 0){

@@ -46,6 +46,8 @@ export default function FormElements() {
     const [postConta, setpostCon] = useState('');
 
 
+    const [openEditModal, setOpenEditModal] = useState(false);
+
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
@@ -208,7 +210,7 @@ export default function FormElements() {
                             >
                                 <Modal.Header />
                                 <Modal.Body>
-                                <div className="space-y-6">
+                                    <div className="space-y-6">
                                         <h3 className="text-xl font-medium text-gray-900 dark:text-white">Adicionar Lançamento</h3>
                                         <div>
                                             <div className="mb-2 block">
@@ -271,7 +273,7 @@ export default function FormElements() {
                                                 />
                                             </div>
                                             <select id="catPost" value={postCat} onChange={event => setpostCat(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                            <option  selected value = '0' > -- selecionar Categoria -- </option>
+                                                <option selected value='0' > -- selecionar Categoria -- </option>
                                                 {itemsCat.map(item => (
                                                     <option value={item.idCat}>{item.nomeCat}</option>
                                                 ))}
@@ -285,7 +287,7 @@ export default function FormElements() {
                                                 />
                                             </div>
                                             <select id="conPost" value={postConta} onChange={event => setpostCon(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                            <option  selected value='0'> -- selecionar Conta -- </option>
+                                                <option selected value='0'> -- selecionar Conta -- </option>
                                                 {itemsCon.map(item => (
                                                     <option value={item.idConta}>{item.descConta}</option>
                                                 ))}
@@ -336,7 +338,7 @@ export default function FormElements() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {items.map(item => (
+                                    {items.map(item => (
                                         <tr key={item.idLanc}>
                                             <td class='pl-6'>{item.nomeLanc}</td>
                                             <td class='pl-6'>{item.descLanc}</td>
@@ -346,14 +348,15 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.descConta}</td>
 
                                             <td class="px-6 py-4 text-right">
-                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & props.setOpenModal('initial-focus')} >
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & updateInfos(item.idLanc) & setOpenEditModal(true)
+                                                } >
                                                     <a class="font-medium text-red-600 dark:text-red-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button>
                                                 <Modal
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
                                                     popup
-                                                    onClose={() => props.setOpenModal(undefined)}
+                                                    onClose={() => setOpenEditModal(false)}
                                                     initialFocus={props.emailInputRef}
                                                 >
                                                     <Modal.Header />
@@ -387,7 +390,7 @@ export default function FormElements() {
                                                                     placeholder={item.descLanc}
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
-                                                                
+
                                                             </div>
                                                             <div>
                                                                 <div className="mb-2 block">

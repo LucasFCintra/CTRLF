@@ -29,7 +29,7 @@ class Lancamentos{
     try{
      var result= await  knex.select('*')
      .from('lancamentos')
-     .where({fkUserLanc:id,tipoLanc:'receita'})
+     .where({fkUserLanc:id,tipoLanc:'despesa'})
      .leftOuterJoin('categorias', function() {
        this
          .on('categorias.idCat', '=', 'lancamentos.fkCatLanc')
