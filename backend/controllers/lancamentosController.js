@@ -9,6 +9,18 @@ class receitaController{
     // console.log(receita)
     res.json(receita)
   }
+   async indexDes(req,res){
+    var id = req.params.id;
+    var receita = await Receita.findAllDes(id)
+    // console.log(receita)
+    res.json(receita)
+  }
+  async dashboard(req,res){
+    var id = req.params.id;
+    var receita = await Receita.dashboard(id)
+    // console.log(receita)
+    res.json(receita)
+  }
 
   async indexOne(req,res){
     var id = req.body;

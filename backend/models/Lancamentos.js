@@ -6,8 +6,8 @@ class Lancamentos{
 
     try{
      var result= await  knex.select('*')
-     .from('lancamentos').sum('valorLanc')
-     .where({fkUserLanc:id})
+     .from('lancamentos')
+     .where({fkUserLanc:id,tipoLanc:'receita'})
      .leftOuterJoin('categorias', function() {
        this
          .on('categorias.idCat', '=', 'lancamentos.fkCatLanc')
@@ -15,30 +15,84 @@ class Lancamentos{
       this
         .on('contas.idConta', '=', 'lancamentos.fkConLanc')
     })
-     
+    console.log(result)
     //  knex.select(["idLanc","nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
       return result
 
-      console.log(result)
+    
+    }catch(err){
+      console.log(err)
+    }
+  }
+  async findAllDes(id){
+
+    try{
+     var result= await  knex.select('*')
+     .from('lancamentos')
+     .where({fkUserLanc:id,tipoLanc:'receita'})
+     .leftOuterJoin('categorias', function() {
+       this
+         .on('categorias.idCat', '=', 'lancamentos.fkCatLanc')
+     }).leftOuterJoin('contas', function() {
+      this
+        .on('contas.idConta', '=', 'lancamentos.fkConLanc')
+    })
+    console.log(result)
+    //  knex.select(["idLanc","nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
+      return result
+
+    
     }catch(err){
       console.log(err)
     }
   }
 
   async dashboard(id){
-
+var result;
     try{
-     var result= await  knex.select('*').sum()
+     var rec= await  knex.sum('valorLanc as Receitas') 
      .from('lancamentos') 
-     .where({fkUserLanc:id})
-     .leftOuterJoin('categorias', function() {
-       this
-         .on('categorias.idCat', '=', 'lancamentos.fkCatLanc')
-     }).leftOuterJoin('contas', function() {
-      this
-        .on('contas.idConta', '=', 'lancamentos.fkConLanc')
-    })
+     .where({fkUserLanc:id,tipoLanc:'receita'})
      
+     var des= await  knex.sum('valorLanc as Despesas')
+     .from('lancamentos') 
+     .where({fkUserLanc:id,tipoLanc:'despesa'})
+     
+      var ultimosLanc = await  knex.select('*')
+      .from('lancamentos')
+      .where({fkUserLanc:id })
+      .limit(5)
+      .orderBy('idLanc', 'desc')
+      .leftOuterJoin('categorias', function() {
+        this
+          .on('categorias.idCat', '=', 'lancamentos.fkCatLanc')
+      }).leftOuterJoin('contas', function() {
+       this
+         .on('contas.idConta', '=', 'lancamentos.fkConLanc')
+     })
+
+     var ultimasCat = await  knex.select('*')
+     .from('categorias')
+     .where({fkUserCat:id })
+     .limit(5)
+     .orderBy('idCat', 'desc') 
+
+     var ultimasCon = await  knex.select('*')
+     .from('contas')
+     .where({fkContaUser:id })
+     .limit(5)
+     .orderBy('idConta', 'desc') 
+
+     result={
+      receita:rec,
+      despesa:des,
+      ultimosLanc:ultimosLanc,
+      ultimasCat:ultimasCat,
+      ultimasCon:ultimasCon
+
+     }
+     
+     console.log(result)
     //  knex.select(["idLanc","nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
       return result
     }catch(err){
