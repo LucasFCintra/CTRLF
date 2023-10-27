@@ -44,6 +44,14 @@ export default function FormElements() {
     const [postCat, setpostCat] = useState('');
     const [postConta, setpostCon] = useState('');
 
+    const resetModalPostFields = () => {
+        setpostNome('');
+        setpostDesc('');
+        setpostLanc('');
+        setpostData('');
+        setpostCat('');
+        setpostCon('');
+      };
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
@@ -211,8 +219,10 @@ export default function FormElements() {
                                 show={propsPost.openModalPost === 'initial-focus'}
                                 size="md"
                                 popup
-                                onClose={() => propsPost.setOpenModalPost(undefined)}
-                                initialFocus={propsPost.emailInputRefPost}
+                                onClose={() => {
+                                    propsPost.setOpenModalPost(undefined);
+                                    resetModalPostFields(); // Reset the fields when the modal is closed
+                                  }} initialFocus={propsPost.emailInputRefPost}
                             >
                                 <Modal.Header />
                                 <Modal.Body>
@@ -366,8 +376,10 @@ export default function FormElements() {
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
                                                     popup
-                                                    onClose={() => props.setOpenModal(undefined)}
-                                                    initialFocus={props.emailInputRef}
+                                                    onClose={() => {
+                                                        propsPost.setOpenModalPost(undefined);
+                                                        resetModalPostFields(); // Reset the fields when the modal is closed
+                                                      }}initialFocus={props.emailInputRef}
                                                 >
                                                     <Modal.Header />
                                                     <Modal.Body>

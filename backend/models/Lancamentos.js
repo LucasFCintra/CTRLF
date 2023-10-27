@@ -15,7 +15,7 @@ class Lancamentos{
       this
         .on('contas.idConta', '=', 'lancamentos.fkConLanc')
     })
-    console.log(result)
+    // console.log(result)
     //  knex.select(["idLanc","nomeLanc","descLanc","valorLanc","dataLanc","fkUserLanc","fkCatLanc","fkConLanc"]).where({fkUserLanc:id}).table("lancamentos")
       return result
 
@@ -170,10 +170,10 @@ var result;
     }
   }
 
-  async create(nomeLanc,descLanc,valorLanc,dataLanc,fkUserLanc,fkCatLanc,fkConLanc){
-    // console.log("Model: ", NOME, DESCRICAO)
+             async create(nomeLanc,descLanc,valorLanc,dataLanc,fkUserLanc,fkCatLanc,fkConLanc,tipoLanc){
+    console.log("Model: ",fkUserLanc,fkCatLanc,fkConLanc)
     try{
-   await knex.insert({nomeLanc:nomeLanc,descLanc:descLanc,valorLanc:valorLanc,dataLanc:dataLanc,fkUserLanc:fkUserLanc,fkCatLanc:fkCatLanc,fkConLanc:fkConLanc}).table("lancamentos")
+   await knex.insert({nomeLanc:nomeLanc,descLanc:descLanc,valorLanc:valorLanc,dataLanc:dataLanc,fkUserLanc:fkUserLanc,fkCatLanc:fkCatLanc,fkConLanc:fkConLanc,tipoLanc:tipoLanc}).table("lancamentos")
       // .raw(`insert into lancamentos(idLanc,nomeLanc,descLanc,valorLanc,dataLanc,fkUserLanc,fkCatLanc,fkConLanc) VALUES(NULL,'${nomeLanc}','${descLanc}','${valorLanc}',${dataLanc},${fkUserLanc},${fkCatLanc},${fkConLanc})`)
       
     }catch(err){

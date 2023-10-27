@@ -24,6 +24,14 @@ export default function FormElements() {
     const [items, setItems] = useState([]);
     const [error, setError] = useState(null);
 
+    const [inputNome, setInputNome] = useState('');
+    const [inputDesc, setInputDesc] = useState('');
+
+
+    const resetModalPostFields = () => {
+        setInputDesc('');
+        setInputNome(''); 
+      };
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
@@ -39,8 +47,6 @@ export default function FormElements() {
                 setError(error.message);
             });
     }, []); 
-    const [inputNome, setInputNome] = useState('');
-    const [inputDesc, setInputDesc] = useState('');
 
     async function updateData() {
 
@@ -118,8 +124,10 @@ export default function FormElements() {
                                 show={propsPost.openModalPost === 'initial-focus'}
                                 size="md"
                                 popup
-                                onClose={() => propsPost.setOpenModalPost(undefined)}
-                                initialFocus={propsPost.emailInputRefPost}
+                                onClose={() => {
+                                    propsPost.setOpenModalPost(undefined);
+                                    resetModalPostFields(); // Reset the fields when the modal is closed
+                                  }} initialFocus={propsPost.emailInputRefPost}
                             >
                                 <Modal.Header />
                                 <Modal.Body>

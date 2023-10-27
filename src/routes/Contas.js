@@ -25,6 +25,13 @@ export default function FormElements() {
     const [inputValorAtual, setInputValorAtual] = useState('');
     const [inputId, setInputId] = useState('');
 
+    const resetModalPostFields = () => {
+        setInputDesc('');
+        setInputTipo('');
+        setInputValor('');
+        setInputValorAtual('');
+      };
+
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
         const api = 'http://localhost:8687/api/conta/' + 1
@@ -43,7 +50,7 @@ export default function FormElements() {
     async function updateInfos(id) {
         setInputId(id)  
         var api = 'http://localhost:8687/api/v2/conta/' + id
-
+        console.log(api)
         await axios.get(api).then(response => {
             setItemsUp2(response.data);
             setErrorUp2(null);
@@ -53,11 +60,11 @@ export default function FormElements() {
             });
 
         console.log(itemsUp2)
-       /* var descEdit = document.getElementById('descEdit').placeholder = itemsUp2.descConta
-        var valorEdit = document.getElementById('valorEdit').placeholder = itemsUp2.valorConta
-        var dataEdit = document.getElementById('tipoEdit').placeholder = itemsUp2.tipoConta
-        var catEdit = document.getElementById('valorAtualEdit').placeholder = itemsUp2.valorAtualConta
-*/
+       setInputDesc(itemsUp2.descConta)
+       setInputValor(itemsUp2.valorConta)
+       setInputTipo(itemsUp2.tipoConta)
+       setInputValorAtual(itemsUp2.valorAtualConta)
+
     }
 
     async function updateData() {
@@ -131,7 +138,7 @@ export default function FormElements() {
                         </ul>
 
                         <div className='fixed top-24 right-12 group'>
-                            <Button type="button" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" onClick={() => propsPost.setOpenModalPost('initial-focus')}>
+                            <Button type="button" id="postButton"data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" onClick={() => propsPost.setOpenModalPost('initial-focus')}>
                                 <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
                                 </svg>
@@ -140,7 +147,10 @@ export default function FormElements() {
                                 show={propsPost.openModalPost === 'initial-focus'}
                                 size="md"
                                 popup
-                                onClose={() => propsPost.setOpenModalPost(undefined)}
+                                onClose={() => {
+                                    propsPost.setOpenModalPost(undefined);
+                                    resetModalPostFields(); // Reset the fields when the modal is closed
+                                  }}
                                 initialFocus={propsPost.emailInputRefPost}
                             >
                                 <Modal.Header />

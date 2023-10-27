@@ -22,7 +22,9 @@ export default function FormElements() {
     const props = { openModal, setOpenModal, emailInputRef };
     const propsPost = { openModalPost, setOpenModalPost, emailInputRefPost };
     const [items, setItems] = useState([]);
+    const [itemsUp2, setItemsUp2] = useState([]);
     const [error, setError] = useState(null);
+    const [error2, setErrorUp2] = useState(null);
 
     const [itemsCat, setItemsCat] = useState([]);
     const [errorCat, setErrorCat] = useState(null);
@@ -38,6 +40,16 @@ export default function FormElements() {
     const [postCat, setpostCat] = useState('');
     const [inputCat, setInputCat] = useState('');
     
+    const resetModalPostFields = () => {
+        setInputDesc('');
+        setInputNome('');
+        setInputValor('');
+        setInputMeta('');
+        setInputData('');
+        setpostCat('');
+        setInputCat('');
+      };
+
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
         const api = 'http://localhost:8687/api/objetivo/' + 1
@@ -65,8 +77,26 @@ export default function FormElements() {
 
 
     async function updateInfos(id) {
-        setInputId(id)
-    }
+        setInputId(id) 
+
+        var api = 'http://localhost:8687/api/v2/objetivo/' + id
+        console.log(api)
+        await axios.get(api).then(response => {
+            setItemsUp2(response.data);
+            setErrorUp2(null);
+        })
+            .catch(error => {
+                setErrorUp2(error.message);
+            });
+
+        console.log(itemsUp2)
+        setInputNome(itemsUp2.nomeObj) 
+       setInputDesc(itemsUp2.descObj)
+       setInputValor(itemsUp2.valorObj)
+       setInputMeta(itemsUp2.metaObj)
+       setInputData(itemsUp2.dataObj)
+       setInputCat(itemsUp2.nomeCat)
+         }
 
     async function updateData() {
 
@@ -148,8 +178,10 @@ export default function FormElements() {
                                 show={propsPost.openModalPost === 'initial-focus'}
                                 size="md"
                                 popup
-                                onClose={() => propsPost.setOpenModalPost(undefined)}
-                                initialFocus={propsPost.emailInputRefPost}
+                                onClose={() => {
+                                    propsPost.setOpenModalPost(undefined);
+                                    resetModalPostFields(); // Reset the fields when the modal is closed
+                                  }}initialFocus={propsPost.emailInputRefPost}
                             >
                                 <Modal.Header />
                                 <Modal.Body>
@@ -289,8 +321,9 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.valorObj}</td>
                                             <td class='pl-6'>{item.metaObj}</td>
                                             <td class='pl-6'>{item.dataObj}</td>
+                                            {/* <td class='pl-6'>{item.idObj}</td> */}
                                             <td class="px-6 py-4 text-right">
-                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & props.setOpenModal('initial-focus')} >
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idObj) & props.setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button>
                                                 <Modal
