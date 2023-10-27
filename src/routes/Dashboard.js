@@ -1,19 +1,36 @@
-import React, { Component } from 'react'
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
 
-console.log(userLoggedIn + ' | ' + userId)
-/*
-if(userLoggedIn == 'false' ||  userId == NaN ||  userId == undefined){
-    window.location.href='/Login'
-}
-*/
-export default class Dashboard extends Component {
-    render() {
-        return (
-            <>
+console.log(userLoggedIn + ' | ' + userId);
+
+export default function Dashboard() {
+    const [infos, setInfos] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const api = 'http://localhost:8687/api/dashboard/' + 1;
+
+        axios.get(api)
+            .then(response => {
+                console.log(response.data);
+                setInfos(response.data);
+                setError(null);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    }, []); // O array vazio como segundo argumento do useEffect faz com que ele seja executado uma vez
+
+    console.log(infos.receita);
+    var rec = (infos.receita);
+    var desp = (infos.despesa);
+    var saldo = (rec - desp);
+
+    return (
+        <>
                 <div class="p-4 sm:ml-64">
                     <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
                         <div class="grid grid-cols-3 gap-4 mb-4">
@@ -36,7 +53,7 @@ export default class Dashboard extends Component {
                                 </div>
                                 <div className='grid grid-rows-1 mt-2 ml-5'>
                                     <div className='grid grid-cols-2'>
-                                        <span class="text-2xl font-bold leading-tight text-white dark:text-white">R$ 00,00</span>
+                                        <span class="text-2xl font-bold leading-tight text-white dark:text-white">{saldo.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}</span>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +76,7 @@ export default class Dashboard extends Component {
                                 </div>
                                 <div className='grid grid-rows-1 mt-2 ml-5'>
                                     <div className='grid grid-cols-2'>
-                                        <span class="text-2xl font-bold leading-tight text-white dark:text-white">R$ 00,00</span>
+                                        <span class="text-2xl font-bold leading-tight text-white dark:text-white">{rec.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}</span>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +99,7 @@ export default class Dashboard extends Component {
                                 </div>
                                 <div className='grid grid-rows-1 mt-2 ml-5'>
                                     <div className='grid grid-cols-2'>
-                                        <span class="text-2xl font-bold leading-tight text-white dark:text-white">R$ 00,00</span>
+                                        <span class="text-2xl font-bold leading-tight text-white dark:text-white">{desp.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}</span>
                                     </div>
                                 </div>
                             </div>
@@ -167,4 +184,3 @@ export default class Dashboard extends Component {
             </>
         )
     }
-}

@@ -33,13 +33,13 @@ router.delete("/api/usuario",usuariosController.delete);
 /*ROTAS API RECEITA */
 
 router.get('/api/lancamento/:id',receitaController.index);
-router.get('/api/lancamento/des/:id',receitaController.index);
+router.get('/api/lancamento/des/:id',receitaController.indexDes);
 router.get('/api/v2/lancamento/:id',receitaController.indexOne);
 router.post("/api/lancamento",receitaController.create);
 router.put("/api/lancamento",receitaController.update);
 router.delete("/api/lancamento",receitaController.delete);
 
-// router.get('/api/dashboard/:id',receitaController.dashboard);
+router.get('/api/dashboard/:id',receitaController.dashboard);
 
 
 /*ROTAS API OBJETIVO*/

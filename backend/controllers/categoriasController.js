@@ -10,6 +10,14 @@ class categoriasController{
     var cat = await Categoria.findAll(fkUserCat)
     res.json(cat)
   }
+  
+  async dashboard(req,res){
+    var fkUserCat = req.params.id;
+    // console.log('catController: '+ JSON.stringify(fkUserCat))
+    var cat = await Categoria.dashboard(fkUserCat)
+    res.json(cat)
+  }
+
   async indexRec(req,res){
     var fkUserCat = req.params.id;
     // console.log('catController: '+ JSON.stringify(fkUserCat))
