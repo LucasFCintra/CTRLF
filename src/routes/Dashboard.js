@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
 import AnyChart from 'anychart-react';
-import anychart from 'anychart-react'
-import { Sticky } from 'semantic-ui-react';
-import { data } from 'autoprefixer';
-=======
-import AnyChart from 'anychart-react'; 
-
->>>>>>> 64add91a2a59c53874c27e72d93c63b0e2ead77a
 
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
  
+export default function Dashboard() {
+    const [infos, setInfos] = useState([]);
+    const [error, setError] = useState(null);
+
+    console.log(infos);
+    console.log(infos.chartObj  );
+
 const complexSettingsPie = {
     id: 'charPie',
     height: 500,
     type: "pie",
-    data: "salário,1\n teste,2,\n teste2,3\n teste4,4",
+    data: infos.chartCat,
     background: "transparent"
 }
 
@@ -25,26 +24,21 @@ const complexSettingsBar = {
     id: 'charBar',
     height: 500,
     type: "column",
-    data: "salário,1\n teste,2,\n teste2,3\n teste4,4",
+    data: infos.chartObj,
     background: "transparent",
 }
 
-<<<<<<< HEAD
-=======
-function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
->>>>>>> 64add91a2a59c53874c27e72d93c63b0e2ead77a
 console.log(userLoggedIn + ' | ' + userId);
 
-export default function Dashboard() {
-    const [infos, setInfos] = useState([]);
-    const [error, setError] = useState(null);
+
+
+    function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
 
     useEffect(() => {
 
@@ -61,7 +55,6 @@ export default function Dashboard() {
             });
     }, []); // O array vazio como segundo argumento do useEffect faz com que ele seja executado uma vez
 
-    console.log(infos);
     var rec = (infos.receita);
     var desp = (infos.despesa);
     var cat = infos.ultimasCat
@@ -299,7 +292,7 @@ export default function Dashboard() {
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.905 1.316 15.633 6M18 10h-5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5m0-5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1m0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1v-3m-6.367-9L7.905 1.316 2.352 6h9.281Z" />
                                             </svg>
                                         </p>
-                                        <h5 class="mb-1 pt-2 text-xl font-medium text-gray-400 dark:text-white">Despesas recentes</h5>
+                                        <h5 class="mb-1 pt-2 text-xl font-medium text-gray-400 dark:text-white">objetivos</h5>
                                     </li>
                                 </ul>
                                 <ul>

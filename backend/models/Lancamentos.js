@@ -95,11 +95,35 @@ var result;
      .limit(5)
      .orderBy('idConta', 'desc') 
      
+     var chartCatJson = await knex.raw('select c.nomeCat as "categoria", SUM(l.valorLanc) as "valor" from lancamentos l      left join categorias c on c.idCat = l.fkCatLanc     where fkUserLanc = 1     group by(fkCatLanc) ')
+     var chartCat = chartCatJson[0]
+     var dataCat = ''
+
+     for(let i = 0 ; i < chartCat.length ; i++){
+      dataCat+= ` ${chartCat[i].categoria},${chartCat[i].valor} \n`
+     }
+    //  "salário,1\n teste,2,\n teste2,3\n teste4,4"
+      
+    // console.log('Bar: \n',dataCat)
+
+    var chartObjJson = await knex.raw('Select nomeObj as nome ,metaObj as meta, valorObj as valor from objetivos')
+     var chartObj = chartObjJson[0]
+     var dataObj = ''
+
+     for(let i = 0 ; i < chartObj.length ; i++){
+      dataObj+= ` ${chartObj[i].nome}:${chartObj[i].meta},${chartObj[i].valor} \n`
+     }
+
+    console.log('Bar: \n',dataObj)
+
+
      result={
       receita:rec[0].Receitas,
       despesa:des[0].Despesas,
       ultimosLancRec:ultimosLancRec,
       ultimosLancDes:ultimosLancDes,
+      chartCat:dataCat,
+      chartObj:dataObj,   
       ultimasCat:ultimasCat,
       ultimasCon:ultimasCon
 
