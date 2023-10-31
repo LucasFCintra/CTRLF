@@ -66,12 +66,13 @@ class usuariosController {
   }
 
   async delete(req, res) {
-    var idUser = req.body.idUser;
+    var idUser= req.params.id;
+
     console.log("Controller: ", idUser)
 
     var result = await Usuario.delete(idUser)
 
-    if (result.stats) {
+    if (result.status) {
       res.status(200).send("Dados excluidos com sucesso")
     } else {
       res.status(406).send(result.err)

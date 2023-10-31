@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
+const userLoggedIn = localStorage.getItem('userLoggedIn');
+const userId = localStorage.getItem('userLoggedID');
+
 export default function FormElements() {
     const [openModal, setOpenModal] = useState();
     const [openModalPost, setOpenModalPost] = useState();
@@ -66,7 +69,22 @@ export default function FormElements() {
        setInputValorAtual(itemsUp2.valorAtualConta)
 
     }
+    async function deleteData(id){
+       
 
+        
+        const response = await axios.delete(`http://localhost:8687/api/conta/`+id);
+        console.log("Clicou: " + JSON.stringify(response))
+
+        if(response.status == 200){
+            alert('Conta excluida com sucesso');
+            window.location.href = "/Contas"
+
+            }else{
+            alert('Erro ao atualizar dados');        
+        }
+        console.log(response.data);
+    }
     async function updateData() {
 
         try {
@@ -125,6 +143,7 @@ export default function FormElements() {
             console.error('testeS ' + error);
         }
     }
+    
     return (
         <>
             <div class="p-4 sm:ml-64">
@@ -247,6 +266,9 @@ export default function FormElements() {
                                         <th scope="col" class="px-6 py-3">
                                             <span class="sr-only">Edit</span>
                                         </th>
+                                         <th scope="col" class="px-6 py-3">
+                                            <span class="sr-only">Delete</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -259,7 +281,8 @@ export default function FormElements() {
                                             <td class="px-6 py-4 text-right">
                                             <button value={item.idConta} id='idLancEdit' onClick={() => updateInfos(item.idConta) & props.setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
-                                                </button> <Modal
+                                                </button> 
+                                                  <Modal
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
                                                     popup
@@ -336,7 +359,12 @@ export default function FormElements() {
                                                     </Modal.Body>
                                                 </Modal>
                                             </td>
-
+                                            <td>
+                                            <button value={item.idConta} id='idLancEdit' onClick={() => deleteData(item.idConta)} >
+                                                    <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Delete
+                                                    </a>
+                                                </button> 
+                                            </td>
                                         </tr>
 
                                     ))}

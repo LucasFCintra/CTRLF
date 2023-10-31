@@ -47,7 +47,13 @@ export default function FormElements() {
 
 
     const [openEditModal, setOpenEditModal] = useState(false);
-
+    function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
@@ -88,6 +94,21 @@ export default function FormElements() {
             setErrorCat(error.message);
         });
 
+
+        async function deleteData(id){ 
+    
+            const response = await axios.delete(`http://localhost:8687/api/lancamento/`+id);
+            console.log("Clicou: " + JSON.stringify(response))
+    
+            if(response.status == 200){
+                alert('Conta excluida com sucesso');
+                window.location.href = "/Lancamentos/Despesas"
+    
+                }else{
+                alert('Erro ao atualizar dados');        
+            }
+            console.log(response.data);
+        }
     async function limparFormPost(id) {
         // alert('exec')
         var nomeEdit = document.getElementById('nomePost').value = ''
@@ -178,7 +199,7 @@ export default function FormElements() {
                 alert('Erro ao inserir \n Categoria ja cadastrada ')
 
             }
-            console.error('testeS ' + error);
+            console.error('teste ' + error);
         }
     }
     return (
@@ -334,6 +355,8 @@ export default function FormElements() {
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             <span class="sr-only">Edit</span>
+                                        </th> <th scope="col" class="px-6 py-3">
+                                            <span class="sr-only">Delete</span>
                                         </th>
                                     </tr>
                                 </thead>
@@ -343,7 +366,7 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.nomeLanc}</td>
                                             <td class='pl-6'>{item.descLanc}</td>
                                             <td class='pl-6'>{item.valorLanc}</td>
-                                            <td class='pl-6'>{item.dataLanc}</td>
+                                            <td class='pl-6'>{formatDate(item.dataLanc)}</td>
                                             <td class='pl-6'>{item.nomeCat}</td>
                                             <td class='pl-6'>{item.descConta}</td>
 
@@ -455,7 +478,12 @@ export default function FormElements() {
                                                     </Modal.Body>
                                                 </Modal>
                                             </td>
-
+  <td>
+                                            <button value={item.idLanc} id='idLancEdit' onClick={() => deleteData(item.idLanc)} >
+                                                    <a class="font-medium text-red-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Delete
+                                                    </a>
+                                                </button> 
+                                            </td>
                                         </tr>
 
                                     ))}

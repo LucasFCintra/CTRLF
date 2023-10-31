@@ -5,10 +5,10 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-/*
+ 
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
-
+/*
 console.log(userLoggedIn +' | '+ userId)
 if(userLoggedIn == false && userId != undefined){
     window.location.href='/login'
@@ -23,9 +23,12 @@ export default function FormElements() {
     const propsPost = { openModalPost, setOpenModalPost, emailInputRefPost };
     const [items, setItems] = useState([]);
     const [error, setError] = useState(null);
+    const [itemsUp2, setItemsUp2] = useState([]);
+    const [errorUp2, setErrorUp2] = useState(null);
 
     const [inputNome, setInputNome] = useState('');
     const [inputDesc, setInputDesc] = useState('');
+    const [inputId, setInputId] = useState(null);
 
 
     const resetModalPostFields = () => {
@@ -48,11 +51,46 @@ export default function FormElements() {
             });
     }, []); 
 
+    async function updateInfos(id) {
+        setInputId( id)
+
+       
+
+        var api = 'http://localhost:8687/api/v2/categoria/' + id
+        
+        console.log(api)
+        await axios.get(api).then(response => {
+            setItemsUp2(response.data);
+            setErrorUp2(null);
+        })
+            .catch(error => {
+                setErrorUp2(error.message);
+            });
+
+        console.log(itemsUp2)
+       setInputDesc(itemsUp2.descCat)
+       setInputNome(itemsUp2.nomeCat) 
+    }
+
+    async function deleteData(id){ 
+        const response = await axios.delete(`http://localhost:8687/api/categoria/`+id);
+        console.log("Clicou: " + JSON.stringify(response))
+
+        if(response.status == 200){
+            alert('Conta excluida com sucesso');
+            window.location.href = "/Categorias"
+
+            }else{
+            alert('Erro ao atualizar dados');        
+        }
+        console.log(response.data);
+    }
+
     async function updateData() {
 
         try {
             const data = {
-                idCat: document.getElementsByClassName('idCat').value,
+                idCat: inputId,
                 nomeCat: inputNome,//document.getElementById('nomeEdit').value,
                 descCat: inputDesc, //document.getElementById('descEdit').value
             }
@@ -186,6 +224,8 @@ export default function FormElements() {
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             <span class="sr-only">Edit</span>
+                                        </th>    <th scope="col" class="px-6 py-3">
+                                            <span class="sr-only">Delete</span>
                                         </th>
                                     </tr>
                                 </thead>
@@ -195,8 +235,9 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.nomeCat}</td>
                                             <td class='pl-6'>{item.descCat}</td>
                                             <td class="px-6 py-4 text-right">
-                                                <a class="font-medium text-orange-600 dark:text-orange-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false" onClick={() => props.setOpenModal('initial-focus')}>Edit</a>
-                                                <Modal
+                                            <button value={item.idCat} id='idLancEdit' onClick={() => updateInfos(item.idCat) & props.setOpenModal('initial-focus')} >
+                                                    <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
+                                                </button>   <Modal
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
                                                     popup
@@ -249,6 +290,12 @@ export default function FormElements() {
                                                         </div>
                                                     </Modal.Body>
                                                 </Modal>
+                                            </td>
+                                            <td>
+                                            <button value={item.idCat} id='idLancEdit' onClick={() => deleteData(item.idCat)} >
+                                                    <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Delete
+                                                    </a>
+                                                </button> 
                                             </td>
 
                                         </tr>

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
 import AnyChart from 'anychart-react';
 import anychart from 'anychart-react'
 import { Sticky } from 'semantic-ui-react';
 import { data } from 'autoprefixer';
+=======
+import AnyChart from 'anychart-react'; 
+
+>>>>>>> 64add91a2a59c53874c27e72d93c63b0e2ead77a
 
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
-
+ 
 const complexSettingsPie = {
     id: 'charPie',
     height: 500,
@@ -24,6 +29,17 @@ const complexSettingsBar = {
     background: "transparent",
 }
 
+<<<<<<< HEAD
+=======
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+>>>>>>> 64add91a2a59c53874c27e72d93c63b0e2ead77a
 console.log(userLoggedIn + ' | ' + userId);
 
 export default function Dashboard() {
@@ -65,7 +81,10 @@ export default function Dashboard() {
 
     return (
         <>
-            <script src="https://cdn.anychart.com/releases/8.11.1/js/anychart-base.min.js"></script>
+
+<script src="your_path/jquery.min.js" type="text/javascript"></script>
+<script src="your_path/semantic.min.js" type="text/javascript"></script>
+ <script src="https://cdn.anychart.com/releases/8.11.1/js/anychart-base.min.js"></script>
             <script src="https://cdn.anychart.com/releases/8.11.1/js/anychart-exports.min.js"></script>
             <script src="https://cdn.anychart.com/releases/8.11.1/js/anychart-ui.min.js"></script>
             <link rel="stylesheet" href="https://cdn.anychart.com/releases/8.11.1/css/anychart-ui.min.css" />
@@ -183,7 +202,7 @@ export default function Dashboard() {
                                                         <tr key={item.idLanc} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" value={item.idLanc}>
                                                             <td class="px-6 py-4">{item.nomeLanc}</td>
                                                             <td class="px-6 py-4">{item.valorLanc}</td>
-                                                            <td class="px-6 py-4">{item.dataLanc}</td>
+                                                            <td class="px-6 py-4">{formatDate(item.dataLanc)}</td>
                                                         </tr>
                                                     ))}
 
@@ -237,7 +256,7 @@ export default function Dashboard() {
                                                         <tr key={item.idLanc} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" value={item.idLanc}>
                                                             <td class="px-6 py-4">{item.nomeLanc}</td>
                                                             <td class="px-6 py-4">{item.valorLanc}</td>
-                                                            <td class="px-6 py-4">{item.dataLanc}</td>
+                                                            <td class="px-6 py-4">{formatDate(item.dataLanc)}</td>
                                                         </tr>
                                                     ))}
 

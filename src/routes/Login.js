@@ -68,7 +68,7 @@ export default class Login extends Component {
        handleLoginClick = () => {
         this.checkUserExists().then(exists => {
            console.log('2 '+ JSON.stringify(exists)) 
-          if (exists != -1) {
+          if (exists != undefined) {
             
             localStorage.setItem('userLoggedIn', 'true');
             localStorage.setItem('userLoggedID',Number(exists) );

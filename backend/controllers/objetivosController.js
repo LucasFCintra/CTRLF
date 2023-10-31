@@ -54,15 +54,16 @@ class objetivoController{
   }
 
   async delete(req,res){
-    var ID= req.body.idObj;
+    var ID= req.params.id;
     console.log("Controller: ", ID)
 
      var result = await Objetivo.delete(ID)
        
-     if(result.stats){
-          res.status(200).send("Dados excluidos com sucesso")
+     if(result != undefined){
+      res.json(result)
+          // res.status(200).send("Dados excluidos com sucesso")
         }else{
-          res.status(406).send(result.err)
+          res.json(result)//status(406).send(result.err)
         }
    
   }

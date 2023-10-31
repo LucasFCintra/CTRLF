@@ -54,12 +54,12 @@ class contaController{
   }
 
   async delete(req,res){
-    var ID= req.body.idConta;
+    var ID= req.params.id;
     console.log("Controller: ", ID)
 
      var result = await Conta.delete(ID)
        
-     if(result.stats){
+     if(result != undefined){
           res.status(200).send("Dados excluidos com sucesso")
         }else{
           res.status(406).send(result.err)

@@ -5,10 +5,12 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-/*
+
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
 
+
+/*
 console.log(userLoggedIn +' | '+ userId)
 if(userLoggedIn == false && userId != undefined){
     window.location.href='/login'
@@ -53,6 +55,14 @@ export default function FormElements() {
         setpostCon('');
       };
 
+      function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
+
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
         const api = 'http://localhost:8687/api/lancamento/' + 1
@@ -60,7 +70,7 @@ export default function FormElements() {
         axios.get(api)
             .then(response => {
                 setItems(response.data);
-                setError(null);
+                setError(null); 
             })
             .catch(error => {
                 setError(error.message);
@@ -81,7 +91,7 @@ export default function FormElements() {
     axios.get(apiCon)
         .then(response => {
             setItemsCon(response.data);
-            setErrorCon(null);
+            setErrorCon(null); 
         })
         .catch(error => {
             setErrorCon(error.message);
@@ -101,6 +111,20 @@ export default function FormElements() {
     // getCategorias()
     // console.log(itemsCat)
 
+    async function deleteData(id){ 
+    
+        const response = await axios.delete(`http://localhost:8687/api/lancamento/`+id);
+        console.log("Clicou: " + JSON.stringify(response))
+
+        if(response.status == 200){
+            alert('Conta excluida com sucesso');
+            window.location.href = "/Lancamentos"
+
+            }else{
+            alert('Erro ao atualizar dados');        
+        }
+        console.log(response.data);
+    }
     async function limparFormPost(id){
         // alert('exec')
         var nomeEdit = document.getElementById('nomePost').value = ''
@@ -354,6 +378,9 @@ export default function FormElements() {
                                         <th scope="col" class="px-6 py-3">
                                             <span class="sr-only">Edit</span>
                                         </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            <span class="sr-only">Delete</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -364,7 +391,7 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.nomeLanc}</td>
                                             <td class='pl-6'>{item.descLanc}</td>
                                             <td class='pl-6'>{item.valorLanc}</td>
-                                            <td class='pl-6'>{item.dataLanc}</td>
+                                            <td class='pl-6'>{formatDate(item.dataLanc)}</td>
                                             <td class='pl-6'>{item.nomeCat}</td>
                                             <td class='pl-6'>{item.descConta}</td>
 
@@ -476,6 +503,12 @@ export default function FormElements() {
                                                         </div>
                                                     </Modal.Body>
                                                 </Modal>
+                                            </td>
+                                            <td>
+                                            <button value={item.idLanc} id='idLancEdit' onClick={() => deleteData(item.idLanc)} >
+                                                    <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Delete
+                                                    </a>
+                                                </button> 
                                             </td>
 
                                         </tr>
