@@ -3,11 +3,13 @@ import axios from 'axios';
 import AnyChart from 'anychart-react';
 import anychart from 'anychart-react'
 import { Sticky } from 'semantic-ui-react';
+import { data } from 'autoprefixer';
 
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
 
 const complexSettingsPie = {
+    id: 'charPie',
     height: 500,
     type: "pie",
     data: "salário,1\n teste,2,\n teste2,3\n teste4,4",
@@ -15,17 +17,12 @@ const complexSettingsPie = {
 }
 
 const complexSettingsBar = {
+    id: 'charBar',
     height: 500,
     type: "column",
     data: "salário,1\n teste,2,\n teste2,3\n teste4,4",
     background: "transparent",
-    yAxis: [1, {
-        orientation: 'right',
-        enabled: true
-    }]
-
 }
-
 
 console.log(userLoggedIn + ' | ' + userId);
 
@@ -269,13 +266,13 @@ export default function Dashboard() {
                                     </li>
                                 </ul>
                                 <ul>
-                                    <AnyChart {...complexSettingsPie} />
+                                    <AnyChart id='chartPie' {...complexSettingsPie} />
                                 </ul>
                             </div>
 
                         </div>
                         <div class="grid items-start rounded bg-gray-50 dark:bg-gray-900">
-                            <div class='gird grid-rows-3 pt-2 ml-5 mb-5 relative' style={{ position: 'relative', overflow: 'hidden', width: '100%', height: '500px' }}>
+                            <div class='gird grid-rows-3 pt-2 ml-5 mb-5 relative'>
                                 <ul role="list" class="space-y-5">
                                     <li class="flex space-x-3 items-center">
                                         <p class="text-2xl text-gray-400 dark:text-white">
@@ -286,44 +283,54 @@ export default function Dashboard() {
                                         <h5 class="mb-1 pt-2 text-xl font-medium text-gray-400 dark:text-white">Despesas recentes</h5>
                                     </li>
                                 </ul>
-                                    <AnyChart {...complexSettingsBar} />
+                                <ul>
+                                    <AnyChart id='chartBar' {...complexSettingsBar} />
+                                </ul>
                             </div>
 
                         </div>
 
                     </div>
                     <div class="flex items-center justify-center mb-4 rounded bg-gray-50 dark:bg-gray-900">
-
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-900">
-                            <p class="text-2xl text-gray-400 dark:text-white">
-                                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                                </svg>
-                            </p>
+                    <div class="grid grid-cols-2 gap-5 mb-5">
+                        <div class="grid items-start rounded bg-gray-50 dark:bg-gray-900">
+                            <div class='gird grid-rows-3 pt-2 ml-5 mb-5'>
+                                <ul role="list" class="space-y-5">
+                                    <li class="flex space-x-3 items-center">
+                                        <p class="text-2xl text-gray-400 dark:text-white">
+                                            <svg class="w-7 h-7 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.905 1.316 15.633 6M18 10h-5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5m0-5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1m0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1v-3m-6.367-9L7.905 1.316 2.352 6h9.281Z" />
+                                            </svg>
+                                        </p>
+                                        <h5 class="mb-1 pt-2 text-xl font-medium text-gray-400 dark:text-white">A ser definido</h5>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    
+                                </ul>
+                            </div>
+
                         </div>
-                        <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-900">
-                            <p class="text-2xl text-gray-400 dark:text-white">
-                                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                                </svg>
-                            </p>
+                        <div class="grid items-start rounded bg-gray-50 dark:bg-gray-900">
+                            <div class='gird grid-rows-3 pt-2 ml-5 mb-5 relative'>
+                                <ul role="list" class="space-y-5">
+                                    <li class="flex space-x-3 items-center">
+                                        <p class="text-2xl text-gray-400 dark:text-white">
+                                            <svg class="w-7 h-7 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.905 1.316 15.633 6M18 10h-5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5m0-5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1m0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1v-3m-6.367-9L7.905 1.316 2.352 6h9.281Z" />
+                                            </svg>
+                                        </p>
+                                        <h5 class="mb-1 pt-2 text-xl font-medium text-gray-400 dark:text-white">A ser definido</h5>
+                                    </li>
+                                </ul>
+                                <ul>
+                                   
+                                </ul>
+                            </div>
+
                         </div>
-                        <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-900">
-                            <p class="text-2xl text-gray-400 dark:text-white">
-                                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                                </svg>
-                            </p>
-                        </div>
-                        <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-900">
-                            <p class="text-2xl text-gray-400 dark:text-white">
-                                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                                </svg>
-                            </p>
-                        </div>
+
                     </div>
                 </div>
             </div>
