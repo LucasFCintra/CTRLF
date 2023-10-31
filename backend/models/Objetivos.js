@@ -2,6 +2,7 @@ const Knex = require("knex")({
   dialect:'mysql',
   client:'mysql'
 })
+const { Result } = require("postcss")
 const knex = require("../database/connection")
 
 class Objetivos{
@@ -112,23 +113,27 @@ class Objetivos{
     }
 
   }
-
-  async delete(idObj){
-
-    console.log("Model: ", idObj)
-    var idIsTrue = await this.findById(idObj)
-    console.log(idIsTrue)
-    if(idIsTrue != undefined){
-      try{
-        await knex.delete().where({idObj:idObj}).table("objetivos")
-        return {stats: true}
-      }catch(err){
-        return {stats:false, err:err}
+  async delete(idObj) {
+    var idIsTrue = await this.findById(idObj);
+  
+    if (idIsTrue != undefined) {
+      console.log("Record to delete:", idIsTrue);
+  
+      try {
+        // await knex.delete().where({ fkConLanc: idConta }).table("lancamentos")
+        var result = await knex.delete().where({ idObj: idObj }).table("objetivos");
+        console.log("Deletion result:", result);
+        return { status: true };
+      } catch (err) {
+        console.error("Deletion error:", err);
+        return { status: false, err: err };
       }
+    } else {
+      console.log("Record with idObj not found.");
+      return { status: false, err: "Record not found" };
     }
-
-
   }
+  
 
 }
 

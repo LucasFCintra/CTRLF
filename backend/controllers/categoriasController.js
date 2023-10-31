@@ -31,10 +31,8 @@ class categoriasController{
     res.json(cat)
   }
   async indexOne(req,res){
-    var id = req.body;
-    var idUser = 1// req.bodyUser;
-    console.log('catController: '+ id +' '+idUser)
-    var catOne = await Categoria.findById(id,idUser)
+    var id = req.params.id; 
+    var catOne = await Categoria.findById(id)
     if (catOne == undefined) {
       res.status(404).json({})
     } else {
@@ -84,7 +82,7 @@ class categoriasController{
   }
 
   async delete(req,res){
-    var idCat= req.body.idCat;
+    var idCat= req.params.id;
     console.log("Controller: ", idCat)
 
      var result = await Categoria.delete(idCat)

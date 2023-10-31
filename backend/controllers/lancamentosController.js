@@ -79,7 +79,7 @@ class receitaController{
   }
 
   async delete(req,res){
-    var ID= req.body.idLanc;
+    var ID= req.params.id;
     console.log("Controller: ", ID)
 
      var result = await Receita.delete(ID)

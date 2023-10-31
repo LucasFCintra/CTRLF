@@ -90,22 +90,27 @@ console.log(idConta, descConta.length, tipoConta.length, valorConta.length, valo
   }
 
   async delete(idConta) {
-
-    console.log("Model: ", idConta)
-    var idIsTrue = await this.findById(idConta)
-    console.log(idIsTrue)
+    var idIsTrue = await this.findById(idConta);
+  
     if (idIsTrue != undefined) {
+      console.log("Record to delete:", idIsTrue);
+  
       try {
-        await knex.delete().where({ idConta: idConta }).table("contas")
-        return { stats: true }
+
+        await knex.delete().where({ fkConLanc: idConta }).table("lancamentos")
+        var result = await knex.delete().where({ idConta: idConta }).table("contas");
+        console.log("Deletion result:", result);
+        return { status: true };
       } catch (err) {
-        return { stats: false, err: err }
+        console.error("Deletion error:", err);
+        return { status: false, err: err };
       }
+    } else {
+      console.log("Record with idConta not found.");
+      return { status: false, err: "Record not found" };
     }
-
-
   }
-
+  
 }
 
 module.exports = new Conta();

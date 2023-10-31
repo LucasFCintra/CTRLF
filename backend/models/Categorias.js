@@ -36,13 +36,13 @@ class categoriasModel{
 
 
 
-  async findById(id,idUser){
-    // console.log('CatModel:'  + id + ' ' + idUser )
+  async findById(id ){
+    // console.log('CatModel:'  + id + ' ' + idCat )
 
     try{
-     var result = await knex.select(["idCat","nomeCat","descCat","fkUserCat"])
+     var result = await knex.select(["*"])
      .where({idCat:id})
-    //  .andWhere({fkUserCat:idUser})
+    //  .andWhere({fkUserCat:idCat})
      .table("categorias")
      if(result.length > 0){
       return result[0]
@@ -132,16 +132,21 @@ class categoriasModel{
 
   }
 
-  async delete(idCat){
-
+  async delete(idCat) {
+    console.log(idCat)
     var idIsTrue = await this.findById(idCat)
 
-    if(idIsTrue != undefined){
-      try{
-        await knex.delete().where({idCat:idCat}).table("categorias")
-        return {stats: true}
-      }catch(err){
-        return {stats:false, err:err}
+    if (idIsTrue != undefined) {
+      console.log("Record to delete:", idIsTrue);
+      try {
+        await knex.delete().where({ fkCatLanc: idCat }).table("lancamentos")
+        await knex.delete().where({ fkCatObj: idCat }).table("objetivos")
+       var result = await knex.delete().where({ idCat: idCat }).table("categorias")
+       console.log("Deletion result:", result);
+        return { stats: true }
+      } catch (err) {
+        console.error("Deletion error:", err);
+        return { stats: false, err: err }
       }
     }
 

@@ -4,7 +4,7 @@ const knex = require("../database/connection")
 class usuariosModel {
 
   async findAll(id) {
-    console.log('Model: '+id);
+    // console.log('Model: '+id);
     try {
       var result = await knex.select(["idUser", "nomeUser", "emailUser", "senhaUser", "telefoneUser","cepUser","estadoUser","generoUser","cidadeUser"]).table("usuarios").where({ idUser: id })
       return result
@@ -108,12 +108,17 @@ async login(emailUser,senhaUser){
   }
 
   async delete(idUser) {
-
+    console.log(idUser)
     var idIsTrue = await this.findById(idUser)
 
     if (idIsTrue != undefined) {
       try {
+        await knex.delete().where({ fkUserLanc: idUser }).table("lancamentos")
+        await knex.delete().where({ fkUserObj: idUser }).table("objetivos")
+        await knex.delete().where({ fkContaUser: idUser }).table("contas")
+        await knex.delete().where({ fkUserCat: idUser }).table("categorias")
         await knex.delete().where({ idUser: idUser }).table("usuarios")
+        
         return { stats: true }
       } catch (err) {
         return { stats: false, err: err }
