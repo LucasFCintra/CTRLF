@@ -102,7 +102,7 @@ export default class Cadastro extends Component {
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
         <div className="p-6 m-auto bg-white rounded-md shadow-xl w-2/3">
           <div className="mb-8">
-            <h1 className="text-3xl font-semibold text-center text-blue-700 uppercase">
+            <h1 className="text-3xl font-semibold text-center text-purple-700 uppercase">
               Cadastre-se
             </h1>
           </div>
@@ -125,21 +125,21 @@ export default class Cadastro extends Component {
                 <div class="grid gap-6 mb-6 md:grid-cols-3">
                                         <div class="mb-6">
                                             <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome completo</label>
-                                            <Field type="text" id="nome" name='nome' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome completo" required />
+                                            <Field type="text" id="nome" name='nome' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" placeholder="Nome completo" required />
                                             {errors.nome && (
                                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{errors.nome}</span></p>
                                             )}
                                         </div>
                                         <div class="mb-6">
                                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-                                            <Field type="email" id="email" name='email' validate={validateEmail} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="meu@email.com" required />
+                                            <Field type="email" id="email" name='email' validate={validateEmail} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" placeholder="meu@email.com" required />
                                             {errors.email && (
                                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{errors.email}</span></p>
                                             )}
                                         </div>
                                         <div>
                                             <label for="telefone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-                                            <Field type="number" id="phone" name='phone' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="(XX) 9 XXXX-XXXX" /*  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"*/ required />
+                                            <Field type="number" id="phone" name='phone' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" placeholder="(XX) 9 XXXX-XXXX" /*  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"*/ required />
                                             {errors.phone && (
                                                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{errors.phone}</span></p>
                                             )}
@@ -161,7 +161,7 @@ export default class Cadastro extends Component {
                       validate={validateCep}
                       onChange={this.handleCepChange}
                       value={this.state.inputCep}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
                       placeholder="XXXXX-XXX"
                       required
                     />
@@ -215,11 +215,11 @@ export default class Cadastro extends Component {
                     id="genero"
                     name="genero"
                     required
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
                   >
-                    <option value="Homem">Homem</option>
-                    <option value="Mulher">Mulher</option>
-                    <option value="Outros">Outros</option>
+                    <option class='hover:bg-purple-700' value="Homem">Homem</option>
+                    <option class='hover:bg-purple-700' value="Mulher">Mulher</option>
+                    <option class='hover:bg-purple-700' value="Outros">Outros</option>
                   </select>
                 </div>
                 <div className="mb-6">
@@ -234,7 +234,7 @@ export default class Cadastro extends Component {
                     id="password"
                     name="password"
                     validate={validatePassword}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
                     placeholder="•••••••••"
                     required
                   />
@@ -255,7 +255,7 @@ export default class Cadastro extends Component {
                     type="password"
                     id="confirm_password"
                     name="confirm_password"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
                     placeholder="•••••••••"
                     required
                   />
@@ -269,7 +269,7 @@ export default class Cadastro extends Component {
                   <button
                     id="btnCadastrar"
                     onClick={this.handlePostClick}
-                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
                   >
                     Cadastrar
                   </button>
@@ -282,7 +282,7 @@ export default class Cadastro extends Component {
             Já possui conta?{' '}
             <Link
               to="/Login"
-              className="font-medium text-blue-600 hover:underline"
+              className="font-medium text-purple-600 hover:underline"
             >
               Entrar
             </Link>

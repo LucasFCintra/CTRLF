@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 // 1- configurando router
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import LandingPage from './routes/LandingPage'
 import Dashboard from './routes/Dashboard';
 import Configuracoes from './routes/Configuracoes';
 import Categorias from './routes/Categorias';
@@ -22,11 +23,15 @@ import ErrorPage from './routes/ErrorPage';
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <LandingPage />
+  },
+  {
+    path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: "/Dashboard",
         element: <Dashboard />
       },
       {
