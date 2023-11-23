@@ -4,7 +4,7 @@ class categoriasModel{
 
   async findAll(id){
     try{
-     var result= await knex.select(["idCat","nomeCat","descCat","fkUserCat"]).where({fkUserCat:id}).table("categorias")
+     var result= await knex.select(["idCat","nomeCat","descCat","tipoCat","fkUserCat"]).where({fkUserCat:id}).table("categorias")
     //  console.log('CatModel:'  + JSON.stringify(id) +' | '+result )
 
      return result
@@ -70,7 +70,7 @@ class categoriasModel{
     }
   }
 
-  async create(nomeCat,descCat,ativoCat,fkUserCat,tipoCat,fkUserLanc){
+  async create(nomeCat,descCat,ativoCat,fkUserCat,tipoCat){
     // console.log("Model: ", nomeCat, descCat)
 
     var result = await this.findByCat(nomeCat,fkUserCat);
@@ -78,7 +78,7 @@ class categoriasModel{
     if(result === false){
 
     try{
-      await knex.insert({nomeCat:nomeCat,descCat:descCat,ativoCat:ativoCat, fkUserCat:fkUserCat,tipoCat:tipoCat,fkUserLanc:fkUserLanc}).table("categorias")
+      await knex.insert({nomeCat:nomeCat,descCat:descCat,ativoCat:ativoCat, fkUserCat:fkUserCat,tipoCat:tipoCat}).table("categorias")
     return {status:true,msg:'Categoria criada com sucesso'}
 
     }catch(err){
@@ -100,26 +100,16 @@ class categoriasModel{
     if(id != undefined){
       var edit = {};
 
-      if(nomeCat.length > 0){
-        if(nomeCat != Categoria.nomeCat){
-          var result = await this.findByCat(nomeCat,fkUserCat)
-            if(result == false){
+      if(nomeCat!= undefined){  
               edit.nomeCat = nomeCat
-            }else{
-              return{status: false, err:"Categoria ja cadastrada"}
-            }
-        }
+            
       }
-      if(descCat.length > 0){
+      if(descCat != undefined){
         edit.descCat = descCat
-      }
-      if(ativoCat.length > 0){
-        edit.ativoCat = ativoCat
       } 
-    }
- 
+    } 
    try{
-        // console.log('Model update id:'+idCat);
+        console.log('Model update :'+edit);
         await  knex.update(edit).where({idCat:idCat}).table("categorias")
         return {status:true, msg:'Dados inseridos com sucesso'}
       }catch(err){

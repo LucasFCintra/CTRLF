@@ -16,7 +16,7 @@ const usuariosController = require("../controllers/usuariosController");
 
 /*ROTAS API CATEGORIA */
 router.get('/api/categoria/:id',categoriasController.index);
-router.get('/api/rec/categoria/:id',categoriasController.indexRec);
+router.get('/api/rec/categoria/:id',categoriasController.index);
 router.get('/api/des/categoria/:id',categoriasController.indexDes);
 router.get('/api/v2/categoria/:id',categoriasController.indexOne);
 router.post("/api/categoria",categoriasController.create);

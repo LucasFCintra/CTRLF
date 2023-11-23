@@ -28,7 +28,6 @@ const complexSettingsBar = {
     background: "transparent",
 }
 
-console.log(userLoggedIn + ' | ' + userId);
 
 
 
@@ -42,7 +41,8 @@ console.log(userLoggedIn + ' | ' + userId);
 
     useEffect(() => {
 
-        const api = 'http://localhost:8687/api/dashboard/' + 1;
+        const api = 'http://localhost:8687/api/dashboard/' + userId;
+        console.log( 'UserId: ' + api);
 
         axios.get(api)
             .then(response => {

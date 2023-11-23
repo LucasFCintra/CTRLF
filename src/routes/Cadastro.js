@@ -86,7 +86,7 @@ export default class Cadastro extends Component {
         .then((response) => {
           this.setState({ responseData: response.data, error: null });
 
-          window.location.href = '/';
+          window.location.href = '/Login';
         })
         .catch((error) => {
           this.setState({ responseData: null, error: error.message });

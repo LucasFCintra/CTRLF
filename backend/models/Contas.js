@@ -16,7 +16,7 @@ class Conta {
     // console.log("Model: ", idConta)
     try {
       var result = await knex.select(["*"]).where({ idConta: idConta }).table("contas")
-      if (result.length > 0) {
+      if (result!= undefined) {
         return result[0]
       } else {
         return undefined
@@ -30,7 +30,7 @@ class Conta {
 
     try {
       var result = await knex.select(["*"]).where({ descConta: descConta }).table("contas")
-      if (result.length > 0) {
+      if (result!= undefined) {
         return true
       } else {
         return false
@@ -54,7 +54,7 @@ class Conta {
   }
 
   async update(idConta, descConta, tipoConta, valorConta, valorAtualConta) {
-console.log(idConta, descConta.length, tipoConta.length, valorConta.length, valorAtualConta.length)
+// console.log(idConta, descConta.length, tipoConta.length, valorConta.length, valorAtualConta.length)
     /*
     var idConta = await this.findById(idConta)
 
@@ -63,16 +63,16 @@ console.log(idConta, descConta.length, tipoConta.length, valorConta.length, valo
    console.log((valorConta==undefined),'  ',   (valorConta === ''))
     var edit = {};
 
-      if (descConta.length > 0 ) {
+      if (descConta!= undefined ) {
         edit.descConta = descConta
       }
-      if (tipoConta.length >0) {
+      if (tipoConta!= undefined) {
         edit.tipoConta = tipoConta
       }
-      if (valorConta.length>0) {
+      if (valorConta!= undefined) {
         edit.valorConta = valorConta
       }
-      if (valorAtualConta.length>0) {
+      if (valorAtualConta!= undefined) {
         edit.valorAtualConta = valorAtualConta
       }
       console.log(edit)

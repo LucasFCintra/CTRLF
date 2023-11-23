@@ -10,10 +10,10 @@ import axios from 'axios';
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
 
-console.log(userLoggedIn + ' | ' + userId)/*
+console.log(userLoggedIn + ' | ' + userId) 
 if(userLoggedIn == false && userId != undefined){
-    window.location.href='/login'
-}*/
+    window.location.href='/Login'
+} 
 
 export default function FormElements() {
     const [openModal, setOpenModal] = useState();
@@ -57,7 +57,7 @@ export default function FormElements() {
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
-        const api = 'http://localhost:8687/api/lancamento/des/' + 1
+        const api = 'http://localhost:8687/api/lancamento/des/' + userId
 
         axios.get(api)
             .then(response => {
@@ -70,10 +70,10 @@ export default function FormElements() {
             });
     }, []);
 
-    var apiCat = 'http://localhost:8687/api/categoria/' + 1
+    var apiCat = 'http://localhost:8687/api/categoria/' + userId
 
 
-    var apiCon = 'http://localhost:8687/api/conta/' + 1
+    var apiCon = 'http://localhost:8687/api/conta/' + userId
 
     axios.get(apiCon)
         .then(response => {
@@ -119,26 +119,22 @@ export default function FormElements() {
         var conEdit = document.getElementById('conPost').value = '0'
     }
     async function updateInfos(id) {
-        setInputId(id)
-        var idUpdate = id
-        var api = 'http://localhost:8687/api/lancamento/des/' + id
-
-        await axios.get(api).then(response => {
+        setInputId(id);
+    
+        try {
+            const response = await axios.get(`http://localhost:8687/api/v2/lancamento/${id}`);
             setItemsUp2(response.data);
             setErrorUp2(null);
-        })
-            .catch(error => {
-                setErrorUp2(error.message);
-            });
-
-        console.log(itemsUp2.nomeLanc)
-        var nomeEdit = document.getElementById('nomeEdit').placeholder = itemsUp2.nomeLanc
-        var descEdit = document.getElementById('descEdit').placeholder = itemsUp2.descLanc
-        var valorEdit = document.getElementById('valorEdit').placeholder = itemsUp2.valorLanc
-        var dataEdit = document.getElementById('dataEdit').placeholder = itemsUp2.dataLanc
-        var catEdit = document.getElementById('catEdit').placeholder = itemsUp2.nomeCat
-        var conEdit = document.getElementById('conEdit').placeholder = itemsUp2.descConta
-
+    
+            setInputNome(response.data.nomeLanc);
+            setInputDesc(response.data.descLanc);
+            setInputLanc(response.data.valorLanc);
+            setInputData(response.data.dataLanc);
+            setInputCat(response.data.fkCatLanc);
+            setInputCon(response.data.fkConLanc);
+        } catch (error) {
+            setErrorUp2(error.message);
+        }
     }
 
     async function updateData() {
@@ -150,7 +146,7 @@ export default function FormElements() {
                 descLanc: inputDesc, //document.getElementById('descEdit').value
                 valorLanc: inputLanc,
                 dataLanc: inputData,
-                fkUserLanc: 1,
+                fkUserLanc: userId,
                 fkCatLanc: inputCat,
                 fkConLanc: inputConta
             }
@@ -177,14 +173,14 @@ export default function FormElements() {
                 descLanc: postDesc, //document.getElementById('descEdit').value
                 valorLanc: postLanc,
                 dataLanc: postDataVal,
-                fkUserLanc: 1,
+                fkUserLanc: userId,
                 fkCatLanc: postCat,
                 fkConLanc: postConta,
                 tipoLanc: 'despesa'
             }
             // console.log("Clicou: " + JSON.stringify(data))
 
-            const response = await axios.post(`http://localhost:8687/api/lancamento/des/`, data);
+            const response = await axios.post(`http://localhost:8687/api/lancamento/`, data);
             console.log('Teste' + JSON.stringify(response));
 
             if (response.status == 200) {
@@ -371,7 +367,7 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.descConta}</td>
 
                                             <td class="px-6 py-4 text-right">
-                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & updateInfos(item.idLanc) & setOpenEditModal(true)
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & setOpenEditModal(true)
                                                 } >
                                                     <a class="font-medium text-red-600 dark:text-red-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button>

@@ -8,11 +8,11 @@ import axios from 'axios';
 
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
-/*
+ 
 console.log(userLoggedIn +' | '+ userId)
 if(userLoggedIn == false && userId != undefined){
     window.location.href='/login'
-}*/
+}  
 
 export default function FormElements() {
     const [openModal, setOpenModal] = useState();
@@ -60,8 +60,8 @@ export default function FormElements() {
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
-        const api = 'http://localhost:8687/api/objetivo/' + 1
-        const apiCat = 'http://localhost:8687/api/categoria/' + 1
+        const api = 'http://localhost:8687/api/objetivo/' + userId
+        const apiCat = 'http://localhost:8687/api/categoria/' + userId
 
         axios.get(api)
             .then(response => {
@@ -119,7 +119,7 @@ export default function FormElements() {
             console.log(response.data);
         }
     async function updateData() {
-
+console.log(postCat)
         try {
             const data = {
                 idObj: inputId,
@@ -128,7 +128,12 @@ export default function FormElements() {
                 valorObj: inputValor,
                 metaObj: inputMeta,
                 dataObj: inputData,
+                fkCatObj:inputCat
             }
+            if(postCat != ''){
+            data.fkCatObj=postCat
+        }
+            console.log(data)
             const response = await axios.put(`http://localhost:8687/api/objetivo`, data);
             console.log("Clicou: " + JSON.stringify(response))
 
@@ -154,7 +159,8 @@ export default function FormElements() {
                 valorObj: inputValor,
                 metaObj: inputMeta,
                 dataObj: inputData,
-                fkUserObj:1
+                fkCatObj:postCat,
+                fkUserObj:userId
             }
             // console.log("Clicou: " + JSON.stringify(data))
 

@@ -37,7 +37,7 @@ export default function FormElements() {
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
-        const api = 'http://localhost:8687/api/conta/' + 1
+        const api = 'http://localhost:8687/api/conta/' + userId
 
         axios.get(api)
             .then(response => {
@@ -94,7 +94,7 @@ export default function FormElements() {
                 valorConta:inputValor,
                 tipoConta:inputTipo,
                 valorAtualConta:inputValorAtual ,
-                fkContaUser:1
+                fkContaUser:userId
             }
             console.log(data)
             const response = await axios.put(`http://localhost:8687/api/conta`, data);
@@ -120,7 +120,7 @@ export default function FormElements() {
                 tipoConta: inputTipo,
                 valorConta:inputValor,
                 valorAtualConta:inputValorAtual,
-                fkContaUser: 1, //depois pegar esse valor do localStorage
+                fkContaUser:userId,  
                 
             }
             console.log("Clicou: " + JSON.stringify(data))
@@ -360,6 +360,7 @@ export default function FormElements() {
                                                 </Modal>
                                             </td>
                                             <td>
+                                                
                                             <button value={item.idConta} id='idLancEdit' onClick={() => deleteData(item.idConta)} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Delete
                                                     </a>

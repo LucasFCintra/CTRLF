@@ -21,11 +21,11 @@ class objetivoController{
   }
 
   async create(req,res){
-    var{idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj} = req.body;
-    console.log(idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj)
+    var{idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj} = req.body;
+    console.log(idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj)
 
     if(nomeObj != undefined || descObj != undefined || metaObj != undefined || valorObj < 0){
-      await Objetivo.create(nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj)
+      await Objetivo.create(nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj)
       res.status(200).send("Dados inseridObjo com sucesso")
     }else{
       res.status(400).json({err:"Undefined informations"})
@@ -35,11 +35,11 @@ class objetivoController{
 
   async update(req,res){
 
-    var {idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj} = req.body;
-    console.log('Obj Controler: ',idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj)
+    var {idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj} = req.body;
+    console.log('Obj Controler: ',idObj,nomeObj,descObj,valorObj,metaObj,fkCatObj,dataObj,fkUserObj)
     if(idObj != undefined && idObj > 0){
 
-      var result = await Objetivo.update(idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj)
+      var result = await Objetivo.update(idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj)
       
       if(result.status){
         res.status(200).send("Dados atualizados com sucesso")

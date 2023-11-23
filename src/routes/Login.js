@@ -73,7 +73,7 @@ export default class Login extends Component {
             localStorage.setItem('userLoggedIn', 'true');
             localStorage.setItem('userLoggedID',Number(exists) );
 
-            window.location.href  ='/' 
+            window.location.href  ='/Dashboard' 
          } else {
             // display error message
             alert('Email ou senha incorretos')

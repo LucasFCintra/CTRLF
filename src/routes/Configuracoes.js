@@ -2,16 +2,19 @@ import React, { Component } from 'react'
 import { DarkThemeToggle, Flowbite, Select } from 'flowbite-react';
 import axios from "axios";
 
-const api = 'http://localhost:8687/api/usuario/' + 1;
-/*
+
 
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
 
+
+const api = 'http://localhost:8687/api/usuario/' + userId;
+
+
 console.log(userLoggedIn +' | '+ userId)
 if(userLoggedIn == false && userId != undefined){
     window.location.href='/login'
-}*/
+}
 export default class Configuracoes extends Component {
 
 
@@ -64,7 +67,7 @@ export default class Configuracoes extends Component {
 
     async deleteData(){
        
-        const response = await axios.delete(`http://localhost:8687/api/usuario/`+1);
+        const response = await axios.delete(`http://localhost:8687/api/usuario/`+userId);
         console.log("Clicou: " + JSON.stringify(response))
 
         if(response.status == 200){

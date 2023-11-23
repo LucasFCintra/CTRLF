@@ -65,7 +65,7 @@ export default function FormElements() {
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
-        const api = 'http://localhost:8687/api/lancamento/' + 1
+        const api = 'http://localhost:8687/api/lancamento/' + userId
 
         axios.get(api)
             .then(response => {
@@ -83,10 +83,10 @@ export default function FormElements() {
     // console.log(items)
 
     // async function getCategorias(){
-    var apiCat = 'http://localhost:8687/api/categoria/' + 1
+    var apiCat = 'http://localhost:8687/api/categoria/' + userId
 
 
-    var apiCon = 'http://localhost:8687/api/conta/' + 1
+    var apiCon = 'http://localhost:8687/api/conta/' + userId
 
     axios.get(apiCon)
         .then(response => {
@@ -133,12 +133,11 @@ export default function FormElements() {
         var dataEdit = document.getElementById('dataPost').value =''
         var catEdit = document.getElementById('catPost').value ='0'
         var conEdit = document.getElementById('conPost').value = '0'
-    } 
-    async function updateInfos(id) {
-        setInputId(id)
-        var idUpdate = id
-        var api = 'http://localhost:8687/api/v2/lancamento/' + id
+    }  async function updateInfos(id) {
+        setInputId(id) 
 
+        var api = 'http://localhost:8687/api/v2/lancamento/' + id
+        console.log(api)
         await axios.get(api).then(response => {
             setItemsUp2(response.data);
             setErrorUp2(null);
@@ -147,15 +146,14 @@ export default function FormElements() {
                 setErrorUp2(error.message);
             });
 
-        console.log(itemsUp2.nomeLanc)
-        var nomeEdit = document.getElementById('nomeEdit').placeholder = itemsUp2.nomeLanc
-        var descEdit = document.getElementById('descEdit').placeholder = itemsUp2.descLanc
-        var valorEdit = document.getElementById('valorEdit').placeholder = itemsUp2.valorLanc
-        var dataEdit = document.getElementById('dataEdit').placeholder = itemsUp2.dataLanc
-        var catEdit = document.getElementById('catEdit').placeholder = itemsUp2.nomeCat
-        var conEdit = document.getElementById('conEdit').placeholder = itemsUp2.descConta
-
-    }
+        console.log(itemsUp2)
+        setInputNome(itemsUp2.nomeLanc) 
+       setInputDesc(itemsUp2.descLanc)
+       setInputLanc(itemsUp2.valorLanc)
+       setInputCon(itemsUp2.descConta)
+       setInputData(itemsUp2.dataLanc)
+       setInputCat(itemsUp2.nomeCat)
+         } 
     async function updateData() {
         // alert('Clicou') 
         try {
@@ -165,7 +163,7 @@ export default function FormElements() {
                 descLanc: inputDesc, //document.getElementById('descEdit').value
                 valorLanc: inputLanc,
                 dataLanc: inputData,
-                fkUserLanc: 1,
+                fkUserLanc: userId,
                 fkCatLanc: inputCat,
                 fkConLanc: inputConta
             } 
@@ -193,7 +191,7 @@ export default function FormElements() {
                 descLanc: postDesc, //document.getElementById('descEdit').value
                 valorLanc: postLanc,
                 dataLanc: postDataVal,
-                fkUserLanc: 1,
+                fkUserLanc: userId,
                 fkCatLanc: postCat,
                 fkConLanc: postConta,
                 tipoLanc: 'receita'

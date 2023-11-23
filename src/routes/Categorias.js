@@ -8,11 +8,11 @@ import axios from 'axios';
  
 const userLoggedIn = localStorage.getItem('userLoggedIn');
 const userId = localStorage.getItem('userLoggedID');
-/*
+
 console.log(userLoggedIn +' | '+ userId)
 if(userLoggedIn == false && userId != undefined){
     window.location.href='/login'
-}*/
+}
 
 export default function FormElements() {
     const [openModal, setOpenModal] = useState();
@@ -27,6 +27,8 @@ export default function FormElements() {
     const [errorUp2, setErrorUp2] = useState(null);
 
     const [inputNome, setInputNome] = useState('');
+    const [postTipo, setpostTipo] = useState('');
+    const [inputTipo, setInputTipo] = useState('');
     const [inputDesc, setInputDesc] = useState('');
     const [inputId, setInputId] = useState(null);
 
@@ -38,7 +40,7 @@ export default function FormElements() {
 
     useEffect(() => {
         // Fazendo a requisição GET usando o Axios quando o componente é montado
-        const api = 'http://localhost:8687/api/rec/categoria/' + 1
+        const api = 'http://localhost:8687/api/rec/categoria/' + userId
 
         axios.get(api)
             .then(response => {
@@ -117,8 +119,8 @@ export default function FormElements() {
                 nomeCat: inputNome,//document.getElementById('nomeEdit').value,
                 descCat: inputDesc, //document.getElementById('descEdit').value
                 ativoCat:'A',
-                fkUserCat:1, //depois pegar esse valor do localStorage
-                tipoCat:'receita'
+                fkUserCat:userId,
+                tipoCat:postTipo
             }
             // console.log("Clicou: " + JSON.stringify(data))
 
@@ -197,7 +199,21 @@ export default function FormElements() {
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
                                                             </div>
+                                                            <div>
+                                            <div className="mb-2 block">
+                                                <Label
+                                                    value="Tipo da Categoria"
+                                                />
+                                            </div>
+                                            <select id="catPost" value={postTipo} onChange={event => setpostTipo(event.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <option  selected value = '0' > -- selecionar Tipo -- </option>
+                                                
+                                                    <option value='receita'>Receita</option>
+                                                    <option value='despesa'>Despesa</option>
+                                                
+                                            </select>
 
+                                        </div>
                                                             <div className="w-full">
                                                                 <button type="button" onClick={postData} class="w-full focus:outline-none text-white bg-orange-500 hover:bg-orange-700 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-800">Salvar</button>
                                                             </div>
@@ -223,6 +239,9 @@ export default function FormElements() {
                                             Descrição
                                         </th>
                                         <th scope="col" class="px-6 py-3">
+                                            Tipo
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
                                             <span class="sr-only">Edit</span>
                                         </th>    <th scope="col" class="px-6 py-3">
                                             <span class="sr-only">Delete</span>
@@ -234,6 +253,7 @@ export default function FormElements() {
                                         <tr  key={item.idCat} className='idCat' value={item.idCat}>
                                             <td class='pl-6'>{item.nomeCat}</td>
                                             <td class='pl-6'>{item.descCat}</td>
+                                            <td class='pl-6'>{item.tipoCat.toUpperCase()}</td>
                                             <td class="px-6 py-4 text-right">
                                             <button value={item.idCat} id='idLancEdit' onClick={() => updateInfos(item.idCat) & props.setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
@@ -254,8 +274,7 @@ export default function FormElements() {
                                                                         value="Nome da Categoria"
                                                                     />
                                                                 </div>
-                                                                <TextInput
-                                                                    addon="Nome"
+                                                                <TextInput 
                                                                     id="nomeEdit"
                                                                     placeholder={item.nomeCat}
                                                                     type='text'
@@ -269,12 +288,12 @@ export default function FormElements() {
                                                                         value="Descrição da Categoria"
                                                                     />
                                                                 </div>
-                                                                <TextInput
-                                                                    addon="Descrição"
+                                                                <TextInput 
                                                                     id="descEdit"
                                                                     placeholder={item.descCat}
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
+                                                                
                                                                 <TextInput
                                                                     id="idEdit"
                                                                     value={item.idCat}
