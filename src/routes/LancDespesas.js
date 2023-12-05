@@ -184,7 +184,7 @@ export default function FormElements() {
             console.log('Teste' + JSON.stringify(response));
 
             if (response.status == 200) {
-                window.location.href = "/Lancamento/Despesa"
+                window.location.href = "/Lancamentos/Despesas"
 
 
             }
@@ -367,7 +367,7 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.descConta}</td>
 
                                             <td class="px-6 py-4 text-right">
-                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & setOpenEditModal(true)
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & setOpenModal('initial-focus')
                                                 } >
                                                     <a class="font-medium text-red-600 dark:text-red-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button>
@@ -375,7 +375,7 @@ export default function FormElements() {
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
                                                     popup
-                                                    onClose={() => setOpenEditModal(false)}
+                                                    onClose={() => setOpenModal(undefined)}
                                                     initialFocus={props.emailInputRef}
                                                 >
                                                     <Modal.Header />

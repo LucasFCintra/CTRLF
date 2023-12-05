@@ -179,45 +179,41 @@ export default class SobreNos extends Component {
                         <div class="max-w-screen-md mx-auto">
                             <Accordion collapseAll>
                                 <Accordion.Panel>
-                                    <Accordion.Title>Titulo 1</Accordion.Title>
+                                    <Accordion.Title>O que é o CTRL F™</Accordion.Title>
                                     <Accordion.Content>
                                         <p className="mb-2 text-gray-500 dark:text-gray-400">
-                                            Conteudo 1
+                                        O software desenvolvido é uma aplicação de Controle Financeiro Pessoal que oferece uma solução abrangente para gerenciar despesas, receitas e metas financeiras. Utilizando tecnologias como ReactJS no front-end, Node.js no back-end e MySQL como banco de dados, o sistema proporciona uma interface intuitiva e eficiente para os usuários. O projeto foi concebido após análises de mercado e entrevistas com empresas do setor, visando atender às demandas de uma gestão financeira pessoal eficaz. Com funcionalidades como categorização automática, geração de relatórios gráficos e integração flexível com serviços de API, o software busca promover a compreensão dos hábitos de gastos e identificar oportunidades de economia, contribuindo para uma administração financeira mais consciente.
                                         </p>
                                     </Accordion.Content>
                                 </Accordion.Panel>
                                 <Accordion.Panel>
-                                    <Accordion.Title>Titulo 2</Accordion.Title>
+                                    <Accordion.Title>O CTRL F™ é pago ?</Accordion.Title>
                                     <Accordion.Content>
                                         <p className="mb-2 text-gray-500 dark:text-gray-400">
-                                            Conteudo 2
+                                            NÃO ! 
                                         </p>
                                     </Accordion.Content>
                                 </Accordion.Panel>
                                 <Accordion.Panel>
-                                    <Accordion.Title>Titulo 3</Accordion.Title>
+                                    <Accordion.Title>Como acesso ele ?</Accordion.Title>
                                     <Accordion.Content>
+                                      
                                         <p className="mb-2 text-gray-500 dark:text-gray-400">
-                                            The main difference is that the core components from Flowbite are open source under the MIT license, whereas
-                                            Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone
-                                            components, whereas Tailwind UI offers sections of pages.
-                                        </p>
-                                        <p className="mb-2 text-gray-500 dark:text-gray-400">
-                                            Conteudo 3
+                                            Através dos links :
                                         </p>
                                         <ul className="list-disc pl-5 text-gray-500 dark:text-gray-400">
                                             <li>
-                                                <a href="" className="text-cyan-600 hover:underline dark:text-cyan-500">
-                                                    Link 1
+                                                <a href="/Login" className="text-cyan-600 hover:underline dark:text-cyan-500">
+                                                    Entrar
                                                 </a>
                                             </li>
                                             <li>
                                                 <a
-                                                    href=""
+                                                    href="/Cadastro"
                                                     rel="nofollow"
                                                     className="text-cyan-600 hover:underline dark:text-cyan-500"
                                                 >
-                                                    Link 2
+                                                    Cadastrar
                                                 </a>
                                             </li>
                                         </ul>

@@ -261,7 +261,7 @@ export default function FormElements() {
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
                                                     popup
-                                                    onClose={() => props.setOpenModal(undefined)}
+                                                    onClose={() => props.setOpenModal(false)}
                                                     initialFocus={props.emailInputRef}
                                                 >
                                                     <Modal.Header />
@@ -276,7 +276,7 @@ export default function FormElements() {
                                                                 </div>
                                                                 <TextInput 
                                                                     id="nomeEdit"
-                                                                    placeholder={item.nomeCat}
+                                                                    placeholder={itemsUp2.nomeCat}
                                                                     type='text'
                                                                     value={inputNome} onChange={event => setInputNome(event.target.value)}
                                                                     required
@@ -290,7 +290,7 @@ export default function FormElements() {
                                                                 </div>
                                                                 <TextInput 
                                                                     id="descEdit"
-                                                                    placeholder={item.descCat}
+                                                                    placeholder={itemsUp2.descCat}
                                                                     value={inputDesc} onChange={event => setInputDesc(event.target.value)}
                                                                 />
                                                                 

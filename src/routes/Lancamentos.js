@@ -401,10 +401,8 @@ export default function FormElements() {
                                                     show={props.openModal === 'initial-focus'}
                                                     size="md"
                                                     popup
-                                                    onClose={() => {
-                                                        propsPost.setOpenModalPost(undefined);
-                                                        resetModalPostFields(); // Reset the fields when the modal is closed
-                                                      }}initialFocus={props.emailInputRef}
+                                                    onClose={() => props.setOpenModal(undefined)}
+                                                    initialFocus={props.emailInputRef}
                                                 >
                                                     <Modal.Header />
                                                     <Modal.Body>

@@ -41,7 +41,7 @@ const complexSettingsBar = {
 
     useEffect(() => {
 
-        const api = 'http://localhost:8687/api/dashboard/' + userId;
+        const api = 'http://localhost:8687/api/dashboard/' + 1;
         console.log( 'UserId: ' + api);
 
         axios.get(api)
@@ -55,22 +55,15 @@ const complexSettingsBar = {
             });
     }, []); // O array vazio como segundo argumento do useEffect faz com que ele seja executado uma vez
 
-    var rec = (infos.receita);
-    var desp = (infos.despesa);
-    var cat = infos.ultimasCat
-    var con = infos.ultimasCon
-    var lancRec = infos.ultimosLancRec
-    var lancDes = infos.ultimosLancDes
-    if (cat == undefined) cat = []
-    if (con == undefined) con = []
-    if (lancRec == undefined) lancRec = []
-    if (lancDes == undefined) lancDes = []
-    if (rec == undefined) rec = 0
-    if (desp == undefined) desp = 0
+const rec = infos.receita || 0;
+const desp = infos.despesa || 0;
+const cat = infos.ultimasCat || [];
+const con = infos.ultimasCon || [];
+const lancRec = infos.ultimosLancRec || [];
+const lancDes = infos.ultimosLancDes || [];
 
-
-    var saldo = (rec - desp);
-
+const saldo = rec - desp;
+    
 
     return (
         <>
@@ -303,6 +296,8 @@ const complexSettingsBar = {
                         </div>
 
                     </div>
+
+{/*                     
                     <div class="flex items-center justify-center mb-4 rounded bg-gray-50 dark:bg-gray-900">
                     </div>
                     <div class="grid grid-cols-2 gap-5 mb-5">
@@ -341,9 +336,9 @@ const complexSettingsBar = {
                                 </ul>
                             </div>
 
-                        </div>
+                        </div> 
 
-                    </div>
+                    </div>*/}
                 </div>
             </div>
         </>
