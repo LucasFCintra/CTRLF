@@ -84,26 +84,14 @@ export default function FormElements() {
     }, []);
 
 
-    async function updateInfos(id) {
-        setInputId(id) 
-
-        var api = 'http://localhost:8687/api/v2/objetivo/' + id
-        console.log(api)
-        await axios.get(api).then(response => {
-            setItemsUp2(response.data);
-            setErrorUp2(null);
-        })
-            .catch(error => {
-                setErrorUp2(error.message);
-            });
-
-        console.log(itemsUp2)
-        setInputNome(itemsUp2.nomeObj) 
-       setInputDesc(itemsUp2.descObj)
-       setInputValor(itemsUp2.valorObj)
-       setInputMeta(itemsUp2.metaObj)
-       setInputData(itemsUp2.dataObj)
-       setInputCat(itemsUp2.nomeCat)
+    async function updateInfos(id,nome,desc,cat,valor,meta,data) {
+        setInputId(id)  
+        setInputNome(nome) 
+       setInputDesc(desc)
+       setInputValor(valor)
+       setInputMeta(meta)
+       setInputData(data)
+       setInputCat(cat)
          }
          async function deleteData(id){ 
             const response = await axios.delete(`http://localhost:8687/api/objetivo/`+id);
@@ -352,7 +340,7 @@ console.log(postCat)
                                             <td class='pl-6'>{formatDate(item.dataObj)}</td>
                                             {/* <td class='pl-6'>{item.idObj}</td> */}
                                             <td class="px-6 py-4 text-right">
-                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idObj) & props.setOpenModal('initial-focus')} >
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idObj,item.nomeObj,item.descObj,item.nomeCat,item.valorObj,item.metaObj,formatDate(item.dataObj)) & props.setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button>
                                                 <Modal

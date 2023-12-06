@@ -118,20 +118,16 @@ export default function FormElements() {
         var catEdit = document.getElementById('catPost').value = '0'
         var conEdit = document.getElementById('conPost').value = '0'
     }
-    async function updateInfos(id) {
+      function updateInfos(id,nome,desc,valor,data,cat,con) {
         setInputId(id);
     
-        try {
-            const response = await axios.get(`http://localhost:8687/api/v2/lancamento/${id}`);
-            setItemsUp2(response.data);
-            setErrorUp2(null);
-    
-            setInputNome(response.data.nomeLanc);
-            setInputDesc(response.data.descLanc);
-            setInputLanc(response.data.valorLanc);
-            setInputData(response.data.dataLanc);
-            setInputCat(response.data.fkCatLanc);
-            setInputCon(response.data.fkConLanc);
+        try { 
+            setInputNome(nome);
+            setInputDesc(desc);
+            setInputLanc(valor);
+            setInputData(data);
+            setInputCat(cat);
+            setInputCon(con);
         } catch (error) {
             setErrorUp2(error.message);
         }
@@ -367,7 +363,7 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.descConta}</td>
 
                                             <td class="px-6 py-4 text-right">
-                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & setOpenModal('initial-focus')
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc,item.nomeLanc,item.descLanc,item.valorLanc,item.dataLanc,item.nomeCat,item.descConta) & setOpenModal('initial-focus')
                                                 } >
                                                     <a class="font-medium text-red-600 dark:text-red-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button>

@@ -50,23 +50,13 @@ export default function FormElements() {
             });
     }, []);
 
-    async function updateInfos(id) {
+    async function updateInfos(id,desc,tipo,valor,valorAtual) {
         setInputId(id)  
-        var api = 'http://localhost:8687/api/v2/conta/' + id
-        console.log(api)
-        await axios.get(api).then(response => {
-            setItemsUp2(response.data);
-            setErrorUp2(null);
-        })
-            .catch(error => {
-                setErrorUp2(error.message);
-            });
-
-        console.log(itemsUp2)
-       setInputDesc(itemsUp2.descConta)
-       setInputValor(itemsUp2.valorConta)
-       setInputTipo(itemsUp2.tipoConta)
-       setInputValorAtual(itemsUp2.valorAtualConta)
+       
+       setInputDesc(desc)
+       setInputValor(valor)
+       setInputTipo(tipo)
+       setInputValorAtual(valorAtual)
 
     }
     async function deleteData(id){
@@ -279,7 +269,7 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.valorConta}</td>
                                             <td class='pl-6'>{item.valorAtualConta}</td>
                                             <td class="px-6 py-4 text-right">
-                                            <button value={item.idConta} id='idLancEdit' onClick={() => updateInfos(item.idConta) & props.setOpenModal('initial-focus')} >
+                                            <button value={item.idConta} id='idLancEdit' onClick={() => updateInfos(item.idConta,item.descConta,item.tipoConta,item.valorConta,item.valorAtualConta) & props.setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button> 
                                                   <Modal

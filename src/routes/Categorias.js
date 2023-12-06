@@ -53,25 +53,10 @@ export default function FormElements() {
             });
     }, []); 
 
-    async function updateInfos(id) {
-        setInputId( id)
-
-       
-
-        var api = 'http://localhost:8687/api/v2/categoria/' + id
-        
-        console.log(api)
-        await axios.get(api).then(response => {
-            setItemsUp2(response.data);
-            setErrorUp2(null);
-        })
-            .catch(error => {
-                setErrorUp2(error.message);
-            });
-
-        console.log(itemsUp2)
-       setInputDesc(itemsUp2.descCat)
-       setInputNome(itemsUp2.nomeCat) 
+    async function updateInfos(id,nome,desc) {
+        setInputId(id)
+       setInputNome(nome) 
+       setInputDesc(desc) 
     }
 
     async function deleteData(id){ 
@@ -255,7 +240,7 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.descCat}</td>
                                             <td class='pl-6'>{item.tipoCat.toUpperCase()}</td>
                                             <td class="px-6 py-4 text-right">
-                                            <button value={item.idCat} id='idLancEdit' onClick={() => updateInfos(item.idCat) & props.setOpenModal('initial-focus')} >
+                                            <button value={item.idCat} id='idLancEdit' onClick={() => updateInfos(item.idCat,item.nomeCat,item.descCat) && props.setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button>   <Modal
                                                     show={props.openModal === 'initial-focus'}
