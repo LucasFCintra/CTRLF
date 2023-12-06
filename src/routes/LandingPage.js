@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Accordion } from 'flowbite-react'
 import hero from '../images/hero.png'
+import devGabriel from '../images/devGabriel.jpeg'
+import devLucas from '../images/devLucas.jpeg'
 import landImg1 from '../images/feature-1.png'
 import landImg2 from '../images/feature-2.png'
 import rockefelle from '../images/rockefelle.png'
@@ -133,13 +135,18 @@ export default class SobreNos extends Component {
                     </div>
                 </div>
                 <div class="flex justify-center max-w-screen-xl px-4 py-8 mx-auto lg:grid lg:grid-cols-3 lg:gap-16 xl:gap-24 lg:py-24 lg:px-6">
-                    <div class="flex flex-col items-center pb-10">
-                        <img class="w-48 h-48 mb-3 rounded-full shadow-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png" alt="" />
-                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Bonnie Green</h5>
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
+                <div class="flex flex-col items-center pb-10">
+                    <img class="w-45 h-45 mb-3 rounded-full shadow-lg" src={devLucas} alt="Lucas Cintra"></img>
+                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Lucas Cintra</h5>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">UI/UX Designer | Pega Certified System Architect (PCSA)</span>
                         <div class="flex mt-4 space-x-3 md:mt-6">
-                            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add friend</a>
-                            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</a>
+                            <a href="https://www.linkedin.com/in/lucas-fernando-90861119a/" target='_blank' class="mb-4 inline-flex items-center justify-center p-5 text-base font-medium text-white rounded-lg bg-blue-600 hover:text-gray-900 hover:bg-gray-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-800 dark:hover:text-white">
+                                <svg class="w-6 h-6 pr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 15 15"><path fill-rule="evenodd" d="M7.979 5v1.586a3.5 3.5 0 0 1 3.082-1.574C14.3 5.012 15 7.03 15 9.655V15h-3v-4.738c0-1.13-.229-2.584-1.995-2.584-1.713 0-2.005 1.23-2.005 2.5V15H5.009V5h2.97ZM3 2.487a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" clip-rule="evenodd" fill='#000000' /><path d="M3 5.012H0V15h3V5.012Z" /></svg>
+                                <span class="w-full">Entre em contato pelo Linkedin</span>
+                                <svg class="w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
                     <div class="flex justify-center pt-4">
@@ -164,12 +171,20 @@ export default class SobreNos extends Component {
                         </div>
                     </div>
                     <div class="flex flex-col items-center pb-10">
-                        <img class="w-48 h-48 mb-3 rounded-full shadow-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png" alt="" />
-                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Bonnie Green</h5>
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
+                    <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+                        
+                    </div>
+                        <img class="w-45 h-45 mb-3 rounded-full shadow-lg" src={devGabriel} alt="Gabriel Lopes"></img>
+                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Gabriel Lopes</h5>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">ServiceNow developer | Certified System Administrator (CSA)</span>
                         <div class="flex mt-4 space-x-3 md:mt-6">
-                            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add friend</a>
-                            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</a>
+                            <a href="https://www.linkedin.com/in/gabriel-lopes-3774b0162/" target='_blank' class="mb-4 inline-flex items-center justify-center p-5 text-base font-medium text-white rounded-lg bg-blue-600 hover:text-gray-900 hover:bg-gray-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-800 dark:hover:text-white">
+                                <svg class="w-6 h-6 pr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 15 15"><path fill-rule="evenodd" d="M7.979 5v1.586a3.5 3.5 0 0 1 3.082-1.574C14.3 5.012 15 7.03 15 9.655V15h-3v-4.738c0-1.13-.229-2.584-1.995-2.584-1.713 0-2.005 1.23-2.005 2.5V15H5.009V5h2.97ZM3 2.487a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" clip-rule="evenodd" fill='#000000' /><path d="M3 5.012H0V15h3V5.012Z" /></svg>
+                                <span class="w-full">Entre em contato pelo Linkedin</span>
+                                <svg class="w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
