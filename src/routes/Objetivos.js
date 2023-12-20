@@ -106,9 +106,9 @@ export default function FormElements() {
             }
             console.log(response.data);
         }
-    async function updateData() {
-console.log(postCat)
+    async function updateData() { 
         try {
+            console.log(inputId )
             const data = {
                 idObj: inputId,
                 nomeObj: inputNome,//document.getElementById('nomeEdit').value,
@@ -340,7 +340,7 @@ console.log(postCat)
                                             <td class='pl-6'>{formatDate(item.dataObj)}</td>
                                             {/* <td class='pl-6'>{item.idObj}</td> */}
                                             <td class="px-6 py-4 text-right">
-                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idObj,item.nomeObj,item.descObj,item.nomeCat,item.valorObj,item.metaObj,formatDate(item.dataObj)) & props.setOpenModal('initial-focus')} >
+                                                <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idObj,item.nomeObj,item.descObj,item.idCat,item.valorObj,item.metaObj,item.dataObj) & props.setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button>
                                                 <Modal

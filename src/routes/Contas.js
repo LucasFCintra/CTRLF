@@ -197,7 +197,7 @@ export default function FormElements() {
                                         <div>
                                             <div className="mb-2 block">
                                                 <Label
-                                                    value="Valor atual da conta"
+                                                    value="Valor da conta"
                                                 />
                                             </div>
                                             <TextInput

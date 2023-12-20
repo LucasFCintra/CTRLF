@@ -38,6 +38,7 @@ export default function FormElements() {
     const [inputData, setInputData] = useState('');
     const [inputCat, setInputCat] = useState('');
     const [inputConta, setInputCon] = useState('');
+    
     // const [inputDesc, setInputDesc] = useState('');
     const [postNome, setpostNome] = useState('');
     const [postDesc, setpostDesc] = useState('');
@@ -162,7 +163,7 @@ export default function FormElements() {
                 fkCatLanc: inputCat,
                 fkConLanc: inputConta
             } 
-
+            console.log(data)
             const response = await axios.put(`http://localhost:8687/api/lancamento`, data);
             console.log("Clicou: " + JSON.stringify(response))
             
@@ -389,7 +390,7 @@ export default function FormElements() {
                                             <td class='pl-6'>{item.descConta}</td>
 
                                             <td class="px-6 py-4 text-right">
-                                                 <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc,item.nomeLanc,item.descLanc,item.valorLanc,item.dataLanc,item.nomeCat,item.descConta) & setOpenModal('initial-focus')} >
+                                                 <button value={item.idLanc} id='idLancEdit' onClick={() => updateInfos(item.idLanc) & setOpenModal('initial-focus')} >
                                                     <a class="font-medium text-green-600 dark:text-green-500 hover:underline" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right" aria-expanded="false"  >Edit</a>
                                                 </button>
                                                 <Modal

@@ -44,7 +44,7 @@ class receitaController{
 
   async create(req,res){
     var{nomeLanc,descLanc,valorLanc,dataLanc,fkCatLanc,fkConLanc,fkUserLanc,tipoLanc} = req.body;
-    console.log(nomeLanc,descLanc,valorLanc,dataLanc,fkCatLanc,fkConLanc,fkUserLanc)
+    // console.log(nomeLanc,descLanc,valorLanc,dataLanc,fkCatLanc,fkConLanc,fkUserLanc)
 
     if(nomeLanc != undefined || descLanc != undefined || valorLanc < 0 || dataLanc != undefined  || fkUserLanc < 0 || fkCatLanc < 0  || fkConLanc < 0){
        await Receita.create(nomeLanc,descLanc,valorLanc,dataLanc,fkUserLanc,fkCatLanc,fkConLanc,tipoLanc)
@@ -80,7 +80,7 @@ class receitaController{
 
   async delete(req,res){
     var ID= req.params.id;
-    console.log("Controller: ", ID)
+    // console.log("Controller: ", ID)
 
      var result = await Receita.delete(ID)
        

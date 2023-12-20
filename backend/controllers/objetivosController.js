@@ -21,8 +21,8 @@ class objetivoController{
   }
 
   async create(req,res){
-    var{idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj} = req.body;
-    console.log(idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj)
+    var{nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj} = req.body;
+    console.log(nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj)
 
     if(nomeObj != undefined || descObj != undefined || metaObj != undefined || valorObj < 0){
       await Objetivo.create(nomeObj,descObj,valorObj,metaObj,dataObj,fkCatObj,fkUserObj)

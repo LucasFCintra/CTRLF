@@ -71,10 +71,8 @@ class Objetivos {
   }
 
   async update(idObj, nomeObj, descObj, valorObj, metaObj, dataObj,fkCatObj, fkUserObj) {
-    console.log(idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj)
-    var id = await this.findById(idObj)
-    try {
-      console.log(id)
+    console.log('Model: ' + idObj,nomeObj,descObj,valorObj,metaObj,dataObj,fkUserObj)
+   try {
       // if (id != undefined) {
         var edit = {};
 
@@ -90,7 +88,8 @@ class Objetivos {
           edit.metaObj = metaObj
         }
         if (dataObj != undefined) {
-          edit.dataObj = dataObj
+          var auxdata = dataObj.split('T')
+          edit.dataObj = auxdata[0]
         }
         if (valorObj != undefined) {
           edit.valorObj = valorObj
@@ -104,6 +103,7 @@ class Objetivos {
           await knex.update(edit).where({ idObj: idObj }).table("objetivos")
           return { status: true }
         } catch (err) {
+          console.log(err)
           return { status: false, err: err }
         }
 

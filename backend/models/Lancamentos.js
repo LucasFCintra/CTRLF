@@ -94,7 +94,7 @@ class Lancamentos {
         .limit(5)
         .orderBy('idConta', 'desc')
 
-      var chartCatJson = await knex.raw('select c.nomeCat as "categoria", SUM(l.valorLanc) as "valor" from lancamentos l      left join categorias c on c.idCat = l.fkCatLanc     where fkUserLanc = 1     group by(fkCatLanc) ')
+      var chartCatJson = await knex.raw('select c.nomeCat as "categoria", SUM(l.valorLanc) as "valor" from lancamentos l      left join categorias c on c.idCat = l.fkCatLanc     where fkUserLanc = '+id+'     group by(fkCatLanc) ')
       var chartCat = chartCatJson[0]
       var dataCat = ''
 
@@ -105,7 +105,7 @@ class Lancamentos {
 
       // console.log('Bar: \n',dataCat)
 
-      var chartObjJson = await knex.raw('Select nomeObj as nome ,metaObj as meta, valorObj as valor from objetivos')
+      var chartObjJson = await knex.raw('Select nomeObj as nome ,metaObj as meta, valorObj as valor from objetivos where fkUserObj='+id)
       var chartObj = chartObjJson[0]
       var dataObj = ''
 
@@ -205,13 +205,13 @@ class Lancamentos {
 
   }
 
-  async update(idLanc, nomeLanc, descLanc, valorLanc, dataLanc, fkUserLanc, fkCatLanc, fkConLanc) {
+  async update(idLanc, nomeLanc, descLanc, valorLanc, 
+    dataLanc, fkUserLanc, fkCatLanc, fkConLanc) {
 
-    var id = await this.findById(idLanc)
+    // var id = await this.findById(idLanc)
 
-    if (id != undefined) {
+    // if (id != undefined) {
       var edit = {};
-
       if (nomeLanc!= undefined) {
         edit.nomeLanc = nomeLanc
       }
@@ -219,7 +219,8 @@ class Lancamentos {
         edit.descLanc = descLanc
       }
       if (dataLanc!= undefined) {
-        edit.dataLanc = dataLanc
+        var auxdata = dataLanc.split('T')
+        edit.dataLanc = auxdata[0]
       }
       if (valorLanc!= undefined) {
         edit.valorLanc = valorLanc
@@ -234,30 +235,32 @@ class Lancamentos {
         edit.fkConLanc = fkConLanc
       }
       try {
+        console.log(edit)
         await knex.update(edit).where({ idLanc: idLanc }).table("lancamentos")
         return { status: true }
       } catch (err) {
+        console.log(err)
         return { status: false, err: err }
       }
 
-    } else {
-      return { status: false, err: "A Lancamentos nÃ£o existe!" }
-    }
+    // } else {
+    //   return { status: false, err: "O Lancamento não existe!" }
+    // }
 
   }
 
   async delete(idLanc) {
 
-    var idIsTrue = await this.findById(idLanc) 
+    // var idIsTrue = await this.findById(idLanc) 
 
-    if (idIsTrue != undefined) {
+    // if (idIsTrue != undefined) {
       try {
         await knex.delete().where({ idLanc: idLanc }).table("lancamentos")
         return { stats: true }
       } catch (err) {
         return { stats: false, err: err }
       }
-    }
+    // }
 
 
   }
